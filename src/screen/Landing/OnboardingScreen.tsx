@@ -4,7 +4,7 @@ import Swiper from 'react-native-swiper';
 import onboarding from '../../styles/Langding/OnboardingScreen';
 import useSwiper from '../../hook/useSwiper';
 const OnboardingScreen = () => {
-const {carouselRef ,carouselItems,handleNextPress,} = useSwiper();
+const {carouselRef ,carouselItems,handleNextPress, useNavigationRegisterScreen} = useSwiper();
   const renderCarouselItem = (item: { image: any; title: any; description: any; }, index: React.Key | null | undefined) => (
     <View key={index}>
       <Image style={onboarding.image} source={item.image} />
@@ -17,9 +17,6 @@ const {carouselRef ,carouselItems,handleNextPress,} = useSwiper();
             <Text style={onboarding.textbutton}>Next</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity >
-        <Text style={onboarding.textSkip}>Skip</Text>
-      </TouchableOpacity>
     </View>
   );
   return (
@@ -28,11 +25,12 @@ const {carouselRef ,carouselItems,handleNextPress,} = useSwiper();
         ref={carouselRef}
         activeDotStyle={onboarding.activeDot}
         dotStyle={onboarding.dot}
-        // autoplay={true}
-        // autoplayTimeout={5} // Thời gian giữa các lượt cuộn (tính bằng giây)
       >
         {carouselItems.map((item, index) => renderCarouselItem(item, index))}
       </Swiper>
+      <TouchableOpacity onPress={useNavigationRegisterScreen} >
+        <Text style={onboarding.textSkip}>Skip</Text>
+      </TouchableOpacity>
     </View>
   );
 };
