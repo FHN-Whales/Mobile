@@ -1,10 +1,23 @@
-import  {useRef} from 'react';
-import {useNavigation} from '@react-navigation/native';
+import { useRef } from 'react';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { RootStackParamList } from '../type/type';
+interface CarouselItem {
+  image: number;
+  title: string;
+  description: string;
+}
+interface UseSwiperResult {
+  carouselRef: React.RefObject<any>;
+  navigation: NavigationProp<RootStackParamList>;
+  carouselItems: CarouselItem[];
+  handleNextPress: () => void;
+  useNavigationRegisterScreen: () => void;
+}
 
-const useSwiper = () => {
-  const carouselRef = useRef(null); // Tạo một ref để tương tác với thành phần Swiper
-  const navigation = useNavigation();
-  const carouselItems = [
+const useSwiper = (): UseSwiperResult => {
+  const carouselRef = useRef<any>(null);
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const carouselItems: CarouselItem[] = [
     {
       image: require('../image/Image.png'),
       title: 'Daily Reminder',
@@ -18,24 +31,24 @@ const useSwiper = () => {
         'Helps monitor and adhere to treatment plans through detailed information from prescriptions.',
     },
   ];
-  // Hàm để xử lý sự kiện nhấn nút "Next"
-  const handleNextPress = () => {
+  const handleNextPress = (): void => {
     if (carouselRef.current) {
-         // Cuộn đến mục tiếp theo trong carousel
       carouselRef.current.scrollBy(1, true);
-       // Nếu đã đến mục cuối cùng, điều hướng đến màn hình 'Login'
       if (carouselRef.current.state.index === 1) {
-        navigation.navigate('Login');
+        navigation.navigate('RegisterScreen');
       }
     }
   };
+  const useNavigationRegisterScreen = (): void => {
+    navigation.navigate('RegisterScreen');
+  };
   return {
-    carouselRef ,
+    carouselRef,
     navigation,
     carouselItems,
     handleNextPress,
+    useNavigationRegisterScreen,
   };
-
 };
 
 export default useSwiper;

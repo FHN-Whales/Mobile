@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 const onboarding = StyleSheet.create({
     container:{
         flex:1,
+        backgroundColor:'#fff'
     },
     dot: {
         backgroundColor: '#9B9B9B',
@@ -10,8 +11,6 @@ const onboarding = StyleSheet.create({
         borderRadius: 6,
         marginLeft: 3,
         marginRight: 3,
-        marginTop: 3,
-        marginBottom: 3,
       },
       activeDot: {
         backgroundColor: '#26232F',
@@ -20,8 +19,6 @@ const onboarding = StyleSheet.create({
         borderRadius: 4,
         marginLeft: 3,
         marginRight: 3,
-        marginTop: 3,
-        marginBottom: 3,
       },
     image:{
         height:480,
@@ -72,13 +69,13 @@ const onboarding = StyleSheet.create({
         fontStyle:'normal',
     },
     textSkip:{
-        paddingTop:10,
         fontSize:14,
         fontStyle:'normal',
         fontWeight:'400',
         lineHeight:21,
         color:'#6B7280',
-        textAlign:'center'
+        textAlign:'center',
+        marginBottom:8,
     },
 });
 export  default onboarding;
