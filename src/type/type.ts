@@ -9,4 +9,8 @@ export type RootStackParamList = {
     VerifyCodeScreen:undefined;
     ResetPasswordScreen:undefined;
     item:undefined;
+    HomeScreen:undefined
+    AllMemberFamilyScreen:undefined;
+    AddMemberScreen:undefined;
+    EditMemberScreen:undefined;
   };

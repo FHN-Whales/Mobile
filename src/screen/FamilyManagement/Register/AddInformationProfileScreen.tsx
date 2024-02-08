@@ -14,7 +14,6 @@ interface DataItem {
   value: number ;
   id:number;
 }
-
 const AddInformationProfileScreen: React.FC = () => {
   const data: DataItem[] = [
     { label: 'Male', value: 1 ,id:1},

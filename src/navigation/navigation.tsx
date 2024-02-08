@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -10,11 +11,89 @@ import LoginScreen from '../screen/FamilyManagement/Login/LoginScreen';
 import ForgetPasswordScreen from '../screen/FamilyManagement/ForgetPassword/ForgetPasswordScreen';
 import VerifyCodeScreen from '../screen/FamilyManagement/ForgetPassword/VerifyCodeScreen';
 import ResetPasswordScreen from '../screen/FamilyManagement/ForgetPassword/ResetPasswordScreen';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { Image, Text, View } from 'react-native';
+import HomePageWithManagement from '../screen/HomePage/Home/ManagementFamily/HomePageWithManagement/HomepageWithManagementScreen';
+import AllMemberFamilyScreen from '../screen/HomePage/Home/ManagementFamily/AllMemberFamilyScreen/AllMemberFamilyScreen';
+import AddMemberScreen from '../screen/HomePage/Home/ManagementFamily/AddMember/AddmemberScreen';
+import EditMemberScreen from '../screen/HomePage/Home/ManagementFamily/EditMember/EditMemberScreen';
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+const Homestack = () => {
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconImageSource: any;
+          if (route.name === 'HomePage') {
+            iconImageSource = focused
+              ? require('../image/Home1.png')
+              : require('../image/Home.png');
+          } else if (route.name === 'Blog') {
+            iconImageSource = focused
+            ? require('../image/Profile1.png')
+              : require('../image/Profile.png');
+          } else if (route.name === 'Calendar') {
+            iconImageSource = focused
+              ? require('../image/calendar.png')
+              : require('../image/Appointment.png');
+          } else if (route.name === 'Profile') {
+            iconImageSource = focused
+              ? require('../image/Profile1.png')
+              : require('../image/Profile.png');
+          }
+          return (
+            <Image
+              source={iconImageSource}
+              // eslint-disable-next-line react-native/no-inline-styles
+              style={{ width: size, height: size, tintColor: color,  marginTop:15, paddingLeft:20, paddingBottom:20, }}
+            />
+          );
+        },
+        tabBarLabel: '',
+        tabBarInactiveTintColor: '#87CEFA',
+        tabBarActiveTintColor: '#91d3fa',
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: '#fff',
+          height:76,
+          flexDirection:'row',
+          justifyContent:'center',
+          alignItems:'center',
+        },
+        tabBarHideOnKeyboard: true,
+      })}
+    >
+      <Tab.Screen  name="HomePage" component={HomePageWithManagement} />
+      <Tab.Screen  name="Blog" component={Blog} />
+      <Tab.Screen name="Calendar" component={Calendar} />
+      <Tab.Screen name="Profile" component={Profile} />
+    </Tab.Navigator>
+  );
+};
+
+const Blog = () =>{
+  return (
+  <View>
+    <Text>Blog</Text>
+  </View>);
+};
+const Calendar = () =>{
+  return (
+  <View>
+    <Text>Calender</Text>
+  </View>);
+};
+const Profile = () =>{
+  return (
+  <View>
+    <Text>Profile</Text>
+  </View>);
+};
 const Navigate = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
+    <NavigationContainer >
+      <Stack.Navigator >
         <Stack.Screen
           options={{headerShown: false}}
           name="SplashScreen"
@@ -62,9 +141,24 @@ const Navigate = () => {
           name="ResetPasswordScreen"
           component={ResetPasswordScreen}
         />
+         <Stack.Screen
+          options={{headerShown: false}}
+          name="AllMemberFamilyScreen"
+          component={AllMemberFamilyScreen}
+        />
+         <Stack.Screen
+          options={{headerShown: false}}
+          name="AddMemberScreen"
+          component={AddMemberScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="EditMemberScreen"
+          component={EditMemberScreen}
+        />
+         <Stack.Screen options={{headerShown: false}} name="HomeScreen" component={Homestack} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
-
 export default Navigate;

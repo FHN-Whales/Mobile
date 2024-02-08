@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../type/type';
+import { RootStackParamList } from '../../type/type';
 interface CarouselItem {
   image: number;
   title: string;
@@ -19,13 +19,13 @@ const useSwiper = (): UseSwiperResult => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const carouselItems: CarouselItem[] = [
     {
-      image: require('../image/Image.png'),
+      image: require('../../image/Image.png'),
       title: 'Daily Reminder',
       description:
         'Provides free advice, reminders for medication schedules, and restrictions on activities/diet to prevent the spread of diseases.',
     },
     {
-      image: require('../image/Image.png'),
+      image: require('../../image/Image.png'),
       title: 'Treatment Reminder',
       description:
         'Helps monitor and adhere to treatment plans through detailed information from prescriptions.',
