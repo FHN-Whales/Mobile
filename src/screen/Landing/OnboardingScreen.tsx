@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import Swiper from 'react-native-swiper';
 import onboarding from '../../styles/Langding/OnboardingScreen';
-import useSwiper from '../../hook/useSwiper';
+import useSwiper from '../../hook/LandingPage/useSwiper';
 const OnboardingScreen = () => {
 const {carouselRef ,carouselItems,handleNextPress, useNavigationRegisterScreen} = useSwiper();
   const renderCarouselItem = (item: { image: any; title: any; description: any; }, index: React.Key | null | undefined) => (

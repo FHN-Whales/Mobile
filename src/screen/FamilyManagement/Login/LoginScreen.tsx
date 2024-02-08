@@ -6,11 +6,26 @@ import { RootStackParamList } from '../../../type/type';
 const LoginScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [modalVisible, setModalVisible] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [isLoading, setIsLoading] = useState(false);
   const useNavigationRegisterScreen = () => {
     navigation.navigate('RegisterScreen');
   };
   const useNavigationForgetPasswordScreen = () => {
     navigation.navigate('ForgetPasswordScreen');
+  };
+  const handleLogin = () => {
+    setIsLoading(true);
+    // Simulating a delay of 2 seconds
+    setTimeout(() => {
+      setIsLoading(false);
+      setModalVisible(true);
+      // Simulating a delay of 0.5 seconds before navigating to Home Page
+      setTimeout(() => {
+        setModalVisible(false);
+        navigation.navigate('HomeScreen');
+      }, 2000);
+    }, 2000);
   };
   return (
     <KeyboardAvoidingView
@@ -70,7 +85,7 @@ const LoginScreen = () => {
                   </Modal>
                   <TouchableOpacity
                     style={login.buttonCreate}
-                    onPress={() => setModalVisible(true)}>
+                    onPress={handleLogin}>
                     <Text style={login.textCreate}>Sign In</Text>
                   </TouchableOpacity>
                 </View>

@@ -1,9 +1,11 @@
 {
     "cSpell.words": [
+        "allmemberfamilys",
         "imagebackground",
         "Langding",
         "splashscreen",
         "viewinputverify",
         "viewloadding"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
