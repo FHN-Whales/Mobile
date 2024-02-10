@@ -17,6 +17,9 @@ import HomePageWithManagement from '../screen/HomePage/Home/ManagementFamily/Hom
 import AllMemberFamilyScreen from '../screen/HomePage/Home/ManagementFamily/AllMemberFamilyScreen/AllMemberFamilyScreen';
 import AddMemberScreen from '../screen/HomePage/Home/ManagementFamily/AddMember/AddmemberScreen';
 import EditMemberScreen from '../screen/HomePage/Home/ManagementFamily/EditMember/EditMemberScreen';
+import BlogScreen from '../screen/HomePage/Blog/BlogScreen/BlogScreen';
+import PostBlogScreen from '../screen/HomePage/Blog/CreateBlog/PostBlogScreen';
+import EditBlogScreen from '../screen/HomePage/Blog/EditBlog/EditBlogScreen';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 const Homestack = () => {
@@ -65,18 +68,11 @@ const Homestack = () => {
       })}
     >
       <Tab.Screen  name="HomePage" component={HomePageWithManagement} />
-      <Tab.Screen  name="Blog" component={Blog} />
+      <Tab.Screen  name="Blog" component={BlogScreen} />
       <Tab.Screen name="Calendar" component={Calendar} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
-};
-
-const Blog = () =>{
-  return (
-  <View>
-    <Text>Blog</Text>
-  </View>);
 };
 const Calendar = () =>{
   return (
@@ -93,7 +89,7 @@ const Profile = () =>{
 const Navigate = () => {
   return (
     <NavigationContainer >
-      <Stack.Navigator >
+      <Stack.Navigator initialRouteName="HomeScreen" >
         <Stack.Screen
           options={{headerShown: false}}
           name="SplashScreen"
@@ -155,6 +151,16 @@ const Navigate = () => {
           options={{headerShown: false}}
           name="EditMemberScreen"
           component={EditMemberScreen}
+        />
+         <Stack.Screen
+          options={{headerShown: false}}
+          name="PostBlogScreen"
+          component={PostBlogScreen}
+        />
+         <Stack.Screen
+          options={{headerShown: false}}
+          name="EditBlogScreen"
+          component={EditBlogScreen}
         />
          <Stack.Screen options={{headerShown: false}} name="HomeScreen" component={Homestack} />
       </Stack.Navigator>
