@@ -1,0 +1,170 @@
+/* eslint-disable react/no-unstable-nested-components */
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import SplashScreen from '../screen/Landing/SplashScreen';
+import OnboardingScreen from '../screen/Landing/OnboardingScreen';
+import RegisterScreen from '../screen/FamilyManagement/Register/RegisterScreen';
+import RegisterAsManagerScreen from '../screen/FamilyManagement/Register/RegisterAsAManagerscreen';
+import AddInformationProfileScreen from '../screen/FamilyManagement/Register/AddInformationProfileScreen';
+import LoginScreen from '../screen/FamilyManagement/Login/LoginScreen';
+import ForgetPasswordScreen from '../screen/FamilyManagement/ForgetPassword/ForgetPasswordScreen';
+import VerifyCodeScreen from '../screen/FamilyManagement/ForgetPassword/VerifyCodeScreen';
+import ResetPasswordScreen from '../screen/FamilyManagement/ForgetPassword/ResetPasswordScreen';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { Image, Text, View } from 'react-native';
+import HomePageWithManagement from '../screen/HomePage/Home/ManagementFamily/HomePageWithManagement/HomepageWithManagementScreen';
+import AllMemberFamilyScreen from '../screen/HomePage/Home/ManagementFamily/AllMemberFamilyScreen/AllMemberFamilyScreen';
+import AddMemberScreen from '../screen/HomePage/Home/ManagementFamily/AddMember/AddmemberScreen';
+import EditMemberScreen from '../screen/HomePage/Home/ManagementFamily/EditMember/EditMemberScreen';
+import BlogScreen from '../screen/HomePage/Blog/BlogScreen/BlogScreen';
+import PostBlogScreen from '../screen/HomePage/Blog/CreateBlog/PostBlogScreen';
+import EditBlogScreen from '../screen/HomePage/Blog/EditBlog/EditBlogScreen';
+const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+const Homestack = () => {
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconImageSource: any;
+          if (route.name === 'HomePage') {
+            iconImageSource = focused
+              ? require('../image/Home1.png')
+              : require('../image/Home.png');
+          } else if (route.name === 'Blog') {
+            iconImageSource = focused
+            ? require('../image/Profile1.png')
+              : require('../image/Profile.png');
+          } else if (route.name === 'Calendar') {
+            iconImageSource = focused
+              ? require('../image/calendar.png')
+              : require('../image/Appointment.png');
+          } else if (route.name === 'Profile') {
+            iconImageSource = focused
+              ? require('../image/Profile1.png')
+              : require('../image/Profile.png');
+          }
+          return (
+            <Image
+              source={iconImageSource}
+              // eslint-disable-next-line react-native/no-inline-styles
+              style={{ width: size, height: size, tintColor: color,  marginTop:15, paddingLeft:20, paddingBottom:20, }}
+            />
+          );
+        },
+        tabBarLabel: '',
+        tabBarInactiveTintColor: '#87CEFA',
+        tabBarActiveTintColor: '#91d3fa',
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: '#fff',
+          height:76,
+          flexDirection:'row',
+          justifyContent:'center',
+          alignItems:'center',
+        },
+        tabBarHideOnKeyboard: true,
+      })}
+    >
+      <Tab.Screen  name="HomePage" component={HomePageWithManagement} />
+      <Tab.Screen  name="Blog" component={BlogScreen} />
+      <Tab.Screen name="Calendar" component={Calendar} />
+      <Tab.Screen name="Profile" component={Profile} />
+    </Tab.Navigator>
+  );
+};
+const Calendar = () =>{
+  return (
+  <View>
+    <Text>Calender</Text>
+  </View>);
+};
+const Profile = () =>{
+  return (
+  <View>
+    <Text>Profile</Text>
+  </View>);
+};
+const Navigate = () => {
+  return (
+    <NavigationContainer >
+      <Stack.Navigator initialRouteName="HomeScreen" >
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="SplashScreen"
+          component={SplashScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="OnboardingScreen"
+          component={OnboardingScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="RegisterScreen"
+          component={RegisterScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="RegisterAsManagerScreen"
+          component={RegisterAsManagerScreen}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: false,
+          }}
+          name="FillYourProfile"
+          component={AddInformationProfileScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="LoginScreen"
+          component={LoginScreen}
+        />
+         <Stack.Screen
+          options={{headerShown: false}}
+          name="ForgetPasswordScreen"
+          component={ForgetPasswordScreen}
+        />
+          <Stack.Screen
+          options={{headerShown: false}}
+          name="VerifyCodeScreen"
+          component={VerifyCodeScreen}
+        />
+          <Stack.Screen
+          options={{headerShown: false}}
+          name="ResetPasswordScreen"
+          component={ResetPasswordScreen}
+        />
+         <Stack.Screen
+          options={{headerShown: false}}
+          name="AllMemberFamilyScreen"
+          component={AllMemberFamilyScreen}
+        />
+         <Stack.Screen
+          options={{headerShown: false}}
+          name="AddMemberScreen"
+          component={AddMemberScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="EditMemberScreen"
+          component={EditMemberScreen}
+        />
+         <Stack.Screen
+          options={{headerShown: false}}
+          name="PostBlogScreen"
+          component={PostBlogScreen}
+        />
+         <Stack.Screen
+          options={{headerShown: false}}
+          name="EditBlogScreen"
+          component={EditBlogScreen}
+        />
+         <Stack.Screen options={{headerShown: false}} name="HomeScreen" component={Homestack} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+export default Navigate;
