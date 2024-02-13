@@ -4,17 +4,33 @@ import { renderHeader } from './RenderHeader';
 import renderCalendar from './RenderCalendar';
 import renderListMemberWithManagement from './RenderMemberWithManagement';
 import renderButonCreate from './RenderButtonCreate';
-import { ScrollView } from 'react-native';
+import {  FlatList, View } from 'react-native';
 const HomePageWithManagement = () =>{
-    return (
-        <ScrollView style={homepagewithmanagement.container}
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}>
-            {renderHeader()}
-            {renderCalendar()}
+    const headerComponent = () => {
+        return (
+          <View style={homepagewithmanagement.container}>
+             {renderCalendar()}
             {renderListMemberWithManagement()}
             {renderButonCreate()}
-        </ScrollView>
+          </View>
+        );
+      };
+    return (
+        <View style={homepagewithmanagement.container}>
+        {renderHeader()}
+        <FlatList
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+          ListEmptyComponent={headerComponent}
+          data={[]}
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          renderItem={({ item }) => (
+            <View>
+              <></>
+            </View>
+          )}
+        />
+      </View>
     );
 };
 export  default HomePageWithManagement;

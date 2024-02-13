@@ -12,7 +12,7 @@ import ForgetPasswordScreen from '../screen/FamilyManagement/ForgetPassword/Forg
 import VerifyCodeScreen from '../screen/FamilyManagement/ForgetPassword/VerifyCodeScreen';
 import ResetPasswordScreen from '../screen/FamilyManagement/ForgetPassword/ResetPasswordScreen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import { Image, Text, View } from 'react-native';
+import { Image} from 'react-native';
 import HomePageWithManagement from '../screen/HomePage/Home/ManagementFamily/HomePageWithManagement/HomepageWithManagementScreen';
 import AllMemberFamilyScreen from '../screen/HomePage/Home/ManagementFamily/AllMemberFamilyScreen/AllMemberFamilyScreen';
 import AddMemberScreen from '../screen/HomePage/Home/ManagementFamily/AddMember/AddmemberScreen';
@@ -21,6 +21,8 @@ import BlogScreen from '../screen/HomePage/Blog/BlogScreen/BlogScreen';
 import PostBlogScreen from '../screen/HomePage/Blog/CreateBlog/PostBlogScreen';
 import EditBlogScreen from '../screen/HomePage/Blog/EditBlog/EditBlogScreen';
 import CalendarScreen from '../screen/HomePage/Calendar/CalendarWithManagement/CalendarWithManagementScreen';
+import ProfileScreen from '../screen/HomePage/Profile/ShowProfile/ProfileScreen';
+import EditProfileScreen from '../screen/HomePage/Profile/EditProfile/EditProfileScreen';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 const Homestack = () => {
@@ -50,7 +52,7 @@ const Homestack = () => {
             <Image
               source={iconImageSource}
               // eslint-disable-next-line react-native/no-inline-styles
-              style={{ width: size, height: size, tintColor: color,  marginTop:15, paddingLeft:20, paddingBottom:20, }}
+              style={{ width: size, height: size, tintColor: color,  marginTop:15, paddingLeft:20, paddingBottom:20 }}
             />
           );
         },
@@ -71,20 +73,14 @@ const Homestack = () => {
       <Tab.Screen  name="HomePage" component={HomePageWithManagement} />
       <Tab.Screen  name="Blog" component={BlogScreen} />
       <Tab.Screen name="Calendar" component={CalendarScreen} />
-      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
-};
-const Profile = () =>{
-  return (
-  <View>
-    <Text>Profile</Text>
-  </View>);
 };
 const Navigate = () => {
   return (
     <NavigationContainer >
-      <Stack.Navigator initialRouteName="HomeScreen" >
+      <Stack.Navigator  >
         <Stack.Screen
           options={{headerShown: false}}
           name="SplashScreen"
@@ -156,6 +152,11 @@ const Navigate = () => {
           options={{headerShown: false}}
           name="EditBlogScreen"
           component={EditBlogScreen}
+        />
+         <Stack.Screen
+          options={{headerShown: false}}
+          name="EditProfileScreen"
+          component={EditProfileScreen}
         />
          <Stack.Screen options={{headerShown: false}} name="HomeScreen" component={Homestack} />
       </Stack.Navigator>
