@@ -1,20 +1,20 @@
 import React from 'react';
 import {KeyboardAvoidingView,Platform,TouchableWithoutFeedback,Keyboard,View,FlatList} from 'react-native';
-import addmember from '../../../../../styles/HomePage/Home/ManagementFamily/AddMember/AddMemberScreen';
-import renderViewGoBack from './RenderViewGoBack';
-import renderViewFormCreate from './RenderViewFormCreate';
-import renderModalCreate from './RenderModelCreate';
-const AddMemberScreen = () => {
+import editprofile from '../../../../styles/HomePage/Profile/EditProfile/EditProfileScreen';
+import renderViewFormEditProfile from './RenderViewFormEditProfile';
+import renderViewGoBackProfile from './RenderViewGoBack';
+import renderModalEditProfile from './renderModelEditProfile';
+const EditProfileScreen = () => {
   const headerComponent = () => {
     return (
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={addmember.container}>
+        style={editprofile.container}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={addmember.inner}>
+          <View style={editprofile.inner}>
             <View>
-              {renderViewFormCreate()}
-              {renderModalCreate()}
+              {renderViewFormEditProfile()}
+              {renderModalEditProfile()}
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -22,8 +22,8 @@ const AddMemberScreen = () => {
     );
   };
   return (
-    <View style={addmember.container}>
-      {renderViewGoBack()}
+    <View style={editprofile.container}>
+      {renderViewGoBackProfile()}
       <FlatList
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
@@ -39,4 +39,4 @@ const AddMemberScreen = () => {
     </View>
   );
 };
-export default AddMemberScreen;
+export default EditProfileScreen;

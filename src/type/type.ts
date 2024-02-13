@@ -15,4 +15,7 @@ export type RootStackParamList = {
     PostBlogScreen:undefined;
     Blog:undefined;
     EditBlogScreen:undefined;
+    EditProfileScreen:undefined;
+    Profile:undefined;
+    HomePage:undefined;
   };

@@ -1,0 +1,122 @@
+import { StyleSheet } from 'react-native';
+const renderfunctionforprofile = StyleSheet.create({
+    container:{
+        paddingTop:30,
+        paddingLeft:20,
+        paddingRight:20,
+        paddingBottom:30,
+        flexDirection:'column',
+        gap:20,
+    },
+    viewFuntion:{
+        flexDirection:'column',
+        gap:15,
+    },
+    Opacitybutton:{
+        flexDirection:'row',
+        justifyContent: 'space-between',
+    },
+    viewImage:{
+        flexDirection:'row',
+        gap:20,
+    },
+    text:{
+        color:'#6B7280',
+        fontSize:18,
+    },
+    viewbutton: {
+        paddingTop: 40,
+        paddingLeft:30,
+        paddingRight:30,
+      },
+      buttonCreate: {
+        backgroundColor: '#87CEFA',
+        paddingTop: 14,
+        paddingBottom: 14,
+        borderRadius: 66,
+      },
+      textCreate: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: 'bold',
+        textAlign: 'center',
+      },
+      centeredView: {
+        flex: 1,
+        width:'100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingLeft:30,
+        paddingRight:25,
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+      },
+      modalView: {
+        backgroundColor: 'white',
+        borderRadius: 25,
+      },
+      viewtitle:{
+        paddingTop:40,
+        paddingLeft:70,
+        paddingRight:70,
+      },
+      textCon:{
+        fontSize:20,
+        color:'#1C2A3A',
+        fontWeight:'600',
+        textAlign:'center',
+      },
+      textYour:{
+        color:'#6B7280',
+        fontSize:14,
+        textAlign:'center',
+        lineHeight:21,
+        paddingTop:10,
+      },
+      viewloadding:{
+        paddingTop:60,
+        paddingBottom:20,
+        paddingLeft:20,
+        paddingRight:25,
+        flexDirection:'row',
+        gap:10,
+      },
+      buttonCancle:{
+        backgroundColor:'#fff',
+        borderWidth:1,
+        borderColor:'#87CEFA',
+        paddingTop:10,
+        paddingBottom:10,
+        paddingLeft:20,
+        paddingRight:20,
+        borderRadius:55,
+        width: '50%',
+      },
+      textCancle:{
+        fontSize:16,
+        fontWeight:'bold',
+        color:'#000000',
+        textAlign:'center',
+      },
+      buttonOk:{
+        backgroundColor:'#87CEFA',
+        borderWidth:1,
+        borderColor:'#87CEFA',
+        paddingTop:10,
+        paddingBottom:10,
+        paddingLeft:20,
+        paddingRight:20,
+        width: '50%',
+        borderRadius:55,
+      },
+      textOk:{
+        fontSize:16,
+        fontWeight:'bold',
+        color:'#fff',
+        textAlign:'center',
+      },
+    viewBorder:{
+        borderBottomWidth:1,
+        borderBottomColor:'#E5E7EB',
+    },
+});
+export default renderfunctionforprofile;
