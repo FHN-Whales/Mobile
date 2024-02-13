@@ -20,6 +20,7 @@ import EditMemberScreen from '../screen/HomePage/Home/ManagementFamily/EditMembe
 import BlogScreen from '../screen/HomePage/Blog/BlogScreen/BlogScreen';
 import PostBlogScreen from '../screen/HomePage/Blog/CreateBlog/PostBlogScreen';
 import EditBlogScreen from '../screen/HomePage/Blog/EditBlog/EditBlogScreen';
+import CalendarScreen from '../screen/HomePage/Calendar/CalendarWithManagement/CalendarWithManagementScreen';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 const Homestack = () => {
@@ -69,16 +70,10 @@ const Homestack = () => {
     >
       <Tab.Screen  name="HomePage" component={HomePageWithManagement} />
       <Tab.Screen  name="Blog" component={BlogScreen} />
-      <Tab.Screen name="Calendar" component={Calendar} />
+      <Tab.Screen name="Calendar" component={CalendarScreen} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
-};
-const Calendar = () =>{
-  return (
-  <View>
-    <Text>Calender</Text>
-  </View>);
 };
 const Profile = () =>{
   return (
@@ -89,7 +84,7 @@ const Profile = () =>{
 const Navigate = () => {
   return (
     <NavigationContainer >
-      <Stack.Navigator  >
+      <Stack.Navigator initialRouteName="HomeScreen" >
         <Stack.Screen
           options={{headerShown: false}}
           name="SplashScreen"
