@@ -1,0 +1,71 @@
+import {StyleSheet } from 'react-native';
+const renderyesterdaynotification = StyleSheet.create({
+    container:{
+        paddingTop:40,
+        paddingLeft:20,
+        paddingRight:20,
+        paddingBottom:20,
+    },
+    viewRenderNotification:{
+        flexDirection:'row',
+        justifyContent:'space-between',
+    },
+    textToday:{
+        fontSize:16,
+        color:'#6B7280',
+    },
+    renderTextMarkAll:{
+        color:'#1C2A3A',
+        fontWeight:'600',
+        fontSize:14,
+    },
+    viewListNewNotification:{
+        paddingTop:20,
+        flexDirection:'column',
+        gap:20,
+    },
+    itemNotification:{
+        flexDirection:'row',
+        gap:20,
+        // backgroundColor:'#F9FAFB',
+    },
+    viewImageNoti:{
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center',
+    },
+    viewContent:{
+        width:'100%',
+        paddingRight:20,
+    },
+    viewContentNoti:{
+        flexDirection:'row',
+        justifyContent:'space-between',
+        paddingBottom:10,
+        paddingRight:75,
+    },
+    textNoti:{
+        color:'#1C2A3A',
+        fontSize:14,
+        fontWeight:'600',
+    },
+    textTime:{
+        color:'#6B7280',
+        fontSize:14,
+    },
+    viewRemider: {
+        paddingRight:50,
+    },
+    textRemider:{
+        color:'#6B7280',
+        fontSize:14,
+        lineHeight:21.34,
+    },
+    textTimeRemider:{
+        color:'#87CEFA',
+        fontSize:14,
+        fontWeight:'600',
+        flexWrap:'wrap-reverse',
+    },
+});
+export default  renderyesterdaynotification;
