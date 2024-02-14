@@ -18,4 +18,5 @@ export type RootStackParamList = {
     EditProfileScreen:undefined;
     Profile:undefined;
     HomePage:undefined;
+    NotificationScreen:undifined;
   };
