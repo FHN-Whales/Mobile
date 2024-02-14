@@ -3,7 +3,7 @@ import {KeyboardAvoidingView,Platform,TouchableWithoutFeedback,Keyboard,View,Fla
 import editprofile from '../../../../styles/HomePage/Profile/EditProfile/EditProfileScreen';
 import renderViewFormEditProfile from './RenderViewFormEditProfile';
 import renderViewGoBackProfile from './RenderViewGoBack';
-import renderModalEditProfile from './renderModelEditProfile';
+import renderModalEditProfile from './RenderModelEditProfile';
 const EditProfileScreen = () => {
   const headerComponent = () => {
     return (
