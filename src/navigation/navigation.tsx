@@ -24,6 +24,7 @@ import CalendarScreen from '../screen/HomePage/Calendar/CalendarWithManagement/C
 import ProfileScreen from '../screen/HomePage/Profile/ShowProfile/ProfileScreen';
 import EditProfileScreen from '../screen/HomePage/Profile/EditProfile/EditProfileScreen';
 import NotificationScreen from '../screen/HomePage/Notification/Notificationswhenusingtheapp/NotificationScreen';
+import OptionHeathCheckScreen from '../screen/HomePage/Home/ManagementFamily/OptionHeathcheckSchedule/OptionHeathcheckSchedule';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 const Homestack = () => {
@@ -81,7 +82,7 @@ const Homestack = () => {
 const Navigate = () => {
   return (
     <NavigationContainer >
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="HomeScreen">
         <Stack.Screen
           options={{headerShown: false}}
           name="SplashScreen"
@@ -163,6 +164,11 @@ const Navigate = () => {
           options={{headerShown: false}}
           name="NotificationScreen"
           component={NotificationScreen}
+        />
+          <Stack.Screen
+          options={{headerShown: false}}
+          name="OptionHeathCheckScreen"
+          component={OptionHeathCheckScreen}
         />
          <Stack.Screen options={{headerShown: false}} name="HomeScreen" component={Homestack} />
       </Stack.Navigator>
