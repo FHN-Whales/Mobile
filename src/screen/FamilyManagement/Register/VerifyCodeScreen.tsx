@@ -3,13 +3,13 @@ import {KeyboardAvoidingView,Platform,TouchableWithoutFeedback,Keyboard,View,Ima
 import verifycode from '../../../styles/FamilyManagement/ForgetPassword/VerifyCodeScreen';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../type/type';
-const VerifyCodeScreen = () => {
+const VerifyCodeScreen =  () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const useGoBack = () => {
     navigation.goBack();
   };
-  const useNavigationResetPasswordScreen = () =>{
-    navigation.navigate('ResetPasswordScreen');
+  const useNavigationegisterAsManagerScreen = () =>{
+    navigation.navigate('RegisterAsManagerScreen');
   };
   return (
     <KeyboardAvoidingView
@@ -41,7 +41,7 @@ const VerifyCodeScreen = () => {
                   <TextInput style={verifycode.textInput} keyboardType="numeric" />
                 </View>
                 <View style={verifycode.viewbutton}>
-                  <TouchableOpacity style={verifycode.buttonCreate} onPress={useNavigationResetPasswordScreen}>
+                  <TouchableOpacity style={verifycode.buttonCreate} onPress={useNavigationegisterAsManagerScreen}>
                     <Text style={verifycode.textCreate}>Verify</Text>
                   </TouchableOpacity>
                 </View>

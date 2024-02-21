@@ -8,8 +8,8 @@ const ForgetPasswordScreen = () => {
   const useGoBack = () =>{
     navigation.goBack();
   };
-  const useVerifyCodeScreen = () =>{
-    navigation.navigate('VerifyCodeScreen');
+  const useSentVerifyCodeForgetpassword= () =>{
+    navigation.navigate('SentVerifyCodeForgetpassword');
   };
   return (
     <KeyboardAvoidingView
@@ -43,7 +43,7 @@ const ForgetPasswordScreen = () => {
                   />
                 </View>
                 <View style={forgetpassword .viewbutton}>
-                  <TouchableOpacity style={forgetpassword .buttonCreate} onPress={useVerifyCodeScreen} >
+                  <TouchableOpacity style={forgetpassword .buttonCreate} onPress={useSentVerifyCodeForgetpassword} >
                     <Text style={forgetpassword .textCreate}>Send Code</Text>
                   </TouchableOpacity>
                 </View>
