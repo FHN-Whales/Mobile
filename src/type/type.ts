@@ -2,11 +2,12 @@ export type RootStackParamList = {
     SplashScreen:undefined;
     OnboardingScreen:undefined;
     RegisterScreen:undefined;
+    VerifyCodeScreen:undefined;
     RegisterAsManagerScreen:undefined;
     FillYourProfile: undefined;
     LoginScreen:undefined;
     ForgetPasswordScreen:undefined;
-    VerifyCodeScreen:undefined;
+    SentVerifyCodeForgetpassword:undefined;
     ResetPasswordScreen:undefined;
     HomeScreen:undefined
     AllMemberFamilyScreen:undefined;

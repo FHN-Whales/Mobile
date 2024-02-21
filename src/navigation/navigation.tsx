@@ -9,7 +9,6 @@ import RegisterAsManagerScreen from '../screen/FamilyManagement/Register/Registe
 import AddInformationProfileScreen from '../screen/FamilyManagement/Register/AddInformationProfileScreen';
 import LoginScreen from '../screen/FamilyManagement/Login/LoginScreen';
 import ForgetPasswordScreen from '../screen/FamilyManagement/ForgetPassword/ForgetPasswordScreen';
-import VerifyCodeScreen from '../screen/FamilyManagement/ForgetPassword/VerifyCodeScreen';
 import ResetPasswordScreen from '../screen/FamilyManagement/ForgetPassword/ResetPasswordScreen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import { Image} from 'react-native';
@@ -25,6 +24,8 @@ import ProfileScreen from '../screen/HomePage/Profile/ShowProfile/ProfileScreen'
 import EditProfileScreen from '../screen/HomePage/Profile/EditProfile/EditProfileScreen';
 import NotificationScreen from '../screen/HomePage/Notification/Notificationswhenusingtheapp/NotificationScreen';
 import OptionHeathCheckScreen from '../screen/HomePage/Home/ManagementFamily/OptionHeathcheckSchedule/OptionHeathcheckSchedule';
+import SentVerifyCodeForgetpassword from '../screen/FamilyManagement/ForgetPassword/SentVerifyCodeForgetpassword';
+import VerifyCodeScreen from '../screen/FamilyManagement/Register/VerifyCodeScreen';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 const Homestack = () => {
@@ -122,8 +123,8 @@ const Navigate = () => {
         />
           <Stack.Screen
           options={{headerShown: false}}
-          name="VerifyCodeScreen"
-          component={VerifyCodeScreen}
+          name="SentVerifyCodeForgetpassword"
+          component={SentVerifyCodeForgetpassword}
         />
           <Stack.Screen
           options={{headerShown: false}}
@@ -169,6 +170,11 @@ const Navigate = () => {
           options={{headerShown: false}}
           name="OptionHeathCheckScreen"
           component={OptionHeathCheckScreen}
+        />
+         <Stack.Screen
+          options={{headerShown: false}}
+          name="VerifyCodeScreen"
+          component={VerifyCodeScreen}
         />
          <Stack.Screen options={{headerShown: false}} name="HomeScreen" component={Homestack} />
       </Stack.Navigator>

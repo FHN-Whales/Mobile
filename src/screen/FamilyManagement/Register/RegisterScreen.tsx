@@ -5,8 +5,8 @@ import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../type/type';
 const RegisterScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const useNavigationRegisterAsManagerScreen = () =>{
-    navigation.navigate('RegisterAsManagerScreen');
+  const useNavigationVerifyCodeScreen = () =>{
+    navigation.navigate('VerifyCodeScreen');
   };
   const useNavigationLoginScreen = () =>{
     navigation.navigate('LoginScreen');
@@ -57,7 +57,7 @@ const RegisterScreen = () => {
                   />
                 </View>
                 <View style={register.viewbutton}>
-                  <TouchableOpacity style={register.buttonCreate} onPress={useNavigationRegisterAsManagerScreen}>
+                  <TouchableOpacity style={register.buttonCreate} onPress={useNavigationVerifyCodeScreen}>
                     <Text style={register.textCreate}>Create Account</Text>
                   </TouchableOpacity>
                 </View>
