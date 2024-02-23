@@ -21,4 +21,5 @@ export type RootStackParamList = {
     HomePage:undefined;
     NotificationScreen:undefined;
     OptionHeathCheckScreen:undefined;
+    ScanScreen:undefined;
   };

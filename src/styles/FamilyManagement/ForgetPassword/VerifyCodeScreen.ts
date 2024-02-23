@@ -66,6 +66,10 @@ const verifycode = StyleSheet.create({
     borderColor:'#E5E7EB',
     borderWidth:1,
     borderRadius:12,
+    paddingLeft:25,
+    fontSize:16,
+    color:'#000000',
+    fontWeight:'bold',
   },
   viewInput: {
     flexDirection: 'row',

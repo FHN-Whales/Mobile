@@ -120,7 +120,7 @@ const login = StyleSheet.create({
     fontSize: 16,
   },
   viewContinue:{
-    flexDirection:'column',
+    flexDirection:'row',
     gap:15,
   },
   Google:{
@@ -132,10 +132,13 @@ const login = StyleSheet.create({
     alignItems:'center',
     paddingTop: 14,
     paddingBottom: 14,
+    width: '48%',
   },
   viewGoogle:{
     flexDirection:'row',
     gap:6,
+    paddingLeft:30,
+    paddingRight:30,
   },
   textGoogle:{
     color:'#1C2A3A',
@@ -161,6 +164,5 @@ const login = StyleSheet.create({
     color:'#1C64F2',
     fontWeight:'600',
   },
-  
 });
 export default login;

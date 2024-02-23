@@ -22,6 +22,7 @@ const onboarding = StyleSheet.create({
       },
     image:{
         height:480,
+        width:'100%',
     },
     viewtext:{
         paddingTop:25,

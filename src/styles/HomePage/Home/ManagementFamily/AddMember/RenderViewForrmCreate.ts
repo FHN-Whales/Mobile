@@ -26,6 +26,11 @@ const renderviewformcreate = StyleSheet.create({
         gap: 5,
         backgroundColor: '#F9FAFB',
       },
+      imageAvater:{
+        height: 168,
+        width:168,
+        borderRadius:150,
+      },
       image: {
         paddingTop: 13,
         paddingLeft: 15,
