@@ -58,6 +58,19 @@ const register = StyleSheet.create({
     width: '100%',
     color: '#9CA3AF',
   },
+  showPassword:{
+    position: 'absolute',
+    left:300
+    ,
+    top:14,
+  },
+  iconShowPassword:{
+    height: 20,
+    width: 20,
+  },
+  textError:{
+    color:'red',
+  },
   viewbutton: {
     paddingTop: 8,
   },
@@ -90,7 +103,7 @@ const register = StyleSheet.create({
     fontSize: 16,
   },
   viewContinue:{
-    flexDirection:'column',
+    flexDirection:'row',
     gap:15,
   },
   Google:{
@@ -102,10 +115,13 @@ const register = StyleSheet.create({
     alignItems:'center',
     paddingTop: 14,
     paddingBottom: 14,
+    width: '48%',
   },
   viewGoogle:{
     flexDirection:'row',
     gap:6,
+    paddingLeft:30,
+    paddingRight:30,
   },
   textGoogle:{
     color:'#1C2A3A',

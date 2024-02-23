@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from 'react';
-import { Image, TextInput, View } from 'react-native';
+import { Image, TextInput, TouchableOpacity, View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import renderviewformcreate from '../../../../../styles/HomePage/Home/ManagementFamily/AddMember/RenderViewForrmCreate';
+import ImagePicker from 'react-native-image-crop-picker';
 interface DataItem {
   label: string ;
   value: number ;
@@ -14,17 +15,43 @@ const renderViewFormCreate = () => {
     { label: 'Female', value: 2, id:2 },
   ];
   const [value, setValue] = useState<number>(0);
+  const [selectedImage, setSelectedImage] = useState(null);
   const handleDropdownChange = (item: DataItem) => {
     setValue(item.value);
   };
+  const openImagePicker = () => {
+    ImagePicker.openPicker({
+      mediaType: 'photo',
+    }).then((image) => {
+      // Xử lý ảnh đã chọn ở đây
+      console.log('Selected image: ', image.path);
+      // Cập nhật trạng thái selectedImage với đường dẫn của ảnh đã chọn
+      setSelectedImage(image.path);
+      // Gửi ảnh đã chọn lên máy chủ hoặc xử lý theo nhu cầu của bạn
+      const formData = new FormData();
+      formData.append('image', {
+        uri: image.path,
+        type: image.mime,
+        name: image.filename || 'image.jpg',
+      });
+    }).catch((error) => {
+      console.log('ImagePicker Error: ', error);
+    });
+  };
   return (
     <View>
-      <View style={renderviewformcreate.viewImageProfile}>
-        <Image source={require('../../../../../image/profile-circle.png')} />
+      <TouchableOpacity
+        style={renderviewformcreate.viewImageProfile}
+        onPress={openImagePicker}>
+        {selectedImage ? (
+          <Image style={renderviewformcreate.imageAvater} source={{uri: selectedImage}} />
+        ) : (
+          <Image source={require('../../../../../image/profile-circle.png')} />
+        )}
         <View style={renderviewformcreate.viewEdit}>
           <Image source={require('../../../../../image/edit-icon.png')} />
         </View>
-      </View>
+      </TouchableOpacity>
       <View style={renderviewformcreate.viewForm}>
         <View style={renderviewformcreate.viewInput}>
           <View style={renderviewformcreate.image}>

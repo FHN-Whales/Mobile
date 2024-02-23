@@ -53,21 +53,37 @@ const registerasmanager = StyleSheet.create({
   viewitemSelectRadio:{
     flexDirection:'row',
   },
-  radioGroup: {
+  dropdown: {
+    width: '100%',
+    borderWidth: 1,
+    backgroundColor: '#F9FAFB',
+    borderColor: '#D1D5DB',
+    borderRadius: 10,
+    paddingLeft: 30,
+    paddingTop: 8,
+    paddingBottom: 8,
+    paddingRight:30,
+  },
+  placeholderStyle: {
+    color: '#9CA3AF',
+    fontWeight: 'bold',
+  },
+  selectedTextStyle: {
+    color: '#9CA3AF',
+    fontWeight: 'bold',
+  },
+  itemTextStyle: {
+    color: '#9CA3AF',
+    fontWeight: 'bold',
+  },
+  containerKindOf: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    gap:40,
-
+    margin: 20,
   },
-  radio: {
-    backgroundColor: 'white', // Set background color of the radio button
-    borderColor: '#87CEFA',     // Set border color of the radio button
-    borderWidth: 1,           // Set border width of the radio button
-    borderRadius: 10,         // Set border radius of the radio button
-    padding: 10,              // Set padding of the radio button
-    marginRight: 10,          // Add margin to each individual radio button
-    alignItems: 'center',     // Align content horizontally in the center
-    justifyContent: 'center', // Align content vertically in the center
+  nameKindOf: {
+    color: 'lightblue',
+    fontWeight: 'bold',
   },
   view:{
     paddingLeft:25,

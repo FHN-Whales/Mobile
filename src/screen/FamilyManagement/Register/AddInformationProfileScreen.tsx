@@ -19,10 +19,10 @@ const AddInformationProfileScreen: React.FC = () => {
     { label: 'Male', value: 1 ,id:1},
     { label: 'Female', value: 2, id:2 },
   ];
-  const [value, setValue] = useState<number>(0);
+  const [value, setValue] = useState<string>('');
 
   const handleDropdownChange = (item: DataItem) => {
-    setValue(item.value);
+    setValue(item.value.toString());
   };
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 

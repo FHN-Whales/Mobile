@@ -100,15 +100,13 @@ const LoginScreen = () => {
                       <Image
                         source={require('../../../image/Google-Original.png')}
                       />
-                      <Text style={login.textGoogle}>Sign In with Google</Text>
+                      <Text style={login.textGoogle}> Google</Text>
                     </View>
                   </TouchableOpacity>
                   <TouchableOpacity style={login.Google}>
                     <View style={login.viewGoogle}>
                       <Image source={require('../../../image/Facebook.png')} />
-                      <Text style={login.textGoogle}>
-                        Sign In with Facebook
-                      </Text>
+                      <Text style={login.textGoogle}>Facebook</Text>
                     </View>
                   </TouchableOpacity>
                 </View>
