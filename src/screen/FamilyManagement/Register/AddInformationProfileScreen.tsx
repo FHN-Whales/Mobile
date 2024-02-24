@@ -5,29 +5,50 @@ import {KeyboardAvoidingView,Platform,TouchableWithoutFeedback,Keyboard,View,
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import { Dropdown } from 'react-native-element-dropdown';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
+// import { Dropdown } from 'react-native-element-dropdown';
+import { useNavigation, NavigationProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../../../type/type';
 import AddInformationProfile from '../../../styles/FamilyManagement/Register/AddInformationProfileScreen';
-interface DataItem {
-  label: string ;
-  value: number ;
-  id:number;
-}
+import axios from 'axios';
+import { ApiGetNewUser } from '../../../api/useApiGetNewUser';
+// interface DataItem {
+//   label: string ;
+//   value: number ;
+//   id:number;
+// }
 const AddInformationProfileScreen: React.FC = () => {
-  const data: DataItem[] = [
-    { label: 'Male', value: 1 ,id:1},
-    { label: 'Female', value: 2, id:2 },
-  ];
-  const [value, setValue] = useState<string>('');
-
-  const handleDropdownChange = (item: DataItem) => {
-    setValue(item.value.toString());
-  };
+  const route = useRoute();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const { email, password, role } = route.params as { email: string; password: string; role: string };
 
-  const useNavigationLoginScreen = () => {
-    navigation.navigate('LoginScreen');
+  const [username, setUsername] = useState<string>('');
+  const [gender, setGender] = useState<string>('');
+  const [dateOfBirth, setDateOfBirth] = useState<string>('');
+
+  // const handleDropdownChange = (item: DataItem) => {
+  //   setGender(item.label);
+  // };
+  const handleSubmit = () => {
+    axios
+      .post(ApiGetNewUser, {
+      email,
+      password,
+      role,
+      username,
+      gender,
+      dateOfBirth,
+      })
+      .then(response => {
+        console.log(response.data);
+        if (response.data.completed) {
+          navigation.navigate('LoginScreen');
+        } else {
+          console.log('Verification Failed', response.data.message);
+        }
+      })
+      .catch(error => {
+        console.error('Verification failed:', error);
+      });
   };
   const useGoBack = () => {
     navigation.goBack();
@@ -61,6 +82,8 @@ const AddInformationProfileScreen: React.FC = () => {
                   <TextInput
                     placeholderTextColor="#9CA3AF"
                     placeholder="Nick Name"
+                    onChangeText={setUsername}
+                    value={username}
                     style={AddInformationProfile.textinput}
                   />
                 </View>
@@ -71,11 +94,13 @@ const AddInformationProfileScreen: React.FC = () => {
                   <TextInput
                     placeholderTextColor="#9CA3AF"
                     placeholder="Date of Birth"
+                    onChangeText={setDateOfBirth}
+                    value={dateOfBirth}
                     style={AddInformationProfile.textinput}
                   />
                 </View>
-                <View>
-                  <Dropdown
+                <View style={AddInformationProfile.viewInput}>
+                  {/* <Dropdown
                     style={AddInformationProfile.dropdown}
                     placeholderStyle={AddInformationProfile.placeholderStyle}
                     selectedTextStyle={AddInformationProfile.selectedTextStyle}
@@ -84,13 +109,20 @@ const AddInformationProfileScreen: React.FC = () => {
                     maxHeight={300}
                     labelField="label"
                     valueField="value"
-                    value={value}
+                    value={gender}
                     placeholder="Gender"
                     onChange={handleDropdownChange}
+                  /> */}
+                    <TextInput
+                    placeholderTextColor="#9CA3AF"
+                    placeholder="Gender"
+                    onChangeText={setGender}
+                    value={gender}
+                    style={AddInformationProfile.textinput}
                   />
                 </View>
                 <View style={AddInformationProfile.viewbutton}>
-                  <TouchableOpacity style={AddInformationProfile.buttonCreate} onPress={useNavigationLoginScreen}>
+                  <TouchableOpacity style={AddInformationProfile.buttonCreate} onPress={handleSubmit}>
                     <Text style={AddInformationProfile.textCreate}>Save</Text>
                   </TouchableOpacity>
                 </View>

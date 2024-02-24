@@ -3,7 +3,6 @@ import {KeyboardAvoidingView,Platform,TouchableWithoutFeedback, Keyboard,View,Im
 import register from '../../../styles/FamilyManagement/Register/RegisterScreen';
 import {useNavigation, NavigationProp} from '@react-navigation/native';
 import {RootStackParamList} from '../../../type/type';
-// import useRegister from '../../../hook/FamilyManagement/Register/useRegister';
 import {Formik} from 'formik';
 import SignupSchema from '../../../hook/FamilyManagement/Register/useValidateRegister';
 import { ApiSignUp } from '../../../api/useAuthApi';
@@ -15,7 +14,6 @@ interface Register {
   confirmPassword: string;
 }
 const RegisterScreen = () => {
-  // const {mutationRegisterUser} = useRegister()
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const useNavigationLoginScreen = () => {
     navigation.navigate('LoginScreen');
@@ -63,19 +61,31 @@ const RegisterScreen = () => {
     mutationFn: async (data: Register) => {
       try {
         const response = await axios.post(ApiSignUp, data);
-        setTimeout(() => {
-        if (response.status === 200) { // Kiểm tra status là 200 thay vì 201
-          navigation.navigate('VerifyCodeScreen', { email: data.email });
-          console.log('Email verification sent successfully.');
+        console.log(data);
+        setTimeout(async () => {
+        if (response.status === 200) {
+          const { completed, message  } = response.data;
+          if (completed) {
+            // await AsyncStorage.setItem('id_user',userId);
+            // console.log(userId);
+            navigation.navigate('VerifyCodeScreen', { email: data.email });
+            console.log('Email verification sent successfully.');
+          } else {
+            console.log('Registration failed:', message);
+            // Hiển thị thông báo lỗi cho người dùng
+          }
         } else {
           console.log('Response:', response);
           console.log('Error:', 'Unexpected response status');
-          // Xử lý các trường hợp lỗi không mong đợi từ máy chủ
         }
-      }, 200);
-      } catch (error) {
-        console.log('Error sending the request:');
-        // Xử lý các trường hợp lỗi mạng, lỗi máy chủ, v.v.
+      }, 200);      }
+      catch (error) {
+        console.log('Error sending the request:', error.message);
+        if (error.response && error.response.status === 409) {
+          console.log('Email is already registered');
+        } else {
+          console.log('Unexpected error:', error);
+        }
       }
     },
   });
@@ -195,7 +205,7 @@ const RegisterScreen = () => {
                       )}
                     </View>
                     {errors.confirmPassword && touched.confirmPassword ? (
-                      <Text style={register.textError}>
+                      <Text style={register.textError} >
                         * {errors.confirmPassword}
                       </Text>
                     ) : null}
@@ -206,6 +216,7 @@ const RegisterScreen = () => {
                         <Text style={register.textCreate}>Create Account</Text>
                       </TouchableOpacity>
                     </View>
+                    {/* {errors && <Text style={{ color:'red' }}>{error}</Text>} */}
                     <View style={register.viewor}>
                       <View style={register.viewborder} />
                       <Text style={register.textor}>or</Text>

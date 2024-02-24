@@ -7,6 +7,20 @@ const login = StyleSheet.create({
   inner: {
     justifyContent: 'space-around',
   },
+  viewGoBack:{
+    flexDirection:'row',
+    gap:20,
+    paddingTop:20,
+    paddingLeft:20,
+    position:'absolute',
+    top:5,
+    zIndex:1,
+  },
+  textFill:{
+    fontSize:20,
+    fontWeight:'500',
+    color:'#374151',
+  },
   viewLogo: {
     flexDirection: 'column',
     justifyContent: 'center',
@@ -34,6 +48,9 @@ const login = StyleSheet.create({
     paddingLeft:25,
     paddingRight:25,
   },
+  textError:{
+    color:'red',
+  },
   viewForm: {
     paddingTop: 20,
     paddingLeft: 25,
@@ -47,6 +64,16 @@ const login = StyleSheet.create({
     borderRadius: 10,
     gap: 5,
     backgroundColor: '#F9FAFB',
+  },
+  showPassword:{
+    position: 'absolute',
+    left:300
+    ,
+    top:14,
+  },
+  iconShowPassword:{
+    height: 20,
+    width: 20,
   },
   image: {
     paddingTop: 13,

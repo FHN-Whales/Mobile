@@ -9,17 +9,29 @@ interface DataItem {
   value: number ;
   id:number;
 }
-const RegisterAsManagerScreen = () => {
+const RegisterAsManagerScreen = ({ route }) => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const useNavigationAddInformationProfileScreen = () => {
-    navigation.navigate('FillYourProfile');
+    navigation.navigate('FillYourProfile', {
+      email: email,
+      role: value,
+      password: password,
+    });
+    console.log(email);
+    console.log(value);
+    console.log(password);
   };
+  const useGoBack = () => {
+    navigation.goBack();
+  };
+  const { email } = route.params;
   const data: DataItem[] = [
     { label: 'Dad', value: 1 ,id:1},
     { label: 'Mom', value: 2, id:2 },
     { label: 'Con', value: 2, id:3 },
   ];
-  const [value, setValue] = useState<string>('');
+  const [value, setValue] = useState<number>(0);
+  const [password, setPassword] = useState<string>('');
 
   const handleDropdownChange = (item: DataItem) => {
     setValue(item.value.toString());
@@ -30,6 +42,11 @@ const RegisterAsManagerScreen = () => {
       style={registerasmanager.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={registerasmanager.inner}>
+        <View style={registerasmanager.viewGoBack}>
+            <TouchableOpacity onPress={useGoBack}>
+              <Image source={require('../../../image/back-icon.png')} />
+            </TouchableOpacity>
+          </View>
           <View style={registerasmanager.viewCreate}>
             <View style={registerasmanager.viewLogo}>
               <Image source={require('../../../image/logo.png')} />
@@ -54,7 +71,7 @@ const RegisterAsManagerScreen = () => {
                     maxHeight={300}
                     labelField="label"
                     valueField="value"
-                    value={value}
+                    value={value.toString()}
                     placeholder="Role Member"
                     onChange={handleDropdownChange}
                   />
@@ -70,7 +87,10 @@ const RegisterAsManagerScreen = () => {
                   <TextInput
                     placeholderTextColor="#9CA3AF"
                     placeholder="Password"
+                    onChangeText={text => setPassword(text)}
+                    value={password}
                     style={registerasmanager.textinput}
+                    secureTextEntry
                   />
                 </View>
                 <View style={registerasmanager.viewbutton}>
