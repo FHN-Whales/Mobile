@@ -22,4 +22,5 @@ export type RootStackParamList = {
     NotificationScreen:undefined;
     OptionHeathCheckScreen:undefined;
     ScanScreen:undefined;
+    CreateTreatmentRemindScreen:undefined;
   };

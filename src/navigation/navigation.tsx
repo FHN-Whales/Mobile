@@ -28,6 +28,7 @@ import SentVerifyCodeForgetpassword from '../screen/FamilyManagement/ForgetPassw
 import VerifyCodeScreen from '../screen/FamilyManagement/Register/VerifyCodeScreen';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import ScanScreen from '../screen/HomePage/TreatmentRemindScheduling/Treatment Remind SchedulingWithManagement/Scan/ScanwithManagement';
+import CreateTreatmentRemindScreen from '../screen/HomePage/TreatmentRemindScheduling/Treatment Remind SchedulingWithManagement/InputInformationManually/CreateTreatmentRemind';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 const Homestack = () => {
@@ -86,8 +87,8 @@ const Navigate = () => {
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
-    <NavigationContainer >
-      <Stack.Navigator>
+    <NavigationContainer  >
+      <Stack.Navigator initialRouteName="HomeScreen"> 
         <Stack.Screen
           options={{headerShown: false}}
           name="SplashScreen"
@@ -184,6 +185,11 @@ const Navigate = () => {
           options={{headerShown: false}}
           name="ScanScreen"
           component={ScanScreen}
+        />
+         <Stack.Screen
+          options={{headerShown: false}}
+          name="CreateTreatmentRemindScreen"
+          component={CreateTreatmentRemindScreen}
         />
          <Stack.Screen options={{headerShown: false}} name="HomeScreen" component={Homestack} />
       </Stack.Navigator>
