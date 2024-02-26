@@ -86,6 +86,36 @@ const register = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 48,
+    padding: 35,
+    alignItems: 'center',
+  },
+  textCon:{
+    fontSize:20,
+    color:'#1C2A3A',
+    paddingTop:30,
+    fontWeight:'600',
+  },
+  textYour:{
+    color:'#6B7280',
+    fontSize:14,
+    textAlign:'center',
+    lineHeight:21,
+    paddingTop:20,
+  },
+  viewloadding:{
+    paddingTop:40,
+    paddingBottom:20,
+  },
   viewor: {
     flexDirection: 'row',
     gap: 20,

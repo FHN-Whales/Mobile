@@ -1,5 +1,5 @@
-import React, {useRef, useState} from 'react';
-import {KeyboardAvoidingView,Platform,TouchableWithoutFeedback, Keyboard,View,Image,Text,TextInput,TouchableOpacity} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {KeyboardAvoidingView,Platform,TouchableWithoutFeedback, Keyboard,View,Image,Text,TextInput,TouchableOpacity, Modal, ActivityIndicator} from 'react-native';
 import register from '../../../styles/FamilyManagement/Register/RegisterScreen';
 import {useNavigation, NavigationProp} from '@react-navigation/native';
 import {RootStackParamList} from '../../../type/type';
@@ -15,6 +15,9 @@ interface Register {
 }
 const RegisterScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const [modalVisible, setModalVisible] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [isLoading, setIsLoading] = useState(false);
   const useNavigationLoginScreen = () => {
     navigation.navigate('LoginScreen');
   };
@@ -62,24 +65,24 @@ const RegisterScreen = () => {
       try {
         const response = await axios.post(ApiSignUp, data);
         console.log(data);
+        setIsLoading(true);
         setTimeout(async () => {
-        if (response.status === 200) {
-          const { completed, message  } = response.data;
-          if (completed) {
-            // await AsyncStorage.setItem('id_user',userId);
-            // console.log(userId);
-            navigation.navigate('VerifyCodeScreen', { email: data.email });
-            console.log('Email verification sent successfully.');
+          if (response.status === 200) {
+            const { completed, message } = response.data;
+            if (completed) {
+              setModalVisible(true);
+              navigation.navigate('VerifyCodeScreen', { email: data.email });
+              console.log('Email verification sent successfully.');
+            } else {
+              console.log('Registration failed:', message);
+            }
+            setIsLoading(false);
           } else {
-            console.log('Registration failed:', message);
-            // Hiển thị thông báo lỗi cho người dùng
+            console.log('Response:', response);
+            console.log('Error:', 'Unexpected response status');
           }
-        } else {
-          console.log('Response:', response);
-          console.log('Error:', 'Unexpected response status');
-        }
-      }, 200);      }
-      catch (error) {
+        }, 2000);
+      } catch (error) {
         console.log('Error sending the request:', error.message);
         if (error.response && error.response.status === 409) {
           console.log('Email is already registered');
@@ -89,6 +92,14 @@ const RegisterScreen = () => {
       }
     },
   });
+  const { data } = mutationRegisterUser; // Define data at a higher scope
+  useEffect(() => {
+    if (modalVisible && data) { // Check if data exists before using it
+      setTimeout(() => {
+        setModalVisible(false)
+      }, 2000);
+    }
+  }, [modalVisible, data]);
   return (
     <Formik
       initialValues={{
@@ -210,6 +221,31 @@ const RegisterScreen = () => {
                       </Text>
                     ) : null}
                     <View style={register.viewbutton}>
+                    <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={modalVisible}
+                        onRequestClose={() => {
+                          setModalVisible(!modalVisible);
+                        }}>
+                        <View style={register.centeredView}>
+                          <View style={register.modalView}>
+                            <View>
+                              <Image
+                                source={require('../../../image/succesfully.png')}
+                              />
+                            </View>
+                            <Text style={register.textCon}>Congratulations!</Text>
+                            <Text style={register.textYour}>
+                              Your account is ready to use. You will be
+                              redirected to the Home Page in a few seconds...
+                            </Text>
+                            <View style={register.viewloadding}>
+                              <ActivityIndicator size="large" color="#87CEFA" />
+                            </View>
+                          </View>
+                        </View>
+                      </Modal>
                       <TouchableOpacity
                         style={register.buttonCreate}
                         onPress={handleSubmit}>
