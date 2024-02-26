@@ -53,6 +53,7 @@ const LoginScreen = () => {
     mutationFn: async (data: Login) => {
       try {
         const response = await axios.post(ApiSignIn, data);
+        console.log(data);
         setIsLoading(true);
         if (response.status === 200) {
           const { completed, message } = response.data;
