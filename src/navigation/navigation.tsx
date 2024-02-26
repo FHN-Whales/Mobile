@@ -88,7 +88,7 @@ const Navigate = () => {
   return (
     <QueryClientProvider client={queryClient}>
     <NavigationContainer  >
-      <Stack.Navigator initialRouteName="HomeScreen"> 
+      <Stack.Navigator > 
         <Stack.Screen
           options={{headerShown: false}}
           name="SplashScreen"
