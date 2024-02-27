@@ -19,7 +19,7 @@ import { ApiGetNewUser } from '../../../api/useApiGetNewUser';
 const AddInformationProfileScreen: React.FC = () => {
   const route = useRoute();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const { email, password, role } = route.params as { email: string; password: string; role: string };
+  const { userId, email, password, role } = route.params as { email:string, password: string; role: string };
 
   const [username, setUsername] = useState<string>('');
   const [gender, setGender] = useState<string>('');
@@ -31,6 +31,7 @@ const AddInformationProfileScreen: React.FC = () => {
   const handleSubmit = () => {
     axios
       .post(ApiGetNewUser, {
+      userId,
       email,
       password,
       role,

@@ -9,19 +9,19 @@ const VerifyCodeScreen = ({route}) => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [code, setCode] = useState(['', '', '', '', '', '']);
   const otpInputs = useRef<any[]>([]);
-  const {email} = route.params;
-  console.log(email);
+  const { userId , email} = route.params;
+  console.log(userId);
   const handleVerification = () => {
     const enteredOTP = code.join('');
     axios
       .post(ApiVerifyCode, {
-        email,
+        userId,
         code: enteredOTP,
       })
       .then(response => {
         console.log('Verification successful:', response.data);
         if (response.data.completed) {
-          navigation.navigate('RegisterAsManagerScreen' ,{ email: email });
+          navigation.navigate('RegisterAsManagerScreen' ,{ userId: userId ,email: email });
         } else {
           console.log('Verification Failed', response.data.message);
         }

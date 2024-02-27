@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect,useRef, useState} from 'react';
 import {KeyboardAvoidingView,Platform,TouchableWithoutFeedback, Keyboard,View,Image,Text,TextInput,TouchableOpacity, Modal, ActivityIndicator} from 'react-native';
 import register from '../../../styles/FamilyManagement/Register/RegisterScreen';
 import {useNavigation, NavigationProp} from '@react-navigation/native';
@@ -68,11 +68,13 @@ const RegisterScreen = () => {
         setIsLoading(true);
         setTimeout(async () => {
           if (response.status === 200) {
-            const { completed, message } = response.data;
-            if (completed) {
+            const { completed, message, userId } = response.data;
+            console.log('data', data);
+            if (completed && userId) {
               setModalVisible(true);
-              navigation.navigate('VerifyCodeScreen', { email: data.email });
+              navigation.navigate('VerifyCodeScreen', { userId: userId, email: data.email });
               console.log('Email verification sent successfully.');
+              console.log(userId);
             } else {
               console.log('Registration failed:', message);
             }
@@ -92,11 +94,12 @@ const RegisterScreen = () => {
       }
     },
   });
+  
   const { data } = mutationRegisterUser; // Define data at a higher scope
   useEffect(() => {
     if (modalVisible && data) { // Check if data exists before using it
       setTimeout(() => {
-        setModalVisible(false)
+        setModalVisible(false);
       }, 2000);
     }
   }, [modalVisible, data]);
@@ -238,7 +241,7 @@ const RegisterScreen = () => {
                             <Text style={register.textCon}>Congratulations!</Text>
                             <Text style={register.textYour}>
                               Your account is ready to use. You will be
-                              redirected to the Home Page in a few seconds...
+                              redirected to Verify in a few seconds...
                             </Text>
                             <View style={register.viewloadding}>
                               <ActivityIndicator size="large" color="#87CEFA" />

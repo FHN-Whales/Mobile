@@ -13,18 +13,19 @@ const RegisterAsManagerScreen = ({ route }) => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const useNavigationAddInformationProfileScreen = () => {
     navigation.navigate('FillYourProfile', {
-      email: email,
+      email:email,
+      userId: userId,
       role: value,
       password: password,
     });
-    console.log(email);
+    console.log(userId);
     console.log(value);
     console.log(password);
   };
   const useGoBack = () => {
     navigation.goBack();
   };
-  const { email } = route.params;
+  const { userId , email } = route.params;
   const data: DataItem[] = [
     { label: 'Dad', value: 1 ,id:1},
     { label: 'Mom', value: 2, id:2 },
