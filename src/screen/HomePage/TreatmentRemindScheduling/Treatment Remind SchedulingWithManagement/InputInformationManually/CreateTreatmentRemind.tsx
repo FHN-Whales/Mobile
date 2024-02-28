@@ -1,21 +1,33 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, StyleSheet, Text, TextInput, View } from 'react-native';
-
+import { TouchableOpacity, StyleSheet, Text, TextInput, View, Image } from 'react-native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { RootStackParamList } from '../../../../../type/type';
+import renderviewgoback from '../../../../../styles/HomePage/Home/ManagementFamily/AddMember/RenderViewGoBack';
 const CreateTreatmentRemindScreen = () => {
   const [medicineName, setMedicineName] = useState('');
   const [quantity, setQuantity] = useState('');
   const [time, setTime] = useState('');
   const [reminder, setReminder] = useState('');
 
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+    const useGoBack = () => {
+      navigation.goBack();
+    };
   const handleSave = () => {
     console.log('Nút Lưu đã được nhấn');
   };
 
   return (
     <View style={styles.container}>
+         <View style={styles.viewGoBack}>
+        <TouchableOpacity onPress={useGoBack}>
+          <Image source={require('../../../../../image/back-icon.png')} />
+        </TouchableOpacity>
+        <Text style={styles.textFill}>Add-Your-Medicines</Text>
+      </View>
       <View style={styles.viewForm}>
-        <View>
-          <Text style={styles.textTitle}>Medicine name </Text>
+        <View style={styles.viewIteminput}> 
+          <Text style={styles.textLabel}>Medicine name </Text>
           <View style={styles.viewInput}>
             <TextInput
               placeholderTextColor="#9CA3AF"
@@ -77,19 +89,37 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  viewGoBack:{
+    flexDirection:'row',
+    gap:20,
+    paddingTop:20,
+    paddingLeft:20,
+  },
+  textFill:{
+    fontSize:20,
+    fontWeight:'500',
+    color:'#374151',
+  },
   viewForm: {
-    paddingTop: 20,
+    paddingTop: 40,
     paddingLeft: 25,
     paddingRight: 25,
+    flexDirection:'column',
+    gap:20,
+  },
+  viewIteminput:{
+    flexDirection:'column',
+    gap:10,
   },
   textTitle: {
     color: '#000',
-    fontSize: 16,
+    fontSize: 20,
     marginBottom: 5, 
   },
   textLabel: {
     color: '#000',
-    fontSize: 16,
+    fontSize: 15,
+    fontWeight:'bold',
     marginBottom: 5,
   },
   viewInput: {
@@ -106,7 +136,7 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   viewButton: {
-    paddingTop: 8,
+    paddingTop: 30,
   },
   buttonSave: {
     backgroundColor: '#87CEFA',
