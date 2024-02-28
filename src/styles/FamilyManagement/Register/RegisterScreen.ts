@@ -3,6 +3,7 @@ const register = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    height:950,
   },
   inner: {
     justifyContent: 'space-around',

@@ -6,6 +6,7 @@ export type RootStackParamList = {
     RegisterAsManagerScreen:undefined;
     FillYourProfile: undefined;
     LoginScreen:undefined;
+    LoginWithRoleScreen:undefined;
     ForgetPasswordScreen:undefined;
     SentVerifyCodeForgetpassword:undefined;
     ResetPasswordScreen:undefined;

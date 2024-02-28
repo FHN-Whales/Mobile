@@ -1,108 +1,11 @@
-import React, {useEffect,useRef, useState} from 'react';
-import {KeyboardAvoidingView,Platform,TouchableWithoutFeedback, Keyboard,View,Image,Text,TextInput,TouchableOpacity, Modal, ActivityIndicator} from 'react-native';
+import React from 'react';
+import {KeyboardAvoidingView,Platform,TouchableWithoutFeedback,View,Image,Text,TextInput,TouchableOpacity,Modal,ActivityIndicator} from 'react-native';
 import register from '../../../styles/FamilyManagement/Register/RegisterScreen';
-import {useNavigation, NavigationProp} from '@react-navigation/native';
-import {RootStackParamList} from '../../../type/type';
 import {Formik} from 'formik';
 import SignupSchema from '../../../hook/FamilyManagement/Register/useValidateRegister';
-import { ApiSignUp } from '../../../api/useAuthApi';
-import axios from 'axios';
-import {useMutation} from '@tanstack/react-query';
-interface Register {
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
+import useRegister from '../../../hook/FamilyManagement/Register/useRegister';
 const RegisterScreen = () => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const [modalVisible, setModalVisible] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isLoading, setIsLoading] = useState(false);
-  const useNavigationLoginScreen = () => {
-    navigation.navigate('LoginScreen');
-  };
-  const inputRef: any = useRef();
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
-  const [isConfirmPasswordFocused, setIsConfirmPasswordFocused] = useState(false);
-  const [isEmailFocused, setIsEmailFocused] = useState(false);
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-  const toggleShowConfirmPassword = () => {
-    setShowConfirmPassword(!showConfirmPassword);
-  };
-  const handlePasswordFocus = () => {
-    setIsPasswordFocused(true);
-    setIsConfirmPasswordFocused(false);
-    setIsEmailFocused(false);
-  };
-  const handleConfirmPasswordFocus = () => {
-    setIsPasswordFocused(false);
-    setIsConfirmPasswordFocused(true);
-    setIsEmailFocused(false);
-  };
-  const handleEmailFocus = () => {
-    setIsEmailFocused(true);
-    setIsPasswordFocused(false);
-    setIsConfirmPasswordFocused(false);
-  };
-  const dismissKeyboard = () => {
-    Keyboard.dismiss();
-    setIsEmailFocused(false);
-    setIsPasswordFocused(false);
-    setIsConfirmPasswordFocused(false);
-  };
-  const dismissKeyboardAndHideButton = () => {
-    dismissKeyboard();
-    setIsEmailFocused(false);
-    setIsPasswordFocused(false);
-    setIsConfirmPasswordFocused(false);
-  };
-  const mutationRegisterUser = useMutation({
-    mutationFn: async (data: Register) => {
-      try {
-        const response = await axios.post(ApiSignUp, data);
-        console.log(data);
-        setIsLoading(true);
-        setTimeout(async () => {
-          if (response.status === 200) {
-            const { completed, message, userId } = response.data;
-            console.log('data', data);
-            if (completed && userId) {
-              setModalVisible(true);
-              navigation.navigate('VerifyCodeScreen', { userId: userId, email: data.email });
-              console.log('Email verification sent successfully.');
-              console.log(userId);
-            } else {
-              console.log('Registration failed:', message);
-            }
-            setIsLoading(false);
-          } else {
-            console.log('Response:', response);
-            console.log('Error:', 'Unexpected response status');
-          }
-        }, 2000);
-      } catch (error) {
-        console.log('Error sending the request:', error.message);
-        if (error.response && error.response.status === 409) {
-          console.log('Email is already registered');
-        } else {
-          console.log('Unexpected error:', error);
-        }
-      }
-    },
-  });
-  
-  const { data } = mutationRegisterUser; // Define data at a higher scope
-  useEffect(() => {
-    if (modalVisible && data) { // Check if data exists before using it
-      setTimeout(() => {
-        setModalVisible(false);
-      }, 2000);
-    }
-  }, [modalVisible, data]);
+  const {modalVisible,setModalVisible,useNavigationLoginScreen,inputRef,showPassword,showConfirmPassword,isPasswordFocused,isConfirmPasswordFocused,isEmailFocused,mutationRegisterUser,toggleShowPassword,toggleShowConfirmPassword,handleConfirmPasswordFocus,handleEmailFocus,dismissKeyboard,dismissKeyboardAndHideButton,handlePasswordFocus} = useRegister();
   return (
     <Formik
       initialValues={{
@@ -111,8 +14,7 @@ const RegisterScreen = () => {
         confirmPassword: '',
       }}
       validationSchema={SignupSchema}
-      onSubmit={(values) => mutationRegisterUser.mutate(values)}
-      >
+      onSubmit={values => mutationRegisterUser.mutate(values)}>
       {({errors, touched, handleChange, values, handleSubmit}) => (
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -183,9 +85,7 @@ const RegisterScreen = () => {
                       )}
                     </View>
                     {errors.password && touched.password ? (
-                      <Text style={register.textError}>
-                        * {errors.password}
-                      </Text>
+                      <Text style={register.textError}> * {errors.password}</Text>
                     ) : null}
                     <View style={register.viewInput}>
                       <View style={register.image}>
@@ -219,12 +119,10 @@ const RegisterScreen = () => {
                       )}
                     </View>
                     {errors.confirmPassword && touched.confirmPassword ? (
-                      <Text style={register.textError} >
-                        * {errors.confirmPassword}
-                      </Text>
+                      <Text style={register.textError}> * {errors.confirmPassword}</Text>
                     ) : null}
                     <View style={register.viewbutton}>
-                    <Modal
+                      <Modal
                         animationType="slide"
                         transparent={true}
                         visible={modalVisible}
@@ -234,15 +132,10 @@ const RegisterScreen = () => {
                         <View style={register.centeredView}>
                           <View style={register.modalView}>
                             <View>
-                              <Image
-                                source={require('../../../image/succesfully.png')}
-                              />
+                              <Image source={require('../../../image/succesfully.png')}/>
                             </View>
                             <Text style={register.textCon}>Congratulations!</Text>
-                            <Text style={register.textYour}>
-                              Your account is ready to use. You will be
-                              redirected to Verify in a few seconds...
-                            </Text>
+                            <Text style={register.textYour}>Your account is ready to use. You will be redirected to Verify in a few seconds...</Text>
                             <View style={register.viewloadding}>
                               <ActivityIndicator size="large" color="#87CEFA" />
                             </View>
@@ -251,11 +144,10 @@ const RegisterScreen = () => {
                       </Modal>
                       <TouchableOpacity
                         style={register.buttonCreate}
-                        onPress={handleSubmit}>
+                        onPress={() => handleSubmit()}>
                         <Text style={register.textCreate}>Create Account</Text>
                       </TouchableOpacity>
                     </View>
-                    {/* {errors && <Text style={{ color:'red' }}>{error}</Text>} */}
                     <View style={register.viewor}>
                       <View style={register.viewborder} />
                       <Text style={register.textor}>or</Text>
@@ -264,30 +156,20 @@ const RegisterScreen = () => {
                     <View style={register.viewContinue}>
                       <TouchableOpacity style={register.Google}>
                         <View style={register.viewGoogle}>
-                          <Image
-                            source={require('../../../image/Google-Original.png')}
-                          />
+                          <Image source={require('../../../image/Google-Original.png')}/>
                           <Text style={register.textGoogle}>Google</Text>
                         </View>
                       </TouchableOpacity>
                       <TouchableOpacity style={register.Google}>
                         <View style={register.viewGoogle}>
-                          <Image
-                            source={require('../../../image/Facebook.png')}
-                          />
+                          <Image source={require('../../../image/Facebook.png')}/>
                           <Text style={register.textGoogle}>Facebook</Text>
                         </View>
                       </TouchableOpacity>
                     </View>
                     <View style={register.viewNavigationSignIn}>
-                      <Text style={register.textviewNavigationSignIn}>
-                        Do you have an account ?
-                      </Text>
-                      <Text
-                        style={register.textSignIn}
-                        onPress={useNavigationLoginScreen}>
-                        Sign In
-                      </Text>
+                      <Text style={register.textviewNavigationSignIn}>Do you have an account ?</Text>
+                      <Text style={register.textSignIn}onPress={useNavigationLoginScreen}>Sign In</Text>
                     </View>
                   </View>
                 </View>
