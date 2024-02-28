@@ -182,6 +182,7 @@ const login = StyleSheet.create({
     justifyContent: 'center',
     alignItems:'center',
     gap:5,
+    paddingBottom:20,
   },
   textviewNavigationSignIn:{
     color:'#6B7280',

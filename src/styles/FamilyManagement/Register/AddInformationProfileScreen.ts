@@ -59,8 +59,8 @@ const AddInformationProfile = StyleSheet.create({
   },
   viewbutton: {
     paddingTop: 8,
-    paddingLeft:30,
-    paddingRight:30,
+    // paddingLeft:30,
+    // paddingRight:30,
   },
   buttonCreate: {
     backgroundColor: '#87CEFA',

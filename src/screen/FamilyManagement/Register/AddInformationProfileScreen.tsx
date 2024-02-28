@@ -1,59 +1,9 @@
-import React, { useState } from 'react';
-import {KeyboardAvoidingView,Platform,TouchableWithoutFeedback,Keyboard,View,
-  Image,
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
-// import { Dropdown } from 'react-native-element-dropdown';
-import { useNavigation, NavigationProp, useRoute } from '@react-navigation/native';
-import { RootStackParamList } from '../../../type/type';
+import React from 'react';
+import {KeyboardAvoidingView,Platform,TouchableWithoutFeedback,Keyboard,View,Image,Text, TextInput, TouchableOpacity} from 'react-native';
 import AddInformationProfile from '../../../styles/FamilyManagement/Register/AddInformationProfileScreen';
-import axios from 'axios';
-import { ApiGetNewUser } from '../../../api/useApiGetNewUser';
-// interface DataItem {
-//   label: string ;
-//   value: number ;
-//   id:number;
-// }
+import useAddInformationProfile from '../../../hook/FamilyManagement/Register/useAddInformationProfile';
 const AddInformationProfileScreen: React.FC = () => {
-  const route = useRoute();
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const { userId, email, password, role } = route.params as { email:string, password: string; role: string };
-
-  const [username, setUsername] = useState<string>('');
-  const [gender, setGender] = useState<string>('');
-  const [dateOfBirth, setDateOfBirth] = useState<string>('');
-
-  // const handleDropdownChange = (item: DataItem) => {
-  //   setGender(item.label);
-  // };
-  const handleSubmit = () => {
-    axios
-      .post(ApiGetNewUser, {
-      userId,
-      email,
-      password,
-      role,
-      username,
-      gender,
-      dateOfBirth,
-      })
-      .then(response => {
-        console.log(response.data);
-        if (response.data.completed) {
-          navigation.navigate('LoginScreen');
-        } else {
-          console.log('Verification Failed', response.data.message);
-        }
-      })
-      .catch(error => {
-        console.error('Verification failed:', error);
-      });
-  };
-  const useGoBack = () => {
-    navigation.goBack();
-  };
+  const { username,setUsername,gender,setGender,dateOfBirth,setDateOfBirth,handleSubmit,useGoBack} = useAddInformationProfile();
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -101,19 +51,9 @@ const AddInformationProfileScreen: React.FC = () => {
                   />
                 </View>
                 <View style={AddInformationProfile.viewInput}>
-                  {/* <Dropdown
-                    style={AddInformationProfile.dropdown}
-                    placeholderStyle={AddInformationProfile.placeholderStyle}
-                    selectedTextStyle={AddInformationProfile.selectedTextStyle}
-                    itemTextStyle={AddInformationProfile.itemTextStyle}
-                    data={data}
-                    maxHeight={300}
-                    labelField="label"
-                    valueField="value"
-                    value={gender}
-                    placeholder="Gender"
-                    onChange={handleDropdownChange}
-                  /> */}
+                <View style={AddInformationProfile.image}>
+                    <Image source={require('../../../image/user.png')} />
+                  </View>
                     <TextInput
                     placeholderTextColor="#9CA3AF"
                     placeholder="Gender"
@@ -135,5 +75,4 @@ const AddInformationProfileScreen: React.FC = () => {
     </KeyboardAvoidingView>
   );
 };
-
 export default AddInformationProfileScreen;

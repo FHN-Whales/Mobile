@@ -1,33 +1,28 @@
 import React from 'react';
-import { KeyboardAvoidingView, Platform, TouchableWithoutFeedback,  View, Image, Text, TextInput, TouchableOpacity } from 'react-native';
+import { KeyboardAvoidingView, Platform, TouchableWithoutFeedback, View, Image, Text, TextInput, TouchableOpacity, Modal, ActivityIndicator } from 'react-native';
 import login from '../../../styles/FamilyManagement/Login/LoginScreen';
 import { Formik } from 'formik';
-import SigninSchema from '../../../hook/FamilyManagement/Login/useValidateLogin';
-import useSignInWithFamily from '../../../hook/FamilyManagement/Login/useLoginFamily';
-const LoginScreen = () => {
-  const  { useNavigationRegisterScreen,useNavigationForgetPasswordScreen,inputRef,showPassword,isPasswordFocused,isEmailFocused,toggleShowPassword,handlePasswordFocus,handleEmailFocus,dismissKeyboard,dismissKeyboardAndHideButton,mutationLoginFamily} = useSignInWithFamily();
+import SigninWithRoleSchema from '../../../hook/FamilyManagement/Login/useValidateSignInWithRole';
+import useLoginWithRole from '../../../hook/FamilyManagement/Login/useLoginWithRole';
+const LoginWithRoleScreen = ()=> {
+  const {modalVisible,setModalVisible,inputRef,showPassword,isPasswordFocused,isEmailFocused,toggleShowPassword,handlePasswordFocus,handleEmailFocus,dismissKeyboard,dismissKeyboardAndHideButton,mutationLoginWithRole} = useLoginWithRole();
   return (
     <Formik
       initialValues={{
-        email: '',
+        role: '',
         password: '',
       }}
-      validationSchema={SigninSchema}
-      onSubmit={values => {
-        mutationLoginFamily.mutate(values);
-      }}>
+      validationSchema={SigninWithRoleSchema}
+      onSubmit={values => mutationLoginWithRole.mutate(values)}>
       {({ errors, touched, handleChange, values, handleSubmit }) => (
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={login.container}>
-          <TouchableWithoutFeedback
-           onPress={dismissKeyboard}
-          >
+          <TouchableWithoutFeedback onPress={dismissKeyboard}>
             <TouchableOpacity
               activeOpacity={1}
               style={login.inner}
-              onPress={dismissKeyboardAndHideButton}
-              >
+              onPress={dismissKeyboardAndHideButton}>
               <View style={login.viewCreate}>
                 <View style={login.viewLogo}>
                   <Image source={require('../../../image/logo.png')} />
@@ -44,18 +39,18 @@ const LoginScreen = () => {
                       <TextInput
                         keyboardType="email-address"
                         placeholderTextColor="#9CA3AF"
-                        placeholder="Email"
+                        placeholder="Role User"
                         style={login.textinput}
                         onFocus={handleEmailFocus}
                         onBlur={handleEmailFocus}
                         onSubmitEditing={() => inputRef.current?.focus()}
                         enterKeyHint={'next'}
-                        onChangeText={handleChange('email')}
-                        value={values.email}
+                        onChangeText={handleChange('role')}
+                        value={values.role}
                       />
                     </View>
-                    {errors.email && touched.email ? (
-                      <Text style={login.textError}>* {errors.email}</Text>
+                    {errors.role && touched.role ? (
+                      <Text style={login.textError}>* {errors.role}</Text>
                     ) : null}
                     <View style={login.viewInput}>
                       <View style={login.image}>
@@ -92,49 +87,33 @@ const LoginScreen = () => {
                       <Text style={login.textError}>* {errors.password}</Text>
                     ) : null}
                     <View style={login.viewbutton}>
+                      <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={modalVisible}
+                        onRequestClose={() => {
+                          setModalVisible(!modalVisible);
+                        }}>
+                        <View style={login.centeredView}>
+                          <View style={login.modalView}>
+                            <View>
+                              <Image
+                                source={require('../../../image/succesfully.png')}
+                              />
+                            </View>
+                            <Text style={login.textCon}>Congratulations!</Text>
+                            <Text style={login.textYour}>Your account is ready to use. You will be redirected to the Home Page in a few seconds...</Text>
+                            <View style={login.viewloadding}>
+                              <ActivityIndicator size="large" color="#87CEFA" />
+                            </View>
+                          </View>
+                        </View>
+                      </Modal>
                       <TouchableOpacity
                         style={login.buttonCreate}
                         onPress={() => handleSubmit()}>
                         <Text style={login.textCreate}>Sign In</Text>
                       </TouchableOpacity>
-                    </View>
-                    <View style={login.viewor}>
-                      <View style={login.viewborder} />
-                      <Text style={login.textor}>or</Text>
-                      <View style={login.viewborder} />
-                    </View>
-                    <View style={login.viewContinue}>
-                      <TouchableOpacity style={login.Google}>
-                        <View style={login.viewGoogle}>
-                          <Image
-                            source={require('../../../image/Google-Original.png')}
-                          />
-                          <Text style={login.textGoogle}>Google</Text>
-                        </View>
-                      </TouchableOpacity>
-                      <TouchableOpacity style={login.Google}>
-                        <View style={login.viewGoogle}>
-                          <Image
-                            source={require('../../../image/Facebook.png')}
-                          />
-                          <Text style={login.textGoogle}>Facebook</Text>
-                        </View>
-                      </TouchableOpacity>
-                    </View>
-                    <Text
-                      style={login.textForgetPassword}
-                      onPress={useNavigationForgetPasswordScreen}>
-                      Forgot password?
-                    </Text>
-                    <View style={login.viewNavigationSignIn}>
-                      <Text style={login.textviewNavigationSignIn}>
-                        Don’t have an account yet?
-                      </Text>
-                      <Text
-                        style={login.textSignIn}
-                        onPress={useNavigationRegisterScreen}>
-                        Sign up
-                      </Text>
                     </View>
                   </View>
                 </View>
@@ -146,4 +125,4 @@ const LoginScreen = () => {
     </Formik>
   );
 };
-export default LoginScreen;
+export default LoginWithRoleScreen;

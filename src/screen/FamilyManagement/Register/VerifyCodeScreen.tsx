@@ -1,48 +1,11 @@
-import React, {useRef, useState} from 'react';
-import { KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, View, Image,Text, TextInput, TouchableOpacity, Alert,} from 'react-native';
+import React from 'react';
+import { KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, View, Image,Text, TextInput, TouchableOpacity} from 'react-native';
 import verifycode from '../../../styles/FamilyManagement/ForgetPassword/VerifyCodeScreen';
-import {useNavigation, NavigationProp} from '@react-navigation/native';
-import {RootStackParamList} from '../../../type/type';
-import axios from 'axios';
-import {ApiVerifyCode} from '../../../api/useApiVerifyCode';
-const VerifyCodeScreen = ({route}) => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const [code, setCode] = useState(['', '', '', '', '', '']);
-  const otpInputs = useRef<any[]>([]);
-  const { userId , email} = route.params;
-  console.log(userId);
-  const handleVerification = () => {
-    const enteredOTP = code.join('');
-    axios
-      .post(ApiVerifyCode, {
-        userId,
-        code: enteredOTP,
-      })
-      .then(response => {
-        console.log('Verification successful:', response.data);
-        if (response.data.completed) {
-          navigation.navigate('RegisterAsManagerScreen' ,{ userId: userId ,email: email });
-        } else {
-          console.log('Verification Failed', response.data.message);
-        }
-      })
-      .catch(error => {
-        console.error('Verification failed:', error);
-        Alert.alert(
-          'Verification Failed',
-          'Invalid OTP. Please enter the correct code.',
-        );
-      });
-  };
-  const focusNextInput = (index: number) => {
-    if (otpInputs.current[index + 1]) {
-      otpInputs.current[index + 1].focus();
-    }
-  };
-
-  const useGoBack = () => {
-    navigation.navigate('RegisterScreen');
-  };
+import useVerifyCode from '../../../hook/FamilyManagement/Register/useVerifyCode';
+import { useRoute } from '@react-navigation/native';
+const VerifyCodeScreen = () => {
+  const route = useRoute();
+  const { code, setCode, otpInputs, email, handleVerification, focusNextInput, useGoBack } = useVerifyCode(route);
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -93,9 +56,7 @@ const VerifyCodeScreen = ({route}) => {
                   </TouchableOpacity>
                 </View>
                 <View style={verifycode.viewNavigationSignIn}>
-                  <Text style={verifycode.textviewNavigationSignIn}>
-                    Didn’t get the Code?
-                  </Text>
+                  <Text style={verifycode.textviewNavigationSignIn}>Didn’t get the Code?</Text>
                   <Text style={verifycode.textSignIn}>Resend</Text>
                 </View>
               </View>
@@ -106,5 +67,4 @@ const VerifyCodeScreen = ({route}) => {
     </KeyboardAvoidingView>
   );
 };
-
 export default VerifyCodeScreen;
