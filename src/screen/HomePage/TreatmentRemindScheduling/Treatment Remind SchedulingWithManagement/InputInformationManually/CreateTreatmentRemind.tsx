@@ -1,15 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { TouchableOpacity, StyleSheet, Text, TextInput, View, Image, Button } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, TextInput, View, Image } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../../type/type';
 import renderviewgoback from '../../../../../styles/HomePage/Home/ManagementFamily/AddMember/RenderViewGoBack';
+import DatePicker from 'react-native-datepicker';
 
 const CreateTreatmentRemindScreen = () => {
   const [medicineName, setMedicineName] = useState('');
   const [quantity, setQuantity] = useState('');
-  const [time, setTime] = useState('');
+  const [time, setTime] = useState(new Date().toLocaleTimeString()); // Đặt giá trị mặc định là thời gian hiện tại
   const [reminder, setReminder] = useState('');
-
+  const [date, setDate] = useState(new Date());
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const inputRef = useRef<TextInput>(null);
   const [showAdditionalInputs, setShowAdditionalInputs] = useState(false);
@@ -39,40 +40,37 @@ const CreateTreatmentRemindScreen = () => {
         <Text style={styles.textFill}>Add-Your-Medicines</Text>
       </View>
       <View style={styles.viewForm}>
-        {/* <View style={styles.viewIteminput}>
-          <Text style={styles.textLabel}>Medicine name</Text>
-          <View style={styles.viewInput}>
-            <TextInput
-              ref={inputRef}
-              placeholderTextColor="#9CA3AF"
-              placeholder=""
-              style={styles.textInput}
-              value={medicineName}
-              onChangeText={setMedicineName}
-            />
-          </View>
-        </View> */}
         <View style={styles.viewIteminput}>
-          <Button style={styles.buttadd}
-            title="Add Medicines"
-            onPress={() => setShowAdditionalInputs(true)}
+          <Text style={styles.textLabel}>Ngày bắt đầu</Text>
+          <DatePicker
+            style={{width: 200}}
+            date={date}
+            mode="date"
+            placeholder="Chọn ngày"
+            format="YYYY-MM-DD"
+            minDate="2020-01-01"
+            maxDate="2025-12-31"
+            confirmBtnText="Xác nhận"
+            cancelBtnText="Hủy"
+            customStyles={{
+              dateIcon: {
+                position: 'absolute',
+                left: 0,
+                top: 4,
+                marginLeft: 0,
+              },
+              dateInput: {
+                marginLeft: 36,
+              },
+              dateText: {
+                fontSize: 16,
+                color: '#000',
+              }
+            }}
+            onDateChange={(selectedDate) => setDate(selectedDate)}
           />
-          <Button
-            title="Hide Medicines"
-            onPress={() => setShowAdditionalInputs(false)}
-          />
-          <Text style={styles.textLabel}>Medicine name</Text>
-          <View style={styles.viewInput}>
-            <TextInput
-              ref={inputRef}
-              placeholderTextColor="#9CA3AF"
-              placeholder=""
-              style={styles.textInput}
-              value={medicineName}
-              onChangeText={setMedicineName}
-            />
-          </View>
         </View>
+      
 
         {showAdditionalInputs && (
           <>
@@ -102,15 +100,6 @@ const CreateTreatmentRemindScreen = () => {
             </View>
           </>
         )}
-        {/* <Button
-  title="Add Medicines"
-  onPress={() => setShowAdditionalInputs(true)}
-/>
-<Button
-  title="Hide Medicines"
-  onPress={() => setShowAdditionalInputs(false)}
-/> */}
-
 
         <View>
           <Text style={styles.textLabel}>Quantity of medicine</Text>
@@ -131,7 +120,7 @@ const CreateTreatmentRemindScreen = () => {
               placeholderTextColor="#9CA3AF"
               placeholder=""
               style={styles.textInput}
-              value={time}
+              value={time} // Truyền giá trị thời gian hiện tại vào ô input
               onChangeText={setTime}
             />
           </View>
@@ -159,73 +148,55 @@ const CreateTreatmentRemindScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  buttadd: {
-
-  },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff',
   },
   viewGoBack: {
     flexDirection: 'row',
-    gap: 20,
-    paddingTop: 20,
-    paddingLeft: 20,
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
   },
   textFill: {
     fontSize: 20,
-    fontWeight: '500',
-    color: '#374151',
+    fontWeight: 'bold',
+    marginLeft: 10,
   },
   viewForm: {
-    paddingTop: 40,
-    paddingLeft: 25,
-    paddingRight: 25,
-    flexDirection: 'column',
-    gap: 20,
+    paddingHorizontal: 20,
+    marginTop: 20,
   },
   viewIteminput: {
-    flexDirection: 'column',
-    gap: 10,
-  },
-  textTitle: {
-    color: '#000',
-    fontSize: 20,
-    marginBottom: 5,
+    marginBottom: 15,
   },
   textLabel: {
-    color: '#000',
-    fontSize: 15,
-    fontWeight: 'bold',
+    fontSize: 16,
     marginBottom: 5,
   },
   viewInput: {
-    flexDirection: 'row',
     borderWidth: 1,
-    borderColor: '#D1D5DB',
-    borderRadius: 10,
-    marginBottom: 5,
+    borderColor: '#9CA3AF',
+    borderRadius: 5,
   },
   textInput: {
-    fontWeight: 'bold',
-    flex: 1,
     paddingHorizontal: 10,
-    color: '#000',
+    color: '#000000',
   },
   viewButton: {
-    paddingTop: 30,
+    alignItems: 'center',
+    marginTop: 20,
   },
   buttonSave: {
-    backgroundColor: '#87CEFA',
-    paddingTop: 14, paddingBottom: 14,
-    borderRadius: 66,
-    alignItems: 'center',
+    backgroundColor: '#4CAF50',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
   },
   textCreate: {
-    color: '#fff',
+    color: '#ffffff',
     fontSize: 16,
     fontWeight: 'bold',
-    textAlign: 'center',
   },
 });
 
