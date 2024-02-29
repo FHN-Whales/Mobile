@@ -4,7 +4,13 @@ import { RootStackParamList } from '../../../type/type';
 const useRegisterWithManagement = (route: RouteProp<ParamListBase>) =>{
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const useNavigationAddInformationProfileScreen = () => {
-      navigation.navigate('FillYourProfile', {familyId: familyId,role: role,password: password,});
+       // Validation
+    if (!role || !password) {
+      setError('Please fill in all fields');
+      return;
+    }
+
+      navigation.navigate('FillYourProfile', {familyId: familyId,role: role,password: password});
       console.log(familyId);
       console.log(role);
       console.log(password);
@@ -15,6 +21,7 @@ const useRegisterWithManagement = (route: RouteProp<ParamListBase>) =>{
     const { familyId } = route.params as {familyId:string};
     const [role, setRule] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-    return {useNavigationAddInformationProfileScreen,useGoBack,familyId,role,setRule,password,setPassword};
+    const [error, setError] = useState<string>('');
+    return {useNavigationAddInformationProfileScreen,error,setError,useGoBack,familyId,role,setRule,password,setPassword};
 };
 export default  useRegisterWithManagement;

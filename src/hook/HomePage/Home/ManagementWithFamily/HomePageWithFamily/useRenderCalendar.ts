@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { LocaleConfig } from 'react-native-calendars';
-
 const useRenderCalendar = (): [string, React.Dispatch<React.SetStateAction<string>>, (day: { dateString: string }) => void] => {
   LocaleConfig.locales.fr = {
     monthNames: [

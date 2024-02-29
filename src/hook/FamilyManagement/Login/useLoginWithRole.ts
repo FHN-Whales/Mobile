@@ -5,6 +5,7 @@ import { RootStackParamList } from '../../../type/type';
 import axios from 'axios';
 import { useMutation } from '@tanstack/react-query';
 import { ApiSignInWithRole } from '../../../api/useApiSignInWithRole';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 interface LoginWithRole {
     role: string;
     password: string;
@@ -54,6 +55,10 @@ const useLoginWithRole = () =>{
           if (response.status === 200) {
             const { completed, message } = response.data;
             if (completed) {
+              await AsyncStorage.setItem('familyId', familyId);
+              // await AsyncStorage.setItem('userId', userId);
+              console.log(familyId);
+              // console.log(userId);
               setModalVisible(true);
               console.log('Đăng nhập thành công.');
             } else {

@@ -32,6 +32,7 @@ import CreateTreatmentRemindScreen from '../screen/HomePage/TreatmentRemindSched
 import LoginWithRoleScreen from '../screen/FamilyManagement/Login/LoginWithRoleScreen';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+import { useCheckAuth } from '../hook/FamilyManagement/CheckAuth/useCheckAuth';
 const Homestack = () => {
   return (
     <Tab.Navigator
@@ -86,10 +87,16 @@ const Homestack = () => {
 };
 const Navigate = () => {
   const queryClient = new QueryClient();
+  const authenticated = useCheckAuth();
   return (
     <QueryClientProvider client={queryClient}>
     <NavigationContainer  >
-      <Stack.Navigator>
+      <Stack.Navigator >
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="ScreenCheck"
+          component={authenticated === true ? Homestack : SplashScreen}
+        />
         <Stack.Screen
           options={{headerShown: false}}
           name="SplashScreen"

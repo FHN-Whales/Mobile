@@ -9,7 +9,7 @@ const HomePageWithManagement = () =>{
     const headerComponent = () => {
         return (
           <View style={homepagewithmanagement.container}>
-             {renderCalendar()}
+            {renderCalendar()}
             {renderListMemberWithManagement()}
             {renderButonCreate()}
           </View>
