@@ -68,7 +68,6 @@ const rendercalendar = StyleSheet.create({
         alignItems:'center',
         paddingTop:15,
         paddingBottom:15,
-       
     },
 });
 export default rendercalendar;

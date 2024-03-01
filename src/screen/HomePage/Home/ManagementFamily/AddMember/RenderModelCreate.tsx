@@ -5,7 +5,7 @@ import rendermodalcreate from '../../../../../styles/HomePage/Home/ManagementFam
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../../type/type';
 const renderModalCreate = () => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const [modalVisible, setModalVisible] = useState(false);
     const handleCreateMember = () => {
         setModalVisible(true);
