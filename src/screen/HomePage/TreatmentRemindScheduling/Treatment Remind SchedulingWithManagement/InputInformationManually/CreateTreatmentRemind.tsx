@@ -8,14 +8,12 @@ import DatePicker from 'react-native-datepicker';
 const CreateTreatmentRemindScreen = () => {
   const [medicineName, setMedicineName] = useState('');
   const [quantity, setQuantity] = useState('');
-  const [time, setTime] = useState(new Date().toLocaleTimeString()); // Đặt giá trị mặc định là thời gian hiện tại
+  const [time, setTime] = useState(new Date().toLocaleTimeString());
   const [reminder, setReminder] = useState('');
-  const [date, setDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(null); // Thay đổi giá trị mặc định của endDate thành null
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const inputRef = useRef<TextInput>(null);
-  const [showAdditionalInputs, setShowAdditionalInputs] = useState(false);
-  const [secondMedicineName, setSecondMedicineName] = useState('');
-  const [thirdMedicineName, setThirdMedicineName] = useState('');
 
   useEffect(() => {
     if (inputRef.current) {
@@ -41,92 +39,49 @@ const CreateTreatmentRemindScreen = () => {
       </View>
       <View style={styles.viewForm}>
         <View style={styles.viewIteminput}>
-          <Text style={styles.textLabel}>Ngày bắt đầu</Text>
-          <DatePicker
-            style={{width: 200}}
-            date={date}
-            mode="date"
-            placeholder="Chọn ngày"
-            format="YYYY-MM-DD"
-            minDate="2020-01-01"
-            maxDate="2025-12-31"
-            confirmBtnText="Xác nhận"
-            cancelBtnText="Hủy"
-            customStyles={{
-              dateIcon: {
-                position: 'absolute',
-                left: 0,
-                top: 4,
-                marginLeft: 0,
-              },
-              dateInput: {
-                marginLeft: 36,
-              },
-              dateText: {
-                fontSize: 16,
-                color: '#000',
-              }
-            }}
-            onDateChange={(selectedDate) => setDate(selectedDate)}
-          />
-        </View>
-      
-
-        {showAdditionalInputs && (
-          <>
-            <View style={styles.viewIteminput}>
-              <Text style={styles.textLabel}>Second Medicine name</Text>
-              <View style={styles.viewInput}>
-                <TextInput
-                  placeholderTextColor="#9CA3AF"
-                  placeholder=""
-                  style={styles.textInput}
-                  value={secondMedicineName}
-                  onChangeText={setSecondMedicineName}
-                />
-              </View>
-            </View>
-            <View style={styles.viewIteminput}>
-              <Text style={styles.textLabel}>Third Medicine name</Text>
-              <View style={styles.viewInput}>
-                <TextInput
-                  placeholderTextColor="#9CA3AF"
-                  placeholder=""
-                  style={styles.textInput}
-                  value={thirdMedicineName}
-                  onChangeText={setThirdMedicineName}
-                />
-              </View>
-            </View>
-          </>
-        )}
-
-        <View>
-          <Text style={styles.textLabel}>Quantity of medicine</Text>
-          <View style={styles.viewInput}>
+          <View>
+            <Text style={styles.textLabel}>Ngày bắt đầu</Text>
+            <DatePicker
+              style={{ width: 150 }}
+              date={startDate}
+              mode="date"
+              placeholder="Chọn ngày"
+              format="DD-MM-YYYY" // Đổi định dạng ngày tháng năm hiể
+              minDate="2020-01-01"
+              maxDate="2025-12-31"
+              confirmBtnText="Xác nhận"
+              cancelBtnText="Hủy"
+              customStyles={{
+                dateIcon: {
+                  position: 'absolute',
+                  left: 0,
+                  top: 4,
+                  marginLeft: 0,
+                },
+                dateInput: {
+                  marginLeft: 36,
+                },
+                dateText: {
+                  fontSize: 16,
+                  color: '#000',
+                }
+              }}
+              onDateChange={(selectedDate) => setStartDate(selectedDate)}
+            />
+          </View>
+          <View>
+            <Text style={styles.textLabel}>Ngày kết thúc</Text>
             <TextInput
-              placeholderTextColor="#9CA3AF"
-              placeholder=""
-              style={styles.textInput}
-              value={quantity}
-              onChangeText={setQuantity}
+              ref={inputRef}
+              style={styles.dateInput}
+              placeholder="DD-MM-YYYY"
+              value={endDate ? endDate.toLocaleDateString() : ''}
+              onChangeText={(text) => setEndDate(new Date(text))}
             />
           </View>
         </View>
-        <View>
-          <Text style={styles.textLabel}>Time to medicine</Text>
-          <View style={styles.viewInput}>
-            <TextInput
-              placeholderTextColor="#9CA3AF"
-              placeholder=""
-              style={styles.textInput}
-              value={time} // Truyền giá trị thời gian hiện tại vào ô input
-              onChangeText={setTime}
-            />
-          </View>
-        </View>
-        <View>
-          <Text style={styles.textLabel}>Reminder</Text>
+        {/* <View>
+          <Text style={styles.textLabel}>NotReminder</Text>
           <View style={styles.viewInput}>
             <TextInput
               placeholderTextColor="#9CA3AF"
@@ -136,7 +91,44 @@ const CreateTreatmentRemindScreen = () => {
               onChangeText={setReminder}
             />
           </View>
+        </View> */}
+        <View>
+          <Text style={styles.textLabel}>Số lần trong ngày</Text>
+          <View style={styles.viewInput}>
+            <TextInput
+              placeholderTextColor="#9CA3AF"
+              placeholder="Nhập số lần"
+              style={styles.textInput}
+              value={reminder}
+              onChangeText={setReminder}
+              keyboardType="numeric" // Đặt kiểu bàn phím thành numeric để chỉ cho phép nhập số
+            />
+          </View>
         </View>
+        <View>
+          <Text style={styles.textLabel}>Chọn thời gian</Text>
+          <View style={styles.viewTimeOptions}>
+            <TouchableOpacity
+              style={styles.timeOption}
+              onPress={() => setReminder('Sáng')}
+            >
+              <Text style={styles.timeOptionText}>Sáng</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.timeOption}
+              onPress={() => setReminder('Trưa')}
+            >
+              <Text style={styles.timeOptionText}>Trưa</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.timeOption}
+              onPress={() => setReminder('Chiều')}
+            >
+              <Text style={styles.timeOptionText}>Chiều</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
         <View style={styles.viewButton}>
           <TouchableOpacity style={styles.buttonSave} onPress={handleSave}>
             <Text style={styles.textCreate}>Save</Text>
@@ -169,29 +161,52 @@ const styles = StyleSheet.create({
   },
   viewIteminput: {
     marginBottom: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  viewButton: {
+    paddingTop: 30,
+  },
+  buttonSave: {
+    backgroundColor: '#87CEFA',
+    paddingTop: 14, paddingBottom: 14,
+    borderRadius: 66,
+    alignItems: 'center',
   },
   textLabel: {
-    fontSize: 16,
+    color: '#000',
+    fontSize: 15,
+    fontWeight: 'bold',
     marginBottom: 5,
   },
   viewInput: {
+    flexDirection: 'row',
+    borderWidth: 1,
+    borderColor: '#D1D5DB',
+    borderRadius: 10,
+    marginBottom: 5,
+  },
+  dateInput: {
     borderWidth: 1,
     borderColor: '#9CA3AF',
     borderRadius: 5,
-  },
-  textInput: {
     paddingHorizontal: 10,
-    color: '#000000',
+    fontSize: 16,
+    color: '#000',
   },
-  viewButton: {
-    alignItems: 'center',
-    marginTop: 20,
+  viewTimeOptions: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
-  buttonSave: {
+  timeOption: {
     backgroundColor: '#4CAF50',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    padding: 10,
     borderRadius: 5,
+  },
+  timeOptionText: {
+    color: '#ffffff',
+    fontSize: 16,
   },
   textCreate: {
     color: '#ffffff',
