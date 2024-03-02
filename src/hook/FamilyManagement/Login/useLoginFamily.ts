@@ -52,7 +52,7 @@ const useSignInWithFamily = () =>{
             if (response.status === 200) {
               const { completed, message, familyId } = response.data;
               console.log('data', data);
-              if (completed && familyId) {
+              if (completed && familyId ) {
                 // setModalVisible(true);
                 navigation.navigate('LoginWithRoleScreen', { familyId: familyId });
                 console.log('Login successfully.');

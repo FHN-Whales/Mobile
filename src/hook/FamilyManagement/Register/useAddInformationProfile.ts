@@ -6,7 +6,7 @@ import { ApiGetNewUser } from '../../../api/useApiGetNewUser';
 const useAddInformationProfile = () =>{
   const route = useRoute();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const {  familyId, email, password, role } = route.params as {  familyId: string; email: string; password: string; role: string };
+  const { familyId, email, password, role } = route.params as {  familyId: string; email: string; password: string; role: string };
   const [username, setUsername] = useState<string>('');
   const [gender, setGender] = useState<string>('');
   const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null);

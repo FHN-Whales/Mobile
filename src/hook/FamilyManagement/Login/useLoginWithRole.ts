@@ -53,19 +53,19 @@ const useLoginWithRole = () =>{
           console.log(requestData);
           setIsLoading(true);
           if (response.status === 200) {
-            const { completed, message } = response.data;
-            if (completed) {
-              await AsyncStorage.setItem('familyId', familyId);
-              // await AsyncStorage.setItem('userId', userId);
-              console.log(familyId);
-              // console.log(userId);
+            const { completed, message , userId } = response.data;
+            console.log(completed);
+            console.log(data);
+            if (completed && userId) {
+              await AsyncStorage.setItem('userId', userId);
+              console.log(message);
+              console.log(userId);
               setModalVisible(true);
               console.log('Đăng nhập thành công.');
             } else {
               console.log('Đăng nhập thất bại:', message);
             }
           } else {
-            console.log('Phản hồi:', response);
             console.log('Lỗi:', 'Phản hồi không mong đợi');
           }
           setIsLoading(false);

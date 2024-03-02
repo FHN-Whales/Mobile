@@ -6,7 +6,7 @@ export const useCheckAuth = () => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const familyId = await AsyncStorage.getItem('familyId');
+        const familyId = await AsyncStorage.getItem('userId');
         if (familyId  !== null) {
           setAuthenticated(true);
         } else {
