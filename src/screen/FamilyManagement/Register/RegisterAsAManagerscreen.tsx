@@ -5,7 +5,7 @@ import { useRoute } from '@react-navigation/native';
 import useRegisterWithManagement from '../../../hook/FamilyManagement/Register/useRegisterWithManagement';
 const RegisterAsManagerScreen = () => {
   const route = useRoute();
-  const  {useNavigationAddInformationProfileScreen,useGoBack,role,setRule,password,setPassword} = useRegisterWithManagement(route);
+  const   {useNavigationAddInformationProfileScreen,error,useGoBack,role,setRule,password,setPassword} = useRegisterWithManagement(route);
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -55,6 +55,7 @@ const RegisterAsManagerScreen = () => {
                     secureTextEntry
                   />
                 </View>
+                {error ? <Text>{error}</Text> : null}
                 <View style={registerasmanager.viewbutton}>
                   <TouchableOpacity style={registerasmanager.buttonNext} onPress={useNavigationAddInformationProfileScreen}>
                     <Text style={registerasmanager.textNext}>Next</Text>

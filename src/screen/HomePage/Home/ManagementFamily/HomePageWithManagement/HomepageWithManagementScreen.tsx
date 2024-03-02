@@ -9,7 +9,7 @@ const HomePageWithManagement = () =>{
     const headerComponent = () => {
         return (
           <View style={homepagewithmanagement.container}>
-             {renderCalendar()}
+            {renderCalendar()}
             {renderListMemberWithManagement()}
             {renderButonCreate()}
           </View>
@@ -19,8 +19,8 @@ const HomePageWithManagement = () =>{
         <View style={homepagewithmanagement.container}>
         {renderHeader()}
         <FlatList
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
           ListEmptyComponent={headerComponent}
           data={[]}
           // eslint-disable-next-line @typescript-eslint/no-unused-vars

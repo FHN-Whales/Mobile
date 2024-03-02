@@ -28,10 +28,11 @@ import SentVerifyCodeForgetpassword from '../screen/FamilyManagement/ForgetPassw
 import VerifyCodeScreen from '../screen/FamilyManagement/Register/VerifyCodeScreen';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import ScanScreen from '../screen/HomePage/TreatmentRemindScheduling/Treatment Remind SchedulingWithManagement/Scan/ScanwithManagement';
-import CreateTreatmentRemindScreen from '../screen/HomePage/TreatmentRemindScheduling/Treatment Remind SchedulingWithManagement/InputInformationManually/CreateTreatmentRemind';
+import CreateTreatmentRemindScreen from '../screen/HomePage/TreatmentRemindScheduling/Treatment Remind SchedulingWithManagement/InputInformationManually/AddTreatmentReminder/CreateTreatmentRemind';
 import LoginWithRoleScreen from '../screen/FamilyManagement/Login/LoginWithRoleScreen';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+import { useCheckAuth } from '../hook/FamilyManagement/CheckAuth/useCheckAuth';
 const Homestack = () => {
   return (
     <Tab.Navigator
@@ -86,10 +87,16 @@ const Homestack = () => {
 };
 const Navigate = () => {
   const queryClient = new QueryClient();
+  const authenticated = useCheckAuth();
   return (
     <QueryClientProvider client={queryClient}>
-    <NavigationContainer >
-      <Stack.Navigator initialRouteName="HomeScreen">
+    <NavigationContainer  >
+      <Stack.Navigator >
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="ScreenCheck"
+          component={authenticated === true ? Homestack : SplashScreen}
+        />
         <Stack.Screen
           options={{headerShown: false}}
           name="SplashScreen"

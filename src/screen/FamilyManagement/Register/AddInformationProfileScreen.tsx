@@ -1,14 +1,14 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {KeyboardAvoidingView,Platform,TouchableWithoutFeedback,Keyboard,View,Image,Text, TextInput, TouchableOpacity} from 'react-native';
+import { KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, View, Image, Text, TextInput, TouchableOpacity } from 'react-native';
 import AddInformationProfile from '../../../styles/FamilyManagement/Register/AddInformationProfileScreen';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import useAddInformationProfile from '../../../hook/FamilyManagement/Register/useAddInformationProfile';
 const AddInformationProfileScreen: React.FC = () => {
-  const { username,setUsername,gender,setGender,dateOfBirth,setDateOfBirth,handleSubmit,useGoBack} = useAddInformationProfile();
+  const {error, username,open,setUsername, setOpen,gender,setGender,dateOfBirth,setDateOfBirth,handleSubmit,useGoBack} = useAddInformationProfile();
+
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={AddInformationProfile.container}
-    >
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={AddInformationProfile.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={AddInformationProfile.inner}>
           <View>
@@ -26,6 +26,7 @@ const AddInformationProfileScreen: React.FC = () => {
             </View>
             <View>
               <View style={AddInformationProfile.viewForm}>
+                {error ? <Text>{error}</Text> : null}
                 <View style={AddInformationProfile.viewInput}>
                   <View style={AddInformationProfile.image}>
                     <Image source={require('../../../image/user.png')} />
@@ -42,19 +43,25 @@ const AddInformationProfileScreen: React.FC = () => {
                   <View style={AddInformationProfile.image}>
                     <Image source={require('../../../image/calendar-2.png')} />
                   </View>
-                  <TextInput
-                    placeholderTextColor="#9CA3AF"
-                    placeholder="Date of Birth"
-                    onChangeText={setDateOfBirth}
-                    value={dateOfBirth}
-                    style={AddInformationProfile.textinput}
-                  />
+                  <TouchableOpacity style={AddInformationProfile.textinput} onPress={() => setOpen(true)}>
+                    <Text style={{ paddingTop:10, fontWeight:'600',color:'#9CA3AF' }}>{dateOfBirth ? dateOfBirth.toDateString() : 'Select Date'}</Text>
+                  </TouchableOpacity>
+                  {open && (
+                    <DateTimePicker
+                      mode="date"
+                      value={dateOfBirth || new Date()}
+                      onChange={(event, date) => {
+                        setOpen(false);
+                        setDateOfBirth(date);
+                      }}
+                    />
+                  )}
                 </View>
                 <View style={AddInformationProfile.viewInput}>
-                <View style={AddInformationProfile.image}>
+                  <View style={AddInformationProfile.image}>
                     <Image source={require('../../../image/user.png')} />
                   </View>
-                    <TextInput
+                  <TextInput
                     placeholderTextColor="#9CA3AF"
                     placeholder="Gender"
                     onChangeText={setGender}
@@ -75,4 +82,5 @@ const AddInformationProfileScreen: React.FC = () => {
     </KeyboardAvoidingView>
   );
 };
+
 export default AddInformationProfileScreen;

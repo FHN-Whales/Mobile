@@ -3,6 +3,7 @@ import { TouchableOpacity, View ,Image, Text, Modal} from 'react-native';
 import renderfunctionforprofile from '../../../../styles/HomePage/Profile/ShowProfile/RenderFuntionForProfile';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../type/type';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const renderFunctionForProfile = () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [modalVisible, setModalVisible] = useState(false);
@@ -12,9 +13,15 @@ const renderFunctionForProfile = () => {
     const handleCancel = () => {
       setModalVisible(false);
     };
-    const handleOK = () => {
-      setModalVisible(false);
-      navigation.navigate('SplashScreen');
+    const handleOK = async (): Promise<void> => {
+      try {
+        setModalVisible(false);
+        await AsyncStorage.removeItem('userId');
+        console.log('Đăng xuất thành công, xóa userId thành công!');
+        navigation.navigate('SplashScreen');
+      } catch (error) {
+        console.error('Error logging out:', error);
+      }
     };
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
