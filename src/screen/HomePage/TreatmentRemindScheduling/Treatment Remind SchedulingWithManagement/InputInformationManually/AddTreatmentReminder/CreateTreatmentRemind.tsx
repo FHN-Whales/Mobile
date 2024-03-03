@@ -19,9 +19,9 @@ const CreateTreatmentRemindScreen = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [frequency, setFrequency] = useState<string>('');
-  const [treatmentTimeMorning, setTreatmentTimeMorning] =  useState<string>('');
-  const [treatmentTimeNoon, setTreatmentTimeNoon] =  useState<string>('');
-  const [treatmentTimeEvening, setTreatmentTimeEvening] =  useState<string>('');
+  const [treatmentTimeMorning, setTreatmentTimeMorning] = useState<string>('');
+  const [treatmentTimeNoon, setTreatmentTimeNoon] = useState<string>('');
+  const [treatmentTimeEvening, setTreatmentTimeEvening] = useState<string>('');
   const [selectedTime, setSelectedTime] = useState<string[]>([]);
   const [numMedicationsMorning, setNumMedicationsMorning] = useState(0);
   const [numMedicationsNoon, setNumMedicationsNoon] = useState(0);
@@ -29,6 +29,9 @@ const CreateTreatmentRemindScreen = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [medications, setMedications] = useState<MedicationData[]>([]);
   const [error, setError] = useState<string[]>([]);
+  const [morningVisible, setMorningVisible] = useState(true);
+  const [noonVisible, setNoonVisible] = useState(true);
+  const [eveningVisible, setEveningVisible] = useState(true);
 
   const handlePress = (time: string) => {
     if (selectedTime.includes(time)) {
@@ -120,7 +123,7 @@ const CreateTreatmentRemindScreen = () => {
     }
     setMedications(newMedications);
   };
-  
+
   const handleNumMedicationsNoonChange = (value: string) => {
     const numMedications = parseInt(value, 10);
     setNumMedicationsNoon(numMedications);
@@ -179,11 +182,14 @@ const CreateTreatmentRemindScreen = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+    <ScrollView  style={styles.container}>
+      <KeyboardAvoidingView behavior='height'>
         <TouchableWithoutFeedback>
           <TouchableOpacity activeOpacity={1} style={styles.inner}>
-            <View style={styles.viewForm}>
+            <View onLayout={ (event) =>{
+              event.nativeEvent.layout.height
+              console.log(height)
+            }} style={styles.viewForm}>
               <View style={styles.viewGoBack}>
                 <TouchableOpacity onPress={useGoBack}>
                   <Image source={require('../../../../../../image/back-icon.png')} />
@@ -216,26 +222,26 @@ const CreateTreatmentRemindScreen = () => {
                 />
               </View>
               <View>
-                <Text style={styles.textLabel}>Choose time</Text>
-                <View style={styles.viewTimeOptions}>
-                  <TouchableOpacity
-                    style={selectedTime.includes('morning') ? styles.timeOptionChoose : styles.timeOption}
-                    onPress={() => handlePress('morning')}>
-                    <Text style={selectedTime.includes('morning') ? styles.timeOptionTextChoose : styles.timeOptionText}>Morning</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={selectedTime.includes('noon') ? styles.timeOptionChoose : styles.timeOption}
-                    onPress={() => handlePress('noon')}>
-                    <Text style={selectedTime.includes('noon') ? styles.timeOptionTextChoose : styles.timeOptionText}>Noon</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={selectedTime.includes('evening') ? styles.timeOptionChoose : styles.timeOption}
-                    onPress={() => handlePress('evening')}>
-                    <Text style={selectedTime.includes('evening') ? styles.timeOptionTextChoose : styles.timeOptionText}>Evening</Text>
-                  </TouchableOpacity>
+                <View>
+                  <Text style={styles.textLabel}>Choose time</Text>
+                  <View style={styles.viewTimeOptions}>
+                    <TouchableOpacity
+                      style={selectedTime.includes('morning') ? styles.timeOptionChoose : styles.timeOption}
+                      onPress={() => handlePress('morning')}>
+                      <Text style={selectedTime.includes('morning') ? styles.timeOptionTextChoose : styles.timeOptionText}>Morning</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={selectedTime.includes('noon') ? styles.timeOptionChoose : styles.timeOption}
+                      onPress={() => handlePress('noon')}>
+                      <Text style={selectedTime.includes('noon') ? styles.timeOptionTextChoose : styles.timeOptionText}>Noon</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={selectedTime.includes('evening') ? styles.timeOptionChoose : styles.timeOption}
+                      onPress={() => handlePress('evening')}>
+                      <Text style={selectedTime.includes('evening') ? styles.timeOptionTextChoose : styles.timeOptionText}>Evening</Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
-              <View style={styles.viewRenderItem}>
                 {selectedTime.includes('morning') && (
                   <>
                     <Text style={styles.textLabel}>Morning</Text>
@@ -243,22 +249,23 @@ const CreateTreatmentRemindScreen = () => {
                       <Text style={styles.textHour}>Drink time</Text>
                       <TextInput
                         style={styles.viewInput}
-                        placeholder="Drink Time"
+                        placeholder="Drink Times"
                         value={treatmentTimeMorning}
                         onChangeText={setTreatmentTimeMorning}
                       />
+                      <View style={styles.viewRenderEnter}>
+                        <Text style={styles.textHour}>Enter number of medications</Text>
+                        <TextInput
+                          style={styles.viewInputEnter}
+                          onChangeText={handleNumMedicationsMorningChange}
+                          keyboardType="numeric"
+                        />
+                      </View>
+                      {selectedTime.includes('morning') && renderMedicationForms(numMedicationsMorning)}
                     </View>
-                    <View style={styles.viewRenderEnter}>
-                      <Text style={styles.textHour}>Enter number of medications</Text>
-                      <TextInput
-                        style={styles.viewInputEnter}
-                        onChangeText={handleNumMedicationsMorningChange}
-                        keyboardType="numeric"
-                      />
-                    </View>
-                    {renderMedicationForms(numMedicationsMorning)}
                   </>
                 )}
+
                 {selectedTime.includes('noon') && (
                   <>
                     <Text style={styles.textLabel}>Noon</Text>
@@ -267,46 +274,22 @@ const CreateTreatmentRemindScreen = () => {
                       <TextInput
                         style={styles.viewInput}
                         placeholder="Drink Time"
-                        value={treatmentTimeNoon}
                         onChangeText={setTreatmentTimeNoon}
                       />
+                      <View style={styles.viewRenderEnter}>
+                        <Text style={styles.textHour}>Enter number of medications</Text>
+                        <TextInput
+                          style={styles.viewInputEnter}
+                          onChangeText={handleNumMedicationsNoonChange}
+                          keyboardType="numeric"
+                        />
+                      </View>
+                      {selectedTime.includes('noon') && renderMedicationForms(numMedicationsNoon)}
                     </View>
-                    <View style={styles.viewRenderEnter}>
-                      <Text style={styles.textHour}>Enter number of medications</Text>
-                      <TextInput
-                        style={styles.viewInputEnter}
-                        onChangeText={handleNumMedicationsNoonChange}
-                        keyboardType="numeric"
-                      />
-                    </View>
-                    {renderMedicationForms(numMedicationsNoon)}
-                  </>
-                )}
-
-                {selectedTime.includes('evening') && (
-                  <>
-                    <Text style={styles.textLabel}>Evening</Text>
-                    <View style={styles.viewRenderEnter}>
-                      <Text style={styles.textHour}>Drink time</Text>
-                      <TextInput
-                        style={styles.viewInput}
-                        placeholder="Drink Time"
-                        value={treatmentTimeEvening}
-                        onChangeText={setTreatmentTimeEvening}
-                      />
-                    </View>
-                    <View style={styles.viewRenderEnter}>
-                      <Text style={styles.textHour}>Enter number of medications</Text>
-                      <TextInput
-                        style={styles.viewInputEnter}
-                        onChangeText={handleNumMedicationsEveningChange}
-                        keyboardType="numeric"
-                      />
-                    </View>
-                    {renderMedicationForms(numMedicationsEvening)}
                   </>
                 )}
               </View>
+
             </View>
             {error.length > 0 && (
               <View style={{ paddingLeft: 20 }}>
