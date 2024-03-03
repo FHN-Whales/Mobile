@@ -180,15 +180,13 @@ const CreateTreatmentRemindScreen = () => {
     newMedications[index].dosage = text;
     setMedications(newMedications);
   };
-
   return (
     <ScrollView  style={styles.container}>
       <KeyboardAvoidingView behavior='height'>
         <TouchableWithoutFeedback>
           <TouchableOpacity activeOpacity={1} style={styles.inner}>
             <View onLayout={ (event) =>{
-              event.nativeEvent.layout.height
-              console.log(height)
+              console.log( event.nativeEvent.layout.height);
             }} style={styles.viewForm}>
               <View style={styles.viewGoBack}>
                 <TouchableOpacity onPress={useGoBack}>
