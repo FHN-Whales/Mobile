@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, Text, TextInput, View, Image, KeyboardAvoidingView, Platform, ScrollView, Alert, TouchableWithoutFeedback } from 'react-native';
+import { TouchableOpacity, Text, TextInput, View, Image, KeyboardAvoidingView, ScrollView, Alert, TouchableWithoutFeedback } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../../../type/type';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -8,20 +8,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { apiCreateTreatmentReminder } from '../../../../../../api/useApiCreateTreatmentReminder';
 import axios from 'axios';
 import styles from '../../../../../../styles/HomePage/HealthCheckScheduling/Treatment Remind SchedulingWithManagement/InputInformationManually/AddTreatmentReminder/CreateTreatmentRemind';
-
 interface MedicationData {
+  [x: string]: string;
   medicationName: string;
   dosage: string;
 }
-
 const CreateTreatmentRemindScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [frequency, setFrequency] = useState<string>('');
-  const [treatmentTimeMorning, setTreatmentTimeMorning] = useState<string>('');
-  const [treatmentTimeNoon, setTreatmentTimeNoon] = useState<string>('');
-  const [treatmentTimeEvening, setTreatmentTimeEvening] = useState<string>('');
+  const [treatmentTimeMorning, setTreatmentTimeMorning] =  useState<string>('');
+  const [treatmentTimeNoon, setTreatmentTimeNoon] =  useState<string>('');
+  const [treatmentTimeEvening, setTreatmentTimeEvening] =  useState<string>('');
   const [selectedTime, setSelectedTime] = useState<string[]>([]);
   const [numMedicationsMorning, setNumMedicationsMorning] = useState(0);
   const [numMedicationsNoon, setNumMedicationsNoon] = useState(0);
@@ -29,9 +28,6 @@ const CreateTreatmentRemindScreen = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [medications, setMedications] = useState<MedicationData[]>([]);
   const [error, setError] = useState<string[]>([]);
-  const [morningVisible, setMorningVisible] = useState(true);
-  const [noonVisible, setNoonVisible] = useState(true);
-  const [eveningVisible, setEveningVisible] = useState(true);
 
   const handlePress = (time: string) => {
     if (selectedTime.includes(time)) {
@@ -50,6 +46,7 @@ const CreateTreatmentRemindScreen = () => {
       try {
         const response = await axios.post(apiCreateTreatmentReminder, dataToSend);
         return response.data;
+      // eslint-disable-next-line no-catch-shadow
       } catch (error) {
         throw error;
       }
@@ -108,86 +105,109 @@ const CreateTreatmentRemindScreen = () => {
       await createTreatmentReminderMutation.mutateAsync(dataToSend);
       Alert.alert('Success', 'Data sent successfully');
       navigation.navigate('HomeScreen')
+    // eslint-disable-next-line no-catch-shadow, @typescript-eslint/no-shadow
     } catch (error) {
       console.error('Error:', error);
       Alert.alert('Error', 'An error occurred. Please try again.');
     }
   };
-
   const handleNumMedicationsMorningChange = (value: string) => {
     const numMedications = parseInt(value, 10);
     setNumMedicationsMorning(numMedications);
-    const newMedications = [...medications];
-    for (let i = medications.length; i < numMedications; i++) {
-      newMedications.push({ medicationName: '', dosage: '' });
+    if (numMedications > medications.length) {
+      // Nếu số lượng thuốc mới lớn hơn số lượng thuốc hiện tại
+      const newMedications = [...medications];
+      for (let i = medications.length; i < numMedications; i++) {
+        newMedications.push({ medicationName: '', dosage: '' });
+      }
+      setMedications(newMedications);
+    } else {
+      // Nếu số lượng thuốc mới nhỏ hơn hoặc bằng số lượng thuốc hiện tại
+      const newMedications = medications.slice(0, numMedications);
+      setMedications(newMedications);
     }
-    setMedications(newMedications);
   };
-
   const handleNumMedicationsNoonChange = (value: string) => {
     const numMedications = parseInt(value, 10);
     setNumMedicationsNoon(numMedications);
-    const newMedications = [...medications];
-    for (let i = medications.length; i < numMedications; i++) {
-      newMedications.push({ medicationName: '', dosage: '' });
+    if (numMedications > medications.length) {
+      // Nếu số lượng thuốc mới lớn hơn số lượng thuốc hiện tại
+      const newMedications = [...medications];
+      for (let i = medications.length; i < numMedications; i++) {
+        newMedications.push({ medicationName: '', dosage: '' });
+      }
+      setMedications(newMedications);
+    } else {
+      // Nếu số lượng thuốc mới nhỏ hơn hoặc bằng số lượng thuốc hiện tại
+      const newMedications = medications.slice(0, numMedications);
+      setMedications(newMedications);
     }
-    setMedications(newMedications);
   };
-
   const handleNumMedicationsEveningChange = (value: string) => {
     const numMedications = parseInt(value, 10);
     setNumMedicationsEvening(numMedications);
-    const newMedications = [...medications];
-    for (let i = medications.length; i < numMedications; i++) {
-      newMedications.push({ medicationName: '', dosage: '' });
+    if (numMedications > medications.length) {
+      // Nếu số lượng thuốc mới lớn hơn số lượng thuốc hiện tại
+      const newMedications = [...medications];
+      for (let i = medications.length; i < numMedications; i++) {
+        newMedications.push({ medicationName: '', dosage: '' });
+      }
+      setMedications(newMedications);
+    } else {
+      // Nếu số lượng thuốc mới nhỏ hơn hoặc bằng số lượng thuốc hiện tại
+      const newMedications = medications.slice(0, numMedications);
+      setMedications(newMedications);
     }
-    setMedications(newMedications);
   };
-
-
-  const renderMedicationForms = (numMedications: number) => {
-    return medications.map((medication, index) => (
-      <View key={index}>
-        <Text style={styles.textLabel}>Medication {index + 1}:</Text>
-        <View style={styles.viewRenderItem}>
-          <TextInput
-            placeholderTextColor="#9CA3AF"
-            placeholder="Medicine Name"
-            style={styles.viewInput}
-            value={medication.medicationName}
-            onChangeText={(text) => handleMedicationNameChange(text, index)}
-          />
-          <TextInput
-            placeholderTextColor="#9CA3AF"
-            placeholder="Dosage"
-            style={styles.viewInput}
-            value={medication.dosage}
-            onChangeText={(text) => handleDosageChange(text, index)}
-          />
-        </View>
+  const renderMedicationForms = (numMedications: number, time: string) => {
+    return (
+      <View>
+        {selectedTime.includes(time) && (
+          medications
+            .filter((medication) => medication.time === time)
+            .map((medication, index) => (
+              <View key={index}>
+                <Text style={styles.textLabel}>Medication {index + 1}:</Text>
+                <View style={styles.viewRenderItem}>
+                  <TextInput
+                    placeholderTextColor="#9CA3AF"
+                    placeholder="Medicine Name"
+                    style={styles.viewInput}
+                    value={medication.medicationName}
+                    onChangeText={(text) => handleMedicationNameChange(text, medications.indexOf(medication), time)}
+                  />
+                  <TextInput
+                    placeholderTextColor="#9CA3AF"
+                    placeholder="Dosage"
+                    style={styles.viewInput}
+                    value={medication.dosage}
+                    onChangeText={(text) => handleDosageChange(text, medications.indexOf(medication), time)}
+                  />
+                </View>
+              </View>
+            ))
+        )}
       </View>
-    ));
+    );
   };
-
-  const handleMedicationNameChange = (text: string, index: number) => {
+  const handleMedicationNameChange = (text: string, index: number, time: string) => {
     const newMedications = [...medications];
     newMedications[index].medicationName = text;
+    newMedications[index].time = time; // Xác định thời gian của thuốc
     setMedications(newMedications);
   };
-
-  const handleDosageChange = (text: string, index: number) => {
+  const handleDosageChange = (text: string, index: number, time: string) => {
     const newMedications = [...medications];
     newMedications[index].dosage = text;
+    newMedications[index].time = time; // Xác định thời gian của thuốc
     setMedications(newMedications);
   };
   return (
-    <ScrollView  style={styles.container}>
-      <KeyboardAvoidingView behavior='height'>
+    <ScrollView style={styles.container}>
+      <KeyboardAvoidingView behavior={ 'padding'}>
         <TouchableWithoutFeedback>
           <TouchableOpacity activeOpacity={1} style={styles.inner}>
-            <View onLayout={ (event) =>{
-              console.log( event.nativeEvent.layout.height);
-            }} style={styles.viewForm}>
+            <View style={styles.viewForm}>
               <View style={styles.viewGoBack}>
                 <TouchableOpacity onPress={useGoBack}>
                   <Image source={require('../../../../../../image/back-icon.png')} />
@@ -220,26 +240,26 @@ const CreateTreatmentRemindScreen = () => {
                 />
               </View>
               <View>
-                <View>
-                  <Text style={styles.textLabel}>Choose time</Text>
-                  <View style={styles.viewTimeOptions}>
-                    <TouchableOpacity
-                      style={selectedTime.includes('morning') ? styles.timeOptionChoose : styles.timeOption}
-                      onPress={() => handlePress('morning')}>
-                      <Text style={selectedTime.includes('morning') ? styles.timeOptionTextChoose : styles.timeOptionText}>Morning</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={selectedTime.includes('noon') ? styles.timeOptionChoose : styles.timeOption}
-                      onPress={() => handlePress('noon')}>
-                      <Text style={selectedTime.includes('noon') ? styles.timeOptionTextChoose : styles.timeOptionText}>Noon</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={selectedTime.includes('evening') ? styles.timeOptionChoose : styles.timeOption}
-                      onPress={() => handlePress('evening')}>
-                      <Text style={selectedTime.includes('evening') ? styles.timeOptionTextChoose : styles.timeOptionText}>Evening</Text>
-                    </TouchableOpacity>
-                  </View>
+                <Text style={styles.textLabel}>Choose time</Text>
+                <View style={styles.viewTimeOptions}>
+                  <TouchableOpacity
+                    style={selectedTime.includes('morning') ? styles.timeOptionChoose : styles.timeOption}
+                    onPress={() => handlePress('morning')}>
+                    <Text style={selectedTime.includes('morning') ? styles.timeOptionTextChoose : styles.timeOptionText}>Morning</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={selectedTime.includes('noon') ? styles.timeOptionChoose : styles.timeOption}
+                    onPress={() => handlePress('noon')}>
+                    <Text style={selectedTime.includes('noon') ? styles.timeOptionTextChoose : styles.timeOptionText}>Noon</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={selectedTime.includes('evening') ? styles.timeOptionChoose : styles.timeOption}
+                    onPress={() => handlePress('evening')}>
+                    <Text style={selectedTime.includes('evening') ? styles.timeOptionTextChoose : styles.timeOptionText}>Evening</Text>
+                  </TouchableOpacity>
                 </View>
+              </View>
+              <View style={styles.viewRenderItem}>
                 {selectedTime.includes('morning') && (
                   <>
                     <Text style={styles.textLabel}>Morning</Text>
@@ -247,23 +267,22 @@ const CreateTreatmentRemindScreen = () => {
                       <Text style={styles.textHour}>Drink time</Text>
                       <TextInput
                         style={styles.viewInput}
-                        placeholder="Drink Times"
+                        placeholder="Drink Time"
                         value={treatmentTimeMorning}
                         onChangeText={setTreatmentTimeMorning}
                       />
-                      <View style={styles.viewRenderEnter}>
-                        <Text style={styles.textHour}>Enter number of medications</Text>
-                        <TextInput
-                          style={styles.viewInputEnter}
-                          onChangeText={handleNumMedicationsMorningChange}
-                          keyboardType="numeric"
-                        />
-                      </View>
-                      {selectedTime.includes('morning') && renderMedicationForms(numMedicationsMorning)}
                     </View>
+                    <View style={styles.viewRenderEnter}>
+                      <Text style={styles.textHour}>Enter number of medications</Text>
+                      <TextInput
+                        style={styles.viewInputEnter}
+                        onChangeText={handleNumMedicationsMorningChange}
+                        keyboardType="numeric"
+                      />
+                    </View>
+                    {renderMedicationForms(numMedicationsMorning)}
                   </>
                 )}
-
                 {selectedTime.includes('noon') && (
                   <>
                     <Text style={styles.textLabel}>Noon</Text>
@@ -272,24 +291,49 @@ const CreateTreatmentRemindScreen = () => {
                       <TextInput
                         style={styles.viewInput}
                         placeholder="Drink Time"
+                        value={treatmentTimeNoon}
                         onChangeText={setTreatmentTimeNoon}
                       />
-                      <View style={styles.viewRenderEnter}>
-                        <Text style={styles.textHour}>Enter number of medications</Text>
-                        <TextInput
-                          style={styles.viewInputEnter}
-                          onChangeText={handleNumMedicationsNoonChange}
-                          keyboardType="numeric"
-                        />
-                      </View>
-                      {selectedTime.includes('noon') && renderMedicationForms(numMedicationsNoon)}
                     </View>
+                    <View style={styles.viewRenderEnter}>
+                      <Text style={styles.textHour}>Enter number of medications</Text>
+                      <TextInput
+                        style={styles.viewInputEnter}
+                        onChangeText={handleNumMedicationsNoonChange}
+                        keyboardType="numeric"
+                      />
+                    </View>
+                    {renderMedicationForms(numMedicationsNoon)}
+                  </>
+                )}
+
+                {selectedTime.includes('evening') && (
+                  <>
+                    <Text style={styles.textLabel}>Evening</Text>
+                    <View style={styles.viewRenderEnter}>
+                      <Text style={styles.textHour}>Drink time</Text>
+                      <TextInput
+                        style={styles.viewInput}
+                        placeholder="Drink Time"
+                        value={treatmentTimeEvening}
+                        onChangeText={setTreatmentTimeEvening}
+                      />
+                    </View>
+                    <View style={styles.viewRenderEnter}>
+                      <Text style={styles.textHour}>Enter number of medications</Text>
+                      <TextInput
+                        style={styles.viewInputEnter}
+                        onChangeText={handleNumMedicationsEveningChange}
+                        keyboardType="numeric"
+                      />
+                    </View>
+                    {renderMedicationForms(numMedicationsEvening)}
                   </>
                 )}
               </View>
-
             </View>
             {error.length > 0 && (
+              // eslint-disable-next-line react-native/no-inline-styles
               <View style={{ paddingLeft: 20 }}>
                 {error.map((errorMessage, index) => (
                   <Text key={index}>{errorMessage}</Text>
