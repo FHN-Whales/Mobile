@@ -37,7 +37,6 @@ const LoginWithRoleScreen = ()=> {
                         <Image source={require('../../../image/sms.png')} />
                       </View>
                       <TextInput
-                        keyboardType="email-address"
                         placeholderTextColor="#9CA3AF"
                         placeholder="Role User"
                         style={login.textinput}
