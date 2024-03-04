@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 import SigninWithRoleSchema from '../../../hook/FamilyManagement/Login/useValidateSignInWithRole';
 import useLoginWithRole from '../../../hook/FamilyManagement/Login/useLoginWithRole';
 const LoginWithRoleScreen = ()=> {
-  const {modalVisible,setModalVisible,inputRef,showPassword,isPasswordFocused,isEmailFocused,toggleShowPassword,handlePasswordFocus,handleEmailFocus,dismissKeyboard,dismissKeyboardAndHideButton,mutationLoginWithRole} = useLoginWithRole();
+  const {modalVisible,setModalVisible,inputRef,showPassword,isPasswordFocused,isEmailFocused,toggleShowPassword,handlePasswordFocus,handleEmailFocus,dismissKeyboard,dismissKeyboardAndHideButton,mutationLoginWithRole, roleError,passwordError} = useLoginWithRole();
   return (
     <Formik
       initialValues={{
@@ -48,6 +48,7 @@ const LoginWithRoleScreen = ()=> {
                         value={values.role}
                       />
                     </View>
+                    {roleError ? <Text style={login.textError}>{roleError}</Text> : null}
                     {errors.role && touched.role ? (
                       <Text style={login.textError}>* {errors.role}</Text>
                     ) : null}
@@ -82,6 +83,7 @@ const LoginWithRoleScreen = ()=> {
                         </TouchableOpacity>
                       )}
                     </View>
+                    {passwordError ? <Text style={login.textError}>{passwordError}</Text> : null}
                     {errors.password && touched.password ? (
                       <Text style={login.textError}>* {errors.password}</Text>
                     ) : null}
