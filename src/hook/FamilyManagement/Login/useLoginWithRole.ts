@@ -23,8 +23,9 @@ const useLoginWithRole = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const [isEmailFocused, setIsEmailFocused] = useState(false);
-
-
+  const [roleError, setRoleError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [error, setError] = useState('');
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -54,16 +55,14 @@ const useLoginWithRole = () => {
   const mutationLoginWithRole = useMutation({
     mutationFn: async (data: LoginWithRole) => {
       try {
-        const devideId =  DeviceInfo.getDeviceId();
+        const deviceId = DeviceInfo.getDeviceId();
         const requestData = {
           ...data,
           familyId: familyId,
-          deviceToken:devideId,
-          };
-          console.log(devideId);
-          console.log(requestData);
-        const response = await axios.post(ApiSignInWithRole, requestData);
+          deviceToken: deviceId,
+        };
 
+        const response = await axios.post(ApiSignInWithRole, requestData);
         setIsLoading(true);
 
         if (response.status === 200) {
@@ -72,18 +71,19 @@ const useLoginWithRole = () => {
           if (completed && userId) {
             await AsyncStorage.setItem('userId', userId);
             await AsyncStorage.setItem('familyId', familyId);
-            console.log(familyId);
             setModalVisible(true);
-            console.log('Đăng nhập thành công.');
           } else {
-            console.log('Đăng nhập thất bại:', message);
+            console.log('Sign-in failed:', message);
+            setError(message); // Lưu trữ thông báo lỗi chungelse if (message.includes('password')) {
+              setPasswordError(message);
           }
         } else {
-          console.log('Lỗi:', 'Phản hồi không mong đợi');
+          console.log('Error:', 'Unexpected response');
         }
         setIsLoading(false);
+      // eslint-disable-next-line no-catch-shadow, @typescript-eslint/no-shadow
       } catch (error) {
-        console.log('Lỗi gửi yêu cầu:', error);
+        console.log('Request error:', error);
       }
     },
   });
@@ -97,6 +97,7 @@ const useLoginWithRole = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalVisible]);
+
 
   return {
     route,
@@ -119,6 +120,10 @@ const useLoginWithRole = () => {
     dismissKeyboard,
     dismissKeyboardAndHideButton,
     mutationLoginWithRole,
+    roleError,
+    setRoleError,
+    passwordError,
+    setPasswordError,
   };
 };
 
