@@ -134,6 +134,7 @@ const useAddNewMember = () =>{
               console.log('Error:', 'Unexpected response status');
             }
           }, 2000);
+          clearForm();
         } catch (error: any) {
           console.log('Error sending the request:', error.message);
           if (error.response && error.response.status === 409) {
@@ -144,6 +145,12 @@ const useAddNewMember = () =>{
         }
       },
     });
+    const clearForm = () => {
+      setModalVisible(true); // Hiển thị modal thông báo
+      setSelectedImage(null); // Xóa ảnh đã chọn
+      // Xóa dữ liệu trong các input
+      mutationAddMemberFamily.reset(); // Reset state của mutation
+    };
     return {
       navigation,
       showPassword,
