@@ -20,7 +20,7 @@ const RegisterAsManagerScreen = () => {
           <View style={registerasmanager.viewCreate}>
             <View style={registerasmanager.viewLogo}>
               <Image source={require('../../../image/logo.png')} />
-              <Text style={registerasmanager.textLogo}>TRT</Text>
+              <Text style={registerasmanager.textLogo}>FHN</Text>
               <Text style={registerasmanager.textLogo}>
                 Register as a manager{' '}
               </Text>
