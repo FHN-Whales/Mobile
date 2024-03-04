@@ -71,7 +71,8 @@ const useLoginWithRole = () => {
 
           if (completed && userId) {
             await AsyncStorage.setItem('userId', userId);
-
+            await AsyncStorage.setItem('familyId', familyId);
+            console.log(familyId);
             setModalVisible(true);
             console.log('Đăng nhập thành công.');
           } else {
