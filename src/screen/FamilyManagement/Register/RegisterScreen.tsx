@@ -27,7 +27,7 @@ const RegisterScreen = () => {
               <View style={register.viewCreate}>
                 <View style={register.viewLogo}>
                   <Image source={require('../../../image/logo.png')} />
-                  <Text style={register.textLogo}>TRT</Text>
+                  <Text style={register.textLogo}>FHN</Text>
                 </View>
                 <Text style={register.textLogo}>Create Account</Text>
                 <Text style={register.textWe}>We are here to help you!</Text>

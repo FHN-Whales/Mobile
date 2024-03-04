@@ -26,7 +26,7 @@ const ForgetPasswordScreen = () => {
           <View style={forgetpassword .viewCreate}>
             <View style={forgetpassword .viewLogo}>
               <Image source={require('../../../image/logo.png')} />
-              <Text style={forgetpassword .textLogo}>TRT</Text>
+              <Text style={forgetpassword .textLogo}>FHN</Text>
             </View>
             <Text style={forgetpassword .textLogo}>Forgot Password?</Text>
             <Text style={forgetpassword .textWe}>Enter your Email, we will send you a verification code.</Text>

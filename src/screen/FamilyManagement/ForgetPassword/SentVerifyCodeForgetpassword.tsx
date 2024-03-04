@@ -25,7 +25,7 @@ const SentVerifyCodeForgetpassword = () => {
           <View style={verifycode.viewCreate}>
             <View style={verifycode.viewLogo}>
               <Image source={require('../../../image/logo.png')} />
-              <Text style={verifycode.textLogo}>TRT</Text>
+              <Text style={verifycode.textLogo}>FHN</Text>
             </View>
             <Text style={verifycode.textLogo}>Verify Code</Text>
             <Text style={verifycode.textWe}>

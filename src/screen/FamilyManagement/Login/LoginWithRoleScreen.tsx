@@ -26,7 +26,7 @@ const LoginWithRoleScreen = ()=> {
               <View style={login.viewCreate}>
                 <View style={login.viewLogo}>
                   <Image source={require('../../../image/logo.png')} />
-                  <Text style={login.textLogo}>TRT</Text>
+                  <Text style={login.textLogo}>FHN</Text>
                 </View>
                 <Text style={login.textLogo}>Hi, How are you today? </Text>
                 <Text style={login.textWe}>Hope you’re doing fine.</Text>
