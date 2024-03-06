@@ -16,7 +16,7 @@ import HomePageWithManagement from '../screen/HomePage/Home/ManagementFamily/Hom
 import AllMemberFamilyScreen from '../screen/HomePage/Home/ManagementFamily/AllMemberFamilyScreen/AllMemberFamilyScreen';
 import AddMemberScreen from '../screen/HomePage/Home/ManagementFamily/AddMember/AddmemberScreen';
 import EditMemberScreen from '../screen/HomePage/Home/ManagementFamily/EditMember/EditMemberScreen';
-import BlogScreen from '../screen/HomePage/Blog/BlogScreen/BlogScreen';
+// import BlogScreen from '../screen/HomePage/Blog/BlogScreen/BlogScreen';
 import PostBlogScreen from '../screen/HomePage/Blog/CreateBlog/PostBlogScreen';
 import EditBlogScreen from '../screen/HomePage/Blog/EditBlog/EditBlogScreen';
 import CalendarScreen from '../screen/HomePage/Calendar/CalendarWithManagement/CalendarWithManagementScreen';
@@ -79,7 +79,7 @@ const Homestack = () => {
       })}
     >
       <Tab.Screen  name="HomePage" component={HomePageWithManagement} />
-      <Tab.Screen  name="Blog" component={BlogScreen} />
+      {/* <Tab.Screen  name="Blog" component={BlogScreen} /> */}
       <Tab.Screen name="Calendar" component={CalendarScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
