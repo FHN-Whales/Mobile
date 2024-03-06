@@ -6,8 +6,7 @@ import axios from 'axios';
 import { useMutation } from '@tanstack/react-query';
 import { ApiSignInWithRole } from '../../../api/useApiSignInWithRole';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import DeviceInfo from 'react-native-device-info';
-
+import {requestUserPermission} from '../../../../getFCMTToken';
 interface LoginWithRole {
   role: string;
   password: string;
@@ -25,7 +24,7 @@ const useLoginWithRole = () => {
   const [isEmailFocused, setIsEmailFocused] = useState(false);
   const [roleError, setRoleError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -55,12 +54,14 @@ const useLoginWithRole = () => {
   const mutationLoginWithRole = useMutation({
     mutationFn: async (data: LoginWithRole) => {
       try {
-        const deviceId = DeviceInfo.getDeviceId();
+         const devideId = await requestUserPermission();
+         console.log('devideId',devideId);
         const requestData = {
           ...data,
           familyId: familyId,
-          deviceToken: deviceId,
+          deviceToken: devideId,
         };
+        console.log(requestData);
 
         const response = await axios.post(ApiSignInWithRole, requestData);
         setIsLoading(true);
@@ -74,7 +75,8 @@ const useLoginWithRole = () => {
             setModalVisible(true);
           } else {
             console.log('Sign-in failed:', message);
-            setError(message); // Lưu trữ thông báo lỗi chungelse if (message.includes('password')) {
+            // setError(message); // Lưu trữ thông báo lỗi chungelse if (message.includes('password')) {
+              setRoleError(message);
               setPasswordError(message);
           }
         } else {
