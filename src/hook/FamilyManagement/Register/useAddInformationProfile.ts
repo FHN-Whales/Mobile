@@ -15,7 +15,7 @@ const useAddInformationProfile = () =>{
 
   const handleSubmit = () => {
     // Validation
-    if (!username || !gender || !dateOfBirth) {
+    if (!username || !gender ) {
       setError('Please fill in all fields');
       return;
     }
