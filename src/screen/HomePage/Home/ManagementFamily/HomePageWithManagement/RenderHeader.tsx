@@ -13,7 +13,7 @@ export const renderHeader = () => {
     <View style={renderheader.viewrenderHeader} >
       <View style={renderheader.viewText}>
         <Text style={renderheader.textHi}>Hi</Text>
-        <Text style={renderheader.textUser}>Hà</Text>
+        <Text style={renderheader.textUser}>Ha</Text>
       </View>
       <TouchableOpacity style={renderheader.viewiconnotification} onPress={useNavigationNotification}>
         <Image source={require('../../../../../image/Notification.png')} />
