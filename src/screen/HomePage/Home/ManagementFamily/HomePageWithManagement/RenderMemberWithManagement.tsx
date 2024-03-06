@@ -28,42 +28,42 @@ const renderListMemberWithManagement = () => {
   const user: User[] = [
     {
       id: '1',
-      name: 'Mẹ',
+      name: 'Mom',
       old: '21 year old',
       major: 'Mobile Developer',
       image: require('../../../../../image/ha.jpg'),
     },
     {
       id: '2',
-      name: 'Bố',
+      name: 'Dad',
       old: '21 year old',
       major: 'Mobile Developer',
       image: require('../../../../../image/nhat.jpg'),
     },
     {
       id: '3',
-      name: 'Con ',
+      name: 'Child ',
       old: '21 year old',
       major: 'Mobile Developer',
       image: require('../../../../../image/xuan.jpg'),
     },
     {
       id: '4',
-      name: 'Con',
+      name: 'Child',
       old: '22 year old',
       major: 'Front End Developer',
       image: require('../../../../../image/tien.jpg'),
     },
     {
       id: '5',
-      name: 'Con',
+      name: 'Child',
       old: '21 year old',
       major: 'Tester Engeneer',
       image: require('../../../../../image/luan.jpg'),
     },
     {
       id: '6',
-      name: 'Mẹ',
+      name: 'Child',
       old: '21 year old',
       major: 'Mobile Developer',
       image: require('../../../../../image/ha.jpg'),
@@ -73,12 +73,12 @@ const renderListMemberWithManagement = () => {
     <View style={renderlistmembermanagement.viewlistMember}>
       <View style={renderlistmembermanagement.view}>
         <View style={renderlistmembermanagement.viewmember}>
-          <Text style={renderlistmembermanagement.textMember}>Thành viên</Text>
+          <Text style={renderlistmembermanagement.textMember}>Member</Text>
           <TouchableOpacity style={renderlistmembermanagement.touchableOpacity} onPress={useNavigationAddMember}>
             <Image source={require('../../../../../image/flat-color-icons_plus.png')} />
           </TouchableOpacity>
         </View>
-        <Text style={renderlistmembermanagement.textMember} onPress={useNavigationAllMemberWithManagement}>Xem tất cả</Text>
+        <Text style={renderlistmembermanagement.textMember} onPress={useNavigationAllMemberWithManagement}>See all</Text>
       </View>
       <FlatList
         data={user}

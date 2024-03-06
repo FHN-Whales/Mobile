@@ -21,6 +21,8 @@ const useSignInWithFamily = () =>{
     const [showPassword, setShowPassword] = useState(false);
     const [isPasswordFocused, setIsPasswordFocused] = useState(false);
     const [isEmailFocused, setIsEmailFocused] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+
     const toggleShowPassword = () => {
       setShowPassword(!showPassword);
     };
@@ -55,9 +57,11 @@ const useSignInWithFamily = () =>{
               if (completed && familyId ) {
                 // setModalVisible(true);
                 navigation.navigate('LoginWithRoleScreen', { familyId: familyId });
+                setErrorMessage('');
                 console.log('Login successfully.');
                 console.log(familyId);
               } else {
+                setErrorMessage('The email or password is incorrect.');
                 console.log('Registration failed:', message);
               }
               // setIsLoading(false);
@@ -76,6 +80,6 @@ const useSignInWithFamily = () =>{
         }
       },
     });
-    return { navigation,useNavigationRegisterScreen,useNavigationForgetPasswordScreen,inputRef,showPassword,isPasswordFocused,setIsPasswordFocused,isEmailFocused,setIsEmailFocused,toggleShowPassword,handlePasswordFocus,handleEmailFocus,dismissKeyboard,dismissKeyboardAndHideButton,mutationLoginFamily};
+    return { navigation,useNavigationRegisterScreen,useNavigationForgetPasswordScreen,inputRef,showPassword,isPasswordFocused,setIsPasswordFocused,isEmailFocused,setIsEmailFocused,toggleShowPassword,handlePasswordFocus,handleEmailFocus,dismissKeyboard,dismissKeyboardAndHideButton,mutationLoginFamily,errorMessage};
 };
 export default  useSignInWithFamily;

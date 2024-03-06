@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 import SigninSchema from '../../../hook/FamilyManagement/Login/useValidateLogin';
 import useSignInWithFamily from '../../../hook/FamilyManagement/Login/useLoginFamily';
 const LoginScreen = () => {
-  const  { useNavigationRegisterScreen,useNavigationForgetPasswordScreen,inputRef,showPassword,isPasswordFocused,isEmailFocused,toggleShowPassword,handlePasswordFocus,handleEmailFocus,dismissKeyboard,dismissKeyboardAndHideButton,mutationLoginFamily} = useSignInWithFamily();
+  const  { useNavigationRegisterScreen,useNavigationForgetPasswordScreen,inputRef,showPassword,isPasswordFocused,isEmailFocused,toggleShowPassword,handlePasswordFocus,handleEmailFocus,dismissKeyboard,dismissKeyboardAndHideButton,mutationLoginFamily,errorMessage} = useSignInWithFamily();
   return (
     <Formik
       initialValues={{
@@ -98,6 +98,7 @@ const LoginScreen = () => {
                         <Text style={login.textCreate}>Sign In</Text>
                       </TouchableOpacity>
                     </View>
+                    {errorMessage && <Text style={login.textError}>{errorMessage}</Text>}
                     <View style={login.viewor}>
                       <View style={login.viewborder} />
                       <Text style={login.textor}>or</Text>
