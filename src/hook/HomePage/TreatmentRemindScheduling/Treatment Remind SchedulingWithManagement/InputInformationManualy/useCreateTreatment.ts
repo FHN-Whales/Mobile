@@ -23,6 +23,14 @@ const useCreateTreatment = () =>{
     const [medications, setMedications] = useState<Record<TimePeriod, MedicationData[]>>({ morning: [], noon: [], evening: [] });
     const [open, setOpen] = useState<boolean>(false);
     const [error, setError] = useState<string[]>([]);
+    const [modalVisible, setModalVisible] = useState(false);
+    const handleCancel = () => {
+      setModalVisible(false);
+    };
+    const handleOK = () => {
+      setModalVisible(false);
+      navigation.navigate('HomeScreen');
+    };
     const handlePress = (time: TimePeriod) => {
       setSelectedTime(prevSelectedTime => {
         if (prevSelectedTime.includes(time)) {
@@ -46,7 +54,7 @@ const useCreateTreatment = () =>{
       },
       onSuccess: (responseData: any) => {
         if (responseData.completed) {
-          Alert.alert('Success', responseData.message);
+          setModalVisible(true);
         } else {
           Alert.alert('Error', responseData.message);
         }
@@ -90,7 +98,7 @@ const useCreateTreatment = () =>{
         console.log(JSON.stringify(dataToSend));
         await createTreatmentReminderMutation.mutateAsync(dataToSend);
         // Chỉ chuyển hướng nếu không có lỗi
-        navigation.navigate('HomeScreen');
+        // navigation.navigate('HomeScreen');
       } catch (error) {
         console.error('Error:', error);
         if (error.response) {
@@ -159,6 +167,10 @@ const useCreateTreatment = () =>{
         handleNumMedicationsChange,
         handleMedicationNameChange,
         handleDosageChange,
+        modalVisible,
+        setModalVisible,
+        handleCancel,
+        handleOK,
     };
 
 };

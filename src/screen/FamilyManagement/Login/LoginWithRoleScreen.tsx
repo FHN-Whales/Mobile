@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 import SigninWithRoleSchema from '../../../hook/FamilyManagement/Login/useValidateSignInWithRole';
 import useLoginWithRole from '../../../hook/FamilyManagement/Login/useLoginWithRole';
 const LoginWithRoleScreen = ()=> {
-  const {modalVisible,setModalVisible,inputRef,showPassword,isPasswordFocused,isEmailFocused,toggleShowPassword,handlePasswordFocus,handleEmailFocus,dismissKeyboard,dismissKeyboardAndHideButton,mutationLoginWithRole, roleError,passwordError} = useLoginWithRole();
+  const {modalVisible,setModalVisible,inputRef,showPassword,isPasswordFocused,isEmailFocused,toggleShowPassword,handlePasswordFocus,handleEmailFocus,dismissKeyboard,dismissKeyboardAndHideButton,mutationLoginWithRole, roleError} = useLoginWithRole();
   return (
     <Formik
       initialValues={{
@@ -83,7 +83,6 @@ const LoginWithRoleScreen = ()=> {
                         </TouchableOpacity>
                       )}
                     </View>
-                    {passwordError ? <Text style={login.textError}>{passwordError}</Text> : null}
                     {errors.password && touched.password ? (
                       <Text style={login.textError}>* {errors.password}</Text>
                     ) : null}

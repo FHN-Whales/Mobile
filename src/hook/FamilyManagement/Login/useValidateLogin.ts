@@ -1,7 +1,10 @@
 import * as Yup from 'yup';
+import validator from 'email-validator';
 const SigninSchema = Yup.object().shape({
       email: Yup.string()
-      .email('Please enter the correct email format')
+    .test('email', 'Please enter a valid email format', function (value) {
+      return validator.validate(value);
+    })
       .max(100, 'The email should not be exceeded 100 characters!')
       .required('Please enter your email '),
       password: Yup.string()
