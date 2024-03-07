@@ -7,6 +7,6 @@ const SigninSchema = Yup.object().shape({
       password: Yup.string()
       .min( 8, 'The password must be at least 8 characters long!')
       .max(50, 'Password must not exceed 50 characters!')
-      .required('Please enter your email'),
+      .required('Please enter your password'),
   });
   export default SigninSchema;

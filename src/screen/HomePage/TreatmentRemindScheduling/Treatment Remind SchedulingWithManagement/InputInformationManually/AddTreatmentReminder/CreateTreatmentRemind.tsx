@@ -1,139 +1,11 @@
-/* eslint-disable radix */
-/* eslint-disable no-catch-shadow */
-import React, { useState } from 'react';
-import { TouchableOpacity, Text, TextInput, View, Image, KeyboardAvoidingView,  ScrollView, Alert, TouchableWithoutFeedback } from 'react-native';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../../../../../type/type';
+import React from 'react';
+import { TouchableOpacity, Text, TextInput, View, Image, KeyboardAvoidingView,  ScrollView,TouchableWithoutFeedback } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { useMutation } from '@tanstack/react-query';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { apiCreateTreatmentReminder } from '../../../../../../api/useApiCreateTreatmentReminder';
-import axios from 'axios';
 import styles from '../../../../../../styles/HomePage/HealthCheckScheduling/Treatment Remind SchedulingWithManagement/InputInformationManually/AddTreatmentReminder/CreateTreatmentRemind';
+import useCreateTreatment from '../../../../../../hook/HomePage/TreatmentRemindScheduling/Treatment Remind SchedulingWithManagement/InputInformationManualy/useCreateTreatment';
 type TimePeriod = 'morning' | 'noon' | 'evening';
-interface MedicationData {
-  medicationName: string;
-  dosage: string;
-}
 const CreateTreatmentRemindScreen = () => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
-  const [frequency, setFrequency] = useState<string>('');
-  const [treatmentTime, setTreatmentTime] = useState<Record<TimePeriod, string>>({ morning: '', noon: '', evening: '' });
-  const [selectedTime, setSelectedTime] = useState<TimePeriod[]>([]);
-  const [numMedications, setNumMedications] = useState<Record<TimePeriod, number>>({ morning: 0, noon: 0, evening: 0 });
-  const [medications, setMedications] = useState<Record<TimePeriod, MedicationData[]>>({ morning: [], noon: [], evening: [] });
-  const [open, setOpen] = useState<boolean>(false);
-  const [error, setError] = useState<string[]>([]);
-  const handlePress = (time: TimePeriod) => {
-    setSelectedTime(prevSelectedTime => {
-      if (prevSelectedTime.includes(time)) {
-        return prevSelectedTime.filter(item => item !== time);
-      } else {
-        return [...prevSelectedTime, time];
-      }
-    });
-  };
-  const useGoBack = () => {
-    navigation.goBack();
-  };
-  const createTreatmentReminderMutation = useMutation({
-    mutationFn: async (dataToSend: any) => {
-      try {
-        const response = await axios.post(apiCreateTreatmentReminder, dataToSend);
-        return response.data;
-      } catch (error) {
-        throw error;
-      }
-    },
-    onSuccess: (responseData: any) => {
-      if (responseData.completed) {
-        Alert.alert('Success', responseData.message);
-      } else {
-        Alert.alert('Error', responseData.message);
-      }
-    },
-    onError: (error: any) => {
-      console.error('Error:', error);
-      Alert.alert('Error', 'An error occurred. Please try again.');
-    },
-  });
-  const handleSave = async () => {
-    const newErrors: string[] = [];
-    if (!startDate) {newErrors.push('Start date is required');}
-    if (!endDate) {newErrors.push('End date is required');}
-    if (!frequency) {newErrors.push('Frequency is required');}
-    if (selectedTime.length === 0) {newErrors.push('At least one time must be selected');}
-
-    selectedTime.forEach(time => {
-      if (!treatmentTime[time]) {
-        newErrors.push(`${time} treatment time is required`);
-      }
-    });
-    setError(newErrors);
-
-    if (newErrors.length > 0) {
-      return;
-    }
-    try {
-      const userId = await AsyncStorage.getItem('userId');
-      const formattedTreatmentTime = selectedTime.map(time => treatmentTime[time].toString().padStart(5, '0'));
-      const dataToSend = {
-        userId: userId,
-        startDate: startDate?.toISOString().split('T')[0],
-        endDate: endDate?.toISOString().split('T')[0],
-        frequency: parseInt(frequency),
-        timeOfDay: selectedTime,
-        treatmentTime: formattedTreatmentTime,
-        medications: medications,
-      };
-      console.log(dataToSend);
-      await createTreatmentReminderMutation.mutateAsync(dataToSend);
-      // Chỉ chuyển hướng nếu không có lỗi
-      navigation.navigate('HomeScreen');
-    } catch (error) {
-      console.error('Error:', error);
-      if (error.response) {
-        const errorMessage = error.response.data.message;
-        Alert.alert('Error', errorMessage);
-      } else {
-        // Handle other errors
-        Alert.alert('Error', 'An error occurred. Please try again.');
-      }
-    }
-  };
-
-
-  const handleNumMedicationsChange = (timePeriod: TimePeriod, value: string) => {
-    const newNumMedications = parseInt(value, 10);
-    setNumMedications({ ...numMedications, [timePeriod]: newNumMedications });
-    let newMedications;
-    if (newNumMedications > medications[timePeriod].length) {
-      // Nếu số lượng thuốc mới lớn hơn số lượng thuốc hiện tại
-      newMedications = [...medications[timePeriod]];
-      for (let i = medications[timePeriod].length; i < newNumMedications; i++) {
-        newMedications.push({ medicationName: '', dosage: '' });
-      }
-    } else {
-      // Nếu số lượng thuốc mới nhỏ hơn hoặc bằng số lượng thuốc hiện tại
-      newMedications = medications[timePeriod].slice(0, newNumMedications);
-    }
-    setMedications({ ...medications, [timePeriod]: newMedications});
-  };
-
-  const handleMedicationNameChange = (timePeriod: TimePeriod, text: string, index: number) => {
-    const newMedications = [...medications[timePeriod]];
-    newMedications[index].medicationName = text;
-    setMedications({ ...medications, [timePeriod]: newMedications});
-  };
-
-  const handleDosageChange = (timePeriod: TimePeriod, text: string, index: number) => {
-    const newMedications = [...medications[timePeriod]];
-    newMedications[index].dosage = text;
-    setMedications({ ...medications, [timePeriod]: newMedications});
-  };
-
+  const  {startDate,setStartDate,endDate, setEndDate, frequency, setFrequency, treatmentTime, setTreatmentTime, selectedTime,medications,open,setOpen,error,handlePress,useGoBack,handleSave,handleNumMedicationsChange,handleMedicationNameChange,handleDosageChange} = useCreateTreatment();
   const renderMedicationForms = (timePeriod: TimePeriod) => {
     return medications[timePeriod].map((medication, index) => (
       <View key={index}>
@@ -150,7 +22,7 @@ const CreateTreatmentRemindScreen = () => {
             placeholderTextColor="#9CA3AF"
             placeholder="Dosage"
             style={styles.viewInput}
-            value={medication.dosage}
+            value={medication.dosage.toString()}
             onChangeText={(text) => handleDosageChange(timePeriod, text, index)}
           />
         </View>
@@ -239,6 +111,7 @@ const CreateTreatmentRemindScreen = () => {
               </View>
             </View>
             {error.length > 0 && (
+              // eslint-disable-next-line react-native/no-inline-styles
               <View style={{ paddingLeft: 20 }}>
                 {error.map((errorMessage, index) => (
                   <Text key={index}>{errorMessage}</Text>
