@@ -1,112 +1,51 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
-import {FlatList, Text, View, Button} from 'react-native';
-import {useQuery} from '@tanstack/react-query';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-
-interface Medication {
-  medicationName: string;
-  dosage: number;
-}
-
-interface Treatment {
-  timeOfDay: string;
-  medications: Medication[];
-  treatmentTime: string;
-}
-
-interface User {
-  _id: string;
-  username: string;
-}
-
-interface TreatmentReminder {
-  user: User;
-  treatmentInfo: Treatment[];
-}
-
+import {FlatList, Text, View} from 'react-native';
+import useRenderTreatmentRemindScheduling from '../../../../hook/HomePage/Calendar/ManagementWithFamily/useRenderTreatmentRemindScheduling';
+import rendertreatmentremindscheduling from '../../../../styles/HomePage/Calender/CalendarWithManagement/RenderTreatmentRemindScheduling';
 const RenderTreatmentRemindScheduling = () => {
-  const {data, isLoading, isError, refetch} = useQuery<TreatmentReminder[]>({
-    queryKey: ['treatmentReminders'],
-    queryFn: async () => {
-      try {
-        const familyId = await AsyncStorage.getItem('familyId');
-        const userId = await AsyncStorage.getItem('userId');
-
-        const response = await axios.get<TreatmentReminder[]>(
-          `http://3.25.181.251:8000/Reminder/getTreatmentRemindersByUserId/${familyId}/${userId}`,
-          {
-            headers: {
-              Accept: 'application/json',
-            },
-          },
-        );
-        console.log('familyId', familyId);
-        console.log('userId', userId);
-        console.log('data', response.data);
-        // Parse chuỗi JSON thành đối tượng JavaScript
-        const responseDataJson = JSON.stringify(response.data);
-        console.log('responseDataJson', responseDataJson);
-        if (response.status === 200) {
-          return response.data;
-        } else if (response.status === 404) {
-          throw new Error('Data not found');
-        } else {
-          throw new Error('Failed to fetch data');
-        }
-      } catch (error) {
-        console.error('Error fetching data: ', error);
-        throw new Error('Failed to fetch data');
-      }
-    },
-  });
-  const handleRefresh = () => {
-    refetch();
-  };
-
-  if (isError) {
-    return <Text>Error fetching data</Text>;
-  }
-  return (
-    <View>
-      <Button title="Refresh" onPress={handleRefresh} />
-      <FlatList
-        data={data}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({item}) => (
-          <View>
-            <Text>Username: {item.user.username}</Text>
-            <FlatList
-              data={item.treatmentInfo}
-              keyExtractor={(subItem, subIndex) => subIndex.toString()}
-              renderItem={({item: subItem}) => (
-                <View style={{marginLeft: 20}}>
-                  <Text>Time of Day: {subItem.timeOfDay}</Text>
-                  <Text>Treatment Time: {subItem.treatmentTime}</Text>
-                  <Text>Medications:</Text>
-                  <FlatList
-                    data={subItem.medications}
-                    keyExtractor={(medication, medicationIndex) =>
-                      medicationIndex.toString()
-                    }
-                    renderItem={({item: medication}) => (
-                      // eslint-disable-next-line react-native/no-inline-styles
-                      <View style={{marginLeft: 20}}>
-                        <Text>
-                          - Medication Name: {medication.medicationName}
-                        </Text>
-                        <Text> Dosage: {medication.dosage}</Text>
-                      </View>
-                    )}
-                  />
-                </View>
-              )}
-            />
-          </View>
-        )}
-      />
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [data,isLoading,isError] = useRenderTreatmentRemindScheduling();
+  const renderItem = ({item}: {item: TreatmentReminder}) => (
+    <View style={rendertreatmentremindscheduling.renderViewItem}>
+    <View style={rendertreatmentremindscheduling.viewItem}>
+      <Text style={rendertreatmentremindscheduling.textDate}>Username:</Text>
+      <Text style={rendertreatmentremindscheduling.text}> {item.user.username}</Text>
     </View>
+    <View style= {rendertreatmentremindscheduling.viewTitle}>
+      <Text style={rendertreatmentremindscheduling.textDate}>Treatment Info:</Text>
+    </View>
+    {item.treatmentInfo.map((info: { timeOfDay: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; treatmentTime: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; medications: { medicationName: string | number | boolean | React.ReactPortal | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined; dosage: string | number | boolean | React.ReactPortal | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined; }[]; }, index: React.Key | null | undefined) => (
+      <View style={rendertreatmentremindscheduling.viewTimeOfDay} key={index}>
+        <View style={rendertreatmentremindscheduling.viewItem}>
+          <Text style={rendertreatmentremindscheduling.textDate}>Time of Day:</Text>
+          <Text style={rendertreatmentremindscheduling.text}> {info.timeOfDay}</Text>
+        </View>
+        <View style={rendertreatmentremindscheduling.viewItem}>
+          <Text style={rendertreatmentremindscheduling.textDate}>Treatment Time:</Text>
+          <Text style={rendertreatmentremindscheduling.text}>{info.treatmentTime}</Text>
+        </View>
+        {info.medications.map((medication: { medicationName: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; dosage: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; }, index: React.Key | null | undefined) => (
+          <View key={index}>
+            <View style={rendertreatmentremindscheduling.viewItem}>
+              <Text style={rendertreatmentremindscheduling.textDate}>Medication Name:</Text>
+              <Text style={rendertreatmentremindscheduling.text}>{medication.medicationName}</Text>
+            </View>
+            <View style={rendertreatmentremindscheduling.viewItem}>
+              <Text style={rendertreatmentremindscheduling.textDate}>Dosage:</Text>
+              <Text style={rendertreatmentremindscheduling.text}>{medication.dosage}</Text>
+            </View>
+          </View>
+        ))}
+      </View>
+    ))}
+  </View>
+  );
+  return (
+    <FlatList
+      data={data}
+      renderItem={renderItem}
+      keyExtractor={(item, index) => index.toString()}
+    />
   );
 };
 export default RenderTreatmentRemindScheduling;

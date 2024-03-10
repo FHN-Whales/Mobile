@@ -1,122 +1,43 @@
-/* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
-import { Calendar, LocaleConfig } from 'react-native-calendars';
-import { Image, Modal, Text, TouchableOpacity, View } from 'react-native';
-import { useQuery } from '@tanstack/react-query'; // Import useQuery from react-query
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ApiSearchReminder } from '../../../../../api/useApiSearchReminder';
+import React from 'react';
+import { Calendar } from 'react-native-calendars';
+import { Image, Modal, Text, TouchableOpacity, View, FlatList } from 'react-native';
 import rendercalendar from '../../../../../styles/HomePage/Home/ManagementFamily/HomePageWithManagement/RenderCalendar';
-import axios from 'axios';
-import rendertreatmentremindscheduling from '../../../../../styles/HomePage/Calender/CalendarWithManagement/RenderTreatmentRemindScheduling';
-
-interface Medication {
-  medicationName: string;
-  dosage: number;
-}
-
-interface Treatment {
-  timeOfDay: string;
-  medications: Medication[];
-  treatmentTime: string;
-  reminderId: string;
-}
-
-interface User {
-  username: string;
-}
-
-interface TreatmentReminder {
-  user: User;
-  treatmentInfo: Treatment[];
-}
-
+import useRenderCalendar from '../../../../../hook/HomePage/Home/ManagementWithFamily/HomePageWithFamily/useRenderCalendar';
 const RenderCalendar = () => {
-  // Configuring locale
-  LocaleConfig.locales.fr = {
-    monthNames: [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ],
-    monthNamesShort: [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ],
-    dayNames: [
-      'Sunday',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-    ],
-    dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-    today: 'Today',
-  };
-
-  LocaleConfig.defaultLocale = 'fr';
-
-  // States
-  const [selected, setSelected] = useState<string>('');
-  const [showModal, setShowModal] = useState<boolean>(false);
-
-  // Use React Query to fetch reminder data
-  const { data: ReminderData, isError, refetch } = useQuery<TreatmentReminder>({
-    queryKey: ['reminderData', selected], // Pass an object with queryKey property
-    queryFn: async () => {
-      const familyId = await AsyncStorage.getItem('familyId');
-      const userId = await AsyncStorage.getItem('userId');
-      console.log(selected);
-      console.log(familyId);
-      console.log(userId);
-      const response = await axios.get(ApiSearchReminder, {
-        params: {
-          date: selected,
-          familyId: familyId,
-          userId: userId,
-        },
-      });
-      console.log(response);
-      return response.data;
-    },
-  });
-
-  const handleDayPress = (day: { dateString: string }): void => {
-    setSelected(day.dateString);
-    setShowModal(true);
-    refetch(); // Trigger data refetch when day is pressed
-  };
-
-  const handleCloseModal = (): void => {
-    setShowModal(false);
-  };
-
-  // Function to handle refetching data after a delay
-  const handleRefetchWithDelay = (): void => {
-    setTimeout(() => {
-      refetch();
-    }, 200);
-  };
+  const {selected,handleDayPress,showModal,handleCloseModal,handleRefetchWithDelay,SearchReminder,isError,refetch} = useRenderCalendar();
+  const renderReminderItem = ({ item }: { item: SearchReminder }): React.ReactNode => (
+    <View style={rendercalendar.renderViewItem}>
+      <View style={rendercalendar.viewItem}>
+        <Text style={rendercalendar.textDate}>Username:</Text>
+        <Text style={rendercalendar.text}> {item.user.username}</Text>
+      </View>
+      <Text style={rendercalendar.textDate}>Treatment Info:</Text>
+      {item.treatmentInfo.map((info: { timeOfDay: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; treatmentTime: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; medications: { medicationName: string | number | boolean | React.ReactPortal | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined; dosage: string | number | boolean | React.ReactPortal | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined; }[]; }, index: React.Key | null | undefined) => (
+        <View style={rendercalendar.viewTimeOfDay} key={index}>
+          <View style={rendercalendar.viewItem}>
+            <Text style={rendercalendar.textDate}>Time of Day:</Text>
+            <Text style={rendercalendar.text}> {info.timeOfDay}</Text>
+          </View>
+          <View style={rendercalendar.viewItem}>
+            <Text style={rendercalendar.textDate}>Treatment Time:</Text>
+            <Text style={rendercalendar.text}>{info.treatmentTime}</Text>
+          </View>
+          {info.medications.map((medication: { medicationName: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; dosage: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; }, index: React.Key | null | undefined) => (
+            <View key={index}>
+              <View style={rendercalendar.viewItem}>
+                <Text style={rendercalendar.textDate}>Medication Name:</Text>
+                <Text style={rendercalendar.text}>{medication.medicationName}</Text>
+              </View>
+              <View style={rendercalendar.viewItem}>
+                <Text style={rendercalendar.textDate}>Dosage:</Text>
+                <Text style={rendercalendar.text}>{medication.dosage}</Text>
+              </View>
+            </View>
+          ))}
+        </View>
+      ))}
+    </View>
+  );
 
   return (
     <View style={rendercalendar.view}>
@@ -135,7 +56,6 @@ const RenderCalendar = () => {
         }}
       />
       <Modal
-        style={rendercalendar.modal}
         visible={showModal}
         animationType="slide"
         transparent={true}
@@ -144,20 +64,14 @@ const RenderCalendar = () => {
           <View style={rendercalendar.modalView}>
             <View style={rendercalendar.viewIconFuntion}>
               <TouchableOpacity>
-                <Image
-                  source={require('../../../../../image/icomoon-free_notification.png')}
-                />
+                <Image source={require('../../../../../image/icomoon-free_notification.png')} />
               </TouchableOpacity>
               <View style={rendercalendar.viewFunction}>
                 <TouchableOpacity>
-                  <Image
-                    source={require('../../../../../image/tdesign_edit-2.png')}
-                  />
+                  <Image source={require('../../../../../image/tdesign_edit-2.png')} />
                 </TouchableOpacity>
                 <TouchableOpacity>
-                  <Image
-                    source={require('../../../../../image/streamline_recycle-bin-2.png')}
-                  />
+                  <Image source={require('../../../../../image/streamline_recycle-bin-2.png')} />
                 </TouchableOpacity>
               </View>
             </View>
@@ -166,25 +80,12 @@ const RenderCalendar = () => {
             </View>
             {isError ? (
               <Text>Error fetching data</Text>
-            ) : ReminderData ? (
-              <View style={rendertreatmentremindscheduling.container}>
-                <View>
-                  <Text>{ReminderData.user.username}</Text>
-                  {ReminderData.treatmentInfo.map((treatment, index1) => (
-                    <View key={index1}>
-                      <Text>Time of day: {treatment.timeOfDay}</Text>
-                      <Text>Treatment Time: {treatment.treatmentTime}</Text>
-                      <Text>Medications:</Text>
-                      {treatment.medications.map((medication, index2) => (
-                        <View key={`${index1}-${index2}`}>
-                          <Text>-Medication name {medication.medicationName}</Text>
-                          <Text>  Quantity: {medication.dosage}</Text>
-                        </View>
-                      ))}
-                    </View>
-                  ))}
-                </View>
-              </View>
+            ) : SearchReminder && SearchReminder.length > 0 ? (
+              <FlatList
+                data={SearchReminder}
+                renderItem={renderReminderItem}
+                keyExtractor={(item, index) => index.toString()}
+              />
             ) : (
               <Text style={rendercalendar.text}>No reminders for this day.</Text>
             )}
@@ -192,7 +93,7 @@ const RenderCalendar = () => {
               style={rendercalendar.viewClose}
               onPress={() => {
                 handleCloseModal();
-                handleRefetchWithDelay(); // Call refetch with a delay after modal is closed
+                handleRefetchWithDelay();
               }}>
               <Image source={require('../../../../../image/x.png')} />
             </TouchableOpacity>
@@ -202,5 +103,4 @@ const RenderCalendar = () => {
     </View>
   );
 };
-
 export default RenderCalendar;
