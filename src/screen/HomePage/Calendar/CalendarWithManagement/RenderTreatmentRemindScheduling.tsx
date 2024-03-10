@@ -1,78 +1,112 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
-import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
-import rendertreatmentremindscheduling from '../../../../styles/HomePage/Calender/CalendarWithManagement/RenderTreatmentRemindScheduling';
-interface Item {
-  session: string;
-  medicineName: string;
-  quantity: string;
-  time: string;
-  reminder: string;
+import {FlatList, Text, View, Button} from 'react-native';
+import {useQuery} from '@tanstack/react-query';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+
+interface Medication {
+  medicationName: string;
+  dosage: number;
 }
-const renderTreatmentRemindScheduling = () => {
-  const data: Item[] = [
-    {
-      session: 'Morning',
-      medicineName: 'Cetirizine, Hetamine',
-      quantity: '2 viên/1 lần',
-      time: '7:00 AM',
-      reminder:
-        'Nhớ phải ăn nó trước khi uống nhé ',
+
+interface Treatment {
+  timeOfDay: string;
+  medications: Medication[];
+  treatmentTime: string;
+}
+
+interface User {
+  _id: string;
+  username: string;
+}
+
+interface TreatmentReminder {
+  user: User;
+  treatmentInfo: Treatment[];
+}
+
+const RenderTreatmentRemindScheduling = () => {
+  const {data, isLoading, isError, refetch} = useQuery<TreatmentReminder[]>({
+    queryKey: ['treatmentReminders'],
+    queryFn: async () => {
+      try {
+        const familyId = await AsyncStorage.getItem('familyId');
+        const userId = await AsyncStorage.getItem('userId');
+
+        const response = await axios.get<TreatmentReminder[]>(
+          `http://3.25.181.251:8000/Reminder/getTreatmentRemindersByUserId/${familyId}/${userId}`,
+          {
+            headers: {
+              Accept: 'application/json',
+            },
+          },
+        );
+        console.log('familyId', familyId);
+        console.log('userId', userId);
+        console.log('data', response.data);
+        // Parse chuỗi JSON thành đối tượng JavaScript
+        const responseDataJson = JSON.stringify(response.data);
+        console.log('responseDataJson', responseDataJson);
+        if (response.status === 200) {
+          return response.data;
+        } else if (response.status === 404) {
+          throw new Error('Data not found');
+        } else {
+          throw new Error('Failed to fetch data');
+        }
+      } catch (error) {
+        console.error('Error fetching data: ', error);
+        throw new Error('Failed to fetch data');
+      }
     },
-    {
-      session: 'Noon',
-      medicineName: 'Cetirizine, Hetamine',
-      quantity: '2 viên/1 lần',
-      time: '12:00 PM',
-      reminder:
-        'Nhớ phải ăn nó trước khi uống nhé .',
-    },
-    {
-      session: 'Evening',
-      medicineName: 'Cetirizine, Hetamine',
-      quantity: '2 viên/1 lần',
-      time: '12:00 PM',
-      reminder:
-        'Nhớ phải ăn nó trước khi uống nhé. ',
-    },
-  ];
+  });
+  const handleRefresh = () => {
+    refetch();
+  };
+
+  if (isError) {
+    return <Text>Error fetching data</Text>;
+  }
   return (
-    <FlatList
-      showsVerticalScrollIndicator={false}
-      showsHorizontalScrollIndicator={false}
-      data={data}
-      keyExtractor={(item, index) => index.toString()}
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      renderItem={({item, index}: {item: Item; index: number}) => (
-        <View style={rendertreatmentremindscheduling.container}>
-          <View style={rendertreatmentremindscheduling.viewSession}>
-            <TouchableOpacity>
-                <Image source={require('../../../../image/Vector.png')} />
-            </TouchableOpacity>
-            <Text style={rendertreatmentremindscheduling.textSession}>{item.session}</Text>
-            <TouchableOpacity>
-                <Image source={require('../../../../image/icon_pencil.png')} />
-            </TouchableOpacity>
+    <View>
+      <Button title="Refresh" onPress={handleRefresh} />
+      <FlatList
+        data={data}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({item}) => (
+          <View>
+            <Text>Username: {item.user.username}</Text>
+            <FlatList
+              data={item.treatmentInfo}
+              keyExtractor={(subItem, subIndex) => subIndex.toString()}
+              renderItem={({item: subItem}) => (
+                <View style={{marginLeft: 20}}>
+                  <Text>Time of Day: {subItem.timeOfDay}</Text>
+                  <Text>Treatment Time: {subItem.treatmentTime}</Text>
+                  <Text>Medications:</Text>
+                  <FlatList
+                    data={subItem.medications}
+                    keyExtractor={(medication, medicationIndex) =>
+                      medicationIndex.toString()
+                    }
+                    renderItem={({item: medication}) => (
+                      // eslint-disable-next-line react-native/no-inline-styles
+                      <View style={{marginLeft: 20}}>
+                        <Text>
+                          - Medication Name: {medication.medicationName}
+                        </Text>
+                        <Text> Dosage: {medication.dosage}</Text>
+                      </View>
+                    )}
+                  />
+                </View>
+              )}
+            />
           </View>
-          <View style={rendertreatmentremindscheduling.viewMedicine}>
-            <Text style={rendertreatmentremindscheduling.textMedicine}>Medicine name :</Text>
-            <Text style={rendertreatmentremindscheduling.textMedicineName}>{item.medicineName}</Text>
-          </View>
-          <View style={rendertreatmentremindscheduling.viewMedicine}>
-            <Text style={rendertreatmentremindscheduling.textMedicine}>Quantity of medicine :</Text>
-            <Text style={rendertreatmentremindscheduling.textMedicineName}>{item.quantity}</Text>
-          </View>
-          <View style={rendertreatmentremindscheduling.viewMedicine}>
-            <Text style={rendertreatmentremindscheduling.textMedicine}>Time to medicine :</Text>
-            <Text style={rendertreatmentremindscheduling.textMedicineName}>{item.time}</Text>
-          </View>
-          <View style={rendertreatmentremindscheduling.viewMedicine}>
-            <Text style={rendertreatmentremindscheduling.textMedicine}>Reminder :</Text>
-            <Text style={rendertreatmentremindscheduling.textMedicineName}>{item.reminder}</Text>
-          </View>
-        </View>
-      )}
-      horizontal={false}
-    />
+        )}
+      />
+    </View>
   );
 };
-export default renderTreatmentRemindScheduling;
+export default RenderTreatmentRemindScheduling;

@@ -17,7 +17,8 @@ const renderFunctionForProfile = () => {
       try {
         setModalVisible(false);
         await AsyncStorage.removeItem('userId');
-        console.log('Đăng xuất thành công, xóa userId thành công!');
+        await AsyncStorage.removeItem('familyId');
+        console.log('Đăng xuất thành công, xóa userId , familyId thành công!');
         navigation.navigate('SplashScreen');
       } catch (error) {
         console.error('Error logging out:', error);
