@@ -33,7 +33,7 @@ const AddInformationProfileScreen: React.FC = () => {
                   </View>
                   <TextInput
                     placeholderTextColor="#9CA3AF"
-                    placeholder="Nick Name"
+                    placeholder="Nickname"
                     onChangeText={setUsername}
                     value={username}
                     style={AddInformationProfile.textinput}

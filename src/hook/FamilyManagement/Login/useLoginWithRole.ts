@@ -72,6 +72,8 @@ const useLoginWithRole = () => {
           if (completed && userId) {
             await AsyncStorage.setItem('userId', userId);
             await AsyncStorage.setItem('familyId', familyId);
+            console.log(userId);
+            console.log(familyId);
             setModalVisible(true);
           } else {
             console.log('Sign-in failed:', message);
