@@ -6,17 +6,17 @@ const rendertiltereminder = StyleSheet.create({
         paddingRight:30,
     },
     view:{
-        flexDirection:'row',
-        justifyContent:'space-between',
+        flexDirection:'column',
     },
     viewTitle:{
         flexDirection:'column',
-        gap:5,
+        gap:10,
     },
     text:{
         color:'#000000',
         fontSize:14,
         fontWeight:'bold',
+        paddingBottom:20,
     },
     textBorder:{
         borderBottomWidth:1,

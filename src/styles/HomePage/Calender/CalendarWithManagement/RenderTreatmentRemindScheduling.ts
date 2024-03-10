@@ -1,6 +1,14 @@
 import { StyleSheet} from 'react-native';
 const rendertreatmentremindscheduling = StyleSheet.create({
-  container: {
+  renderViewItem:{
+    borderWidth:1,
+    borderColor:'#87CEFA',
+    borderRadius:10,
+    padding:20,
+    flexDirection:'column',
+    gap:10,
+  },
+  viewTimeOfDay: {
     flexDirection: 'column',
     marginBottom: 20,
     borderRadius: 10,
@@ -14,29 +22,22 @@ const rendertreatmentremindscheduling = StyleSheet.create({
     elevation: 2,
     padding:10,
   },
-  viewSession:{
+  viewItem:{
     flexDirection:'row',
-    justifyContent: 'space-between',
+    gap:10,
+    paddingTop:5,
+    paddingBottom:5,
   },
-  textSession:{
+  textDate:{
     color:'#1F2A37',
     fontWeight:'600',
   },
-  viewMedicine:{
-    flexDirection:'row',
-    justifyContent:'space-between',
-    paddingTop:15,
-    width:'100%'
+  text:{
+    color:'#1F2A37',
   },
-  textMedicine:{
-    fontSize:13,
-    color:'#4B5563',
+  viewTitle:{
+    paddingBottom:10,
   },
-  textMedicineName:{
-    fontWeight:'600',
-    fontSize:13,
-    color:'#4B5563',
-  }
 });
 
 export default rendertreatmentremindscheduling;
