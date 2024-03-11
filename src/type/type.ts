@@ -24,4 +24,5 @@ export type RootStackParamList = {
     OptionHeathCheckScreen:undefined;
     ScanScreen:undefined;
     CreateTreatmentRemindScreen:undefined;
+    CreateHeathCheckWithManagerScreen:undefined;
   };

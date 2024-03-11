@@ -33,6 +33,7 @@ import LoginWithRoleScreen from '../screen/FamilyManagement/Login/LoginWithRoleS
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 import { useCheckAuth } from '../hook/FamilyManagement/CheckAuth/useCheckAuth';
+import CreateHeathCheckWithManagerScreen from '../screen/HomePage/HealthCheckScheduling/HealthCheckSchedulingwithManager/CreateHeathCheckWithManager';
 const Homestack = () => {
   return (
     <Tab.Navigator
@@ -203,6 +204,11 @@ const Navigate = () => {
           options={{headerShown: false}}
           name="CreateTreatmentRemindScreen"
           component={CreateTreatmentRemindScreen}
+        />
+          <Stack.Screen
+          options={{headerShown: false}}
+          name="CreateHeathCheckWithManagerScreen"
+          component={CreateHeathCheckWithManagerScreen}
         />
          <Stack.Screen options={{headerShown: false}} name="HomeScreen" component={Homestack} />
       </Stack.Navigator>
