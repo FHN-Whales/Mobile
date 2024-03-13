@@ -14,7 +14,7 @@ const renderViewGoBack = () =>{
         <TouchableOpacity onPress={useGoBack}>
           <Image source={require('../../../../../image/back-icon.png')} />
         </TouchableOpacity>
-        <Text style={renderviewgoback.textFill}>Add Member</Text>
+        <Text style={renderviewgoback.textFill}>Examination Information</Text>
       </View>
     );
 };

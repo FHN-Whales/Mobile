@@ -4,7 +4,7 @@ import {useNavigation, NavigationProp} from '@react-navigation/native';
 import { ApiSignUp } from '../../../api/useAuthApi';
 import axios from 'axios';
 import {useMutation} from '@tanstack/react-query';
-import { Keyboard } from 'react-native';
+import { Alert, Keyboard } from 'react-native';
 interface Register {
   email: string;
   password: string;
@@ -72,7 +72,7 @@ const useRegister = () => {
               console.log('Email verification sent successfully.');
               console.log(familyId);
             } else {
-              console.log('Registration failed:', message);
+              Alert.alert( message);
             }
             setIsLoading(false);
           } else {
@@ -83,7 +83,7 @@ const useRegister = () => {
       } catch (error: any) {
         console.log('Error sending the request:', error.message);
         if (error.response && error.response.status === 409) {
-          console.log('Email is already registered');
+          Alert.alert('Email is already registered');
         } else {
           console.log('Unexpected error:', error);
         }

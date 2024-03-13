@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Keyboard } from 'react-native';
+import { Alert, Keyboard } from 'react-native';
 import { useNavigation, NavigationProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../../../type/type';
 import axios from 'axios';
@@ -11,7 +11,6 @@ interface LoginWithRole {
   role: string;
   password: string;
 }
-
 const useLoginWithRole = () => {
   const route = useRoute();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -24,7 +23,6 @@ const useLoginWithRole = () => {
   const [isEmailFocused, setIsEmailFocused] = useState(false);
   const [roleError, setRoleError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  // const [error, setError] = useState('');
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -67,7 +65,7 @@ const useLoginWithRole = () => {
         setIsLoading(true);
 
         if (response.status === 200) {
-          const { completed, message, userId } = response.data;
+          const { completed, userId } = response.data;
 
           if (completed && userId) {
             await AsyncStorage.setItem('userId', userId);
@@ -76,16 +74,12 @@ const useLoginWithRole = () => {
             console.log(familyId);
             setModalVisible(true);
           } else {
-            console.log('Sign-in failed:', message);
-            // setError(message); // Lưu trữ thông báo lỗi chungelse if (message.includes('password')) {
-              setRoleError(message);
-              setPasswordError(message);
+            Alert.alert('Role User or Password is not correct!');
           }
         } else {
           console.log('Error:', 'Unexpected response');
         }
         setIsLoading(false);
-      // eslint-disable-next-line no-catch-shadow, @typescript-eslint/no-shadow
       } catch (error) {
         console.log('Request error:', error);
       }

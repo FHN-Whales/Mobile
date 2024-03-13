@@ -1,33 +1,30 @@
 import * as Yup from 'yup';
 const CreateHealthCheckSchema = Yup.object().shape({
-    nameDoctor: Yup.string()
-    .min(2, 'Name Doctor should not be less than 2 characters!')
-    .max(100, 'Name Doctor  should not exceed 100 characters!')
-    .required('Please enter your Name Doctor'),
     reExaminationTime: Yup.string()
     .trim()
     .min(2, 'Re Examination Time should not be less than 2 characters!')
     .max(50, 'Re Examination Time  should not exceed 100 characters!')
-    .required('Please enter your Re Examination Time'),
+    .matches(/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/, 'Invalid format for Re Examination Time. Please use the format hh:mm in 24-hour notation.')
+    .required('Re Examination Time cannot be left blank.'),
     reExaminationDate: Yup.string()
     .trim()
     .min(2, 'Re Examination Date should not be less than 2 characters long!')
     .max(200, 'ReExamination should not exceed 20 characters!')
-    .required('Please enter your Re Examination Date'),
+    .required('Re Examination Date cannot be left blank.'),
     reExaminationLocation: Yup.string()
     .trim()
     .min(2, 'Re Examination Location not be less than 2 characters long!')
     .max(50, 'Re Examination Location should not exceed 50 characters!')
-    .required('Please enter your confirm Re Examination Location'),
+    .required('Re Examination Location cannot be left blank.'),
     nameHospital: Yup.string()
     .trim()
     .min(2, 'Name Hospital not be less than 2 characters long!')
     .max(50, 'Name Hospital should not exceed 50 characters!')
-    .required('Please enter your Name Hospital'),
+    .required("Hospital's name cannot be left blank."),
     userNote: Yup.string()
     .trim()
     .min(2, 'User Note not be less than 2 characters long!')
     .max(50, 'User Note should not exceed 50 characters!')
-    .required('Please enter your User Note'),
+    .required('User Note cannot be left blank.'),
 });
 export default CreateHealthCheckSchema;
