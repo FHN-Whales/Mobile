@@ -126,7 +126,7 @@ const useAddNewMember = () =>{
                 setModalVisible(true);
                 console.log('Add member successfully.');
               } else {
-                console.log('Add member failed:', message);
+                console.log('Add new member  failed:', message);
               }
               // setIsLoading(false);
             } else {

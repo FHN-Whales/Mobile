@@ -33,7 +33,7 @@ import LoginWithRoleScreen from '../screen/FamilyManagement/Login/LoginWithRoleS
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 import { useCheckAuth } from '../hook/FamilyManagement/CheckAuth/useCheckAuth';
-import CreateHeathCheckWithManagerScreen from '../screen/HomePage/HealthCheckScheduling/HealthCheckSchedulingwithManager/CreateHeathCheckWithManager';
+import CreateHeathCheckWithManagerScreen from '../screen/HomePage/HealthCheckScheduling/HealthCheckSchedulingwithManager/CreateHealthCheck/CreateHeathCheckWithManager';
 const Homestack = () => {
   return (
     <Tab.Navigator

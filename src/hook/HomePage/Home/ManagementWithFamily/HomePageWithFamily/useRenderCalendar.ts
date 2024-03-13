@@ -119,7 +119,7 @@ const useRenderCalendar = (): [string, React.Dispatch<React.SetStateAction<strin
   const handleRefetchWithDelay = (): void => {
     setTimeout(() => {
       refetch();
-    }, 2000);
+    }, 200);
   };
 
   const handleDayPress = (day: { dateString: string }): void => {

@@ -65,7 +65,7 @@ const useLoginWithRole = () => {
         setIsLoading(true);
 
         if (response.status === 200) {
-          const { completed, message, userId } = response.data;
+          const { completed, userId } = response.data;
 
           if (completed && userId) {
             await AsyncStorage.setItem('userId', userId);

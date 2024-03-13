@@ -47,7 +47,8 @@ const rendercalendar = StyleSheet.create({
         borderRadius:10,
         padding:15,
         flexDirection:'column',
-        gap:7,
+        gap:10,
+        marginBottom:10,
     },
     viewItem:{
         flexDirection:'row',
