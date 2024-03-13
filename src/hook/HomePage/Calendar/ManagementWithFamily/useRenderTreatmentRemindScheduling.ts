@@ -1,6 +1,8 @@
-import {useQuery} from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import { useEffect, useRef } from 'react';
+
 interface TreatmentReminder {
   dataTreatment: any[];
   user: {
@@ -20,8 +22,11 @@ interface TreatmentReminder {
     __v: number;
   }[];
 }
+
 const useRenderTreatmentRemindScheduling = () => {
-  const {data, isLoading, isError} = useQuery<TreatmentReminder[]>({
+  const shouldRefetch = useRef<boolean>(false);
+
+  const { data, isLoading, isError, refetch } = useQuery<TreatmentReminder[]>({
     queryKey: ['treatmentReminders'],
     queryFn: async () => {
       try {
@@ -38,7 +43,7 @@ const useRenderTreatmentRemindScheduling = () => {
         );
 
         if (response.status === 200) {
-          const outData =  response.data.dataTreatment;
+          const outData = response.data.dataTreatment;
           console.log('====================================');
           console.log(response.data.dataTreatment);
           console.log('====================================');
@@ -54,6 +59,20 @@ const useRenderTreatmentRemindScheduling = () => {
       }
     },
   });
-  return [data,isLoading,isError];
+
+  useEffect(() => {
+    // Nếu dữ liệu đã được nhận, không có lỗi và không có refetch nào đang chờ, thì thực hiện refetch sau 200ms
+    if (data && !isError && !shouldRefetch.current) {
+      const timer = setTimeout(() => {
+        refetch();
+      }, 200);
+
+      // Clear the timeout if the component unmounts
+      return () => clearTimeout(timer);
+    }
+  }, [data, isError, refetch]);
+
+  return [data, isLoading, isError];
 };
+
 export default useRenderTreatmentRemindScheduling;
