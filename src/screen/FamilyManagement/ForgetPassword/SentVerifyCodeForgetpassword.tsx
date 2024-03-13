@@ -3,7 +3,7 @@ import {KeyboardAvoidingView,Platform,TouchableWithoutFeedback,Keyboard,View,Ima
 import verifycode from '../../../styles/FamilyManagement/ForgetPassword/VerifyCodeScreen';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../type/type';
-const VerifyCodeScreen = () => {
+const SentVerifyCodeForgetpassword = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const useGoBack = () => {
     navigation.goBack();
@@ -25,7 +25,7 @@ const VerifyCodeScreen = () => {
           <View style={verifycode.viewCreate}>
             <View style={verifycode.viewLogo}>
               <Image source={require('../../../image/logo.png')} />
-              <Text style={verifycode.textLogo}>TRT</Text>
+              <Text style={verifycode.textLogo}>FHN</Text>
             </View>
             <Text style={verifycode.textLogo}>Verify Code</Text>
             <Text style={verifycode.textWe}>
@@ -59,4 +59,4 @@ const VerifyCodeScreen = () => {
     </KeyboardAvoidingView>
   );
 };
-export default VerifyCodeScreen;
+export default SentVerifyCodeForgetpassword;

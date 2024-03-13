@@ -7,6 +7,20 @@ const login = StyleSheet.create({
   inner: {
     justifyContent: 'space-around',
   },
+  viewGoBack:{
+    flexDirection:'row',
+    gap:20,
+    paddingTop:20,
+    paddingLeft:20,
+    position:'absolute',
+    top:5,
+    zIndex:1,
+  },
+  textFill:{
+    fontSize:20,
+    fontWeight:'500',
+    color:'#374151',
+  },
   viewLogo: {
     flexDirection: 'column',
     justifyContent: 'center',
@@ -34,6 +48,9 @@ const login = StyleSheet.create({
     paddingLeft:25,
     paddingRight:25,
   },
+  textError:{
+    color:'red',
+  },
   viewForm: {
     paddingTop: 20,
     paddingLeft: 25,
@@ -47,6 +64,16 @@ const login = StyleSheet.create({
     borderRadius: 10,
     gap: 5,
     backgroundColor: '#F9FAFB',
+  },
+  showPassword:{
+    position: 'absolute',
+    left:300
+    ,
+    top:14,
+  },
+  iconShowPassword:{
+    height: 20,
+    width: 20,
   },
   image: {
     paddingTop: 13,
@@ -120,7 +147,7 @@ const login = StyleSheet.create({
     fontSize: 16,
   },
   viewContinue:{
-    flexDirection:'column',
+    flexDirection:'row',
     gap:15,
   },
   Google:{
@@ -132,10 +159,13 @@ const login = StyleSheet.create({
     alignItems:'center',
     paddingTop: 14,
     paddingBottom: 14,
+    width: '48%',
   },
   viewGoogle:{
     flexDirection:'row',
     gap:6,
+    paddingLeft:30,
+    paddingRight:30,
   },
   textGoogle:{
     color:'#1C2A3A',
@@ -152,6 +182,7 @@ const login = StyleSheet.create({
     justifyContent: 'center',
     alignItems:'center',
     gap:5,
+    paddingBottom:20,
   },
   textviewNavigationSignIn:{
     color:'#6B7280',
@@ -161,6 +192,5 @@ const login = StyleSheet.create({
     color:'#1C64F2',
     fontWeight:'600',
   },
-  
 });
 export default login;

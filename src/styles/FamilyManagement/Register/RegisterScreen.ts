@@ -3,6 +3,7 @@ const register = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    height:950,
   },
   inner: {
     justifyContent: 'space-around',
@@ -58,6 +59,19 @@ const register = StyleSheet.create({
     width: '100%',
     color: '#9CA3AF',
   },
+  showPassword:{
+    position: 'absolute',
+    left:300
+    ,
+    top:14,
+  },
+  iconShowPassword:{
+    height: 20,
+    width: 20,
+  },
+  textError:{
+    color:'red',
+  },
   viewbutton: {
     paddingTop: 8,
   },
@@ -72,6 +86,36 @@ const register = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 48,
+    padding: 35,
+    alignItems: 'center',
+  },
+  textCon:{
+    fontSize:20,
+    color:'#1C2A3A',
+    paddingTop:30,
+    fontWeight:'600',
+  },
+  textYour:{
+    color:'#6B7280',
+    fontSize:14,
+    textAlign:'center',
+    lineHeight:21,
+    paddingTop:20,
+  },
+  viewloadding:{
+    paddingTop:40,
+    paddingBottom:20,
   },
   viewor: {
     flexDirection: 'row',
@@ -90,7 +134,7 @@ const register = StyleSheet.create({
     fontSize: 16,
   },
   viewContinue:{
-    flexDirection:'column',
+    flexDirection:'row',
     gap:15,
   },
   Google:{
@@ -102,10 +146,13 @@ const register = StyleSheet.create({
     alignItems:'center',
     paddingTop: 14,
     paddingBottom: 14,
+    width: '48%',
   },
   viewGoogle:{
     flexDirection:'row',
     gap:6,
+    paddingLeft:30,
+    paddingRight:30,
   },
   textGoogle:{
     color:'#1C2A3A',

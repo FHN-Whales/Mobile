@@ -22,7 +22,7 @@ const ResetPasswordScreen = () => {
           <View style={resetpassword .viewCreate}>
             <View style={resetpassword .viewLogo}>
               <Image source={require('../../../image/logo.png')} />
-              <Text style={resetpassword .textLogo}>TRT</Text>
+              <Text style={resetpassword .textLogo}>FHN</Text>
             </View>
             <Text style={resetpassword .textLogo}>Create new password</Text>
             <Text style={resetpassword .textWe}>Your new password must be different form previously used password</Text>

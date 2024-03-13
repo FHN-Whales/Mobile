@@ -9,19 +9,31 @@ import RegisterAsManagerScreen from '../screen/FamilyManagement/Register/Registe
 import AddInformationProfileScreen from '../screen/FamilyManagement/Register/AddInformationProfileScreen';
 import LoginScreen from '../screen/FamilyManagement/Login/LoginScreen';
 import ForgetPasswordScreen from '../screen/FamilyManagement/ForgetPassword/ForgetPasswordScreen';
-import VerifyCodeScreen from '../screen/FamilyManagement/ForgetPassword/VerifyCodeScreen';
 import ResetPasswordScreen from '../screen/FamilyManagement/ForgetPassword/ResetPasswordScreen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import { Image, Text, View } from 'react-native';
+import { Image} from 'react-native';
 import HomePageWithManagement from '../screen/HomePage/Home/ManagementFamily/HomePageWithManagement/HomepageWithManagementScreen';
 import AllMemberFamilyScreen from '../screen/HomePage/Home/ManagementFamily/AllMemberFamilyScreen/AllMemberFamilyScreen';
 import AddMemberScreen from '../screen/HomePage/Home/ManagementFamily/AddMember/AddmemberScreen';
 import EditMemberScreen from '../screen/HomePage/Home/ManagementFamily/EditMember/EditMemberScreen';
-import BlogScreen from '../screen/HomePage/Blog/BlogScreen/BlogScreen';
+// import BlogScreen from '../screen/HomePage/Blog/BlogScreen/BlogScreen';
 import PostBlogScreen from '../screen/HomePage/Blog/CreateBlog/PostBlogScreen';
 import EditBlogScreen from '../screen/HomePage/Blog/EditBlog/EditBlogScreen';
+import CalendarScreen from '../screen/HomePage/Calendar/CalendarWithManagement/CalendarWithManagementScreen';
+import ProfileScreen from '../screen/HomePage/Profile/ShowProfile/ProfileScreen';
+import EditProfileScreen from '../screen/HomePage/Profile/EditProfile/EditProfileScreen';
+import NotificationScreen from '../screen/HomePage/Notification/Notificationswhenusingtheapp/NotificationScreen';
+import OptionHeathCheckScreen from '../screen/HomePage/Home/ManagementFamily/OptionHeathcheckSchedule/OptionHeathcheckSchedule';
+import SentVerifyCodeForgetpassword from '../screen/FamilyManagement/ForgetPassword/SentVerifyCodeForgetpassword';
+import VerifyCodeScreen from '../screen/FamilyManagement/Register/VerifyCodeScreen';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import ScanScreen from '../screen/HomePage/TreatmentRemindScheduling/Treatment Remind SchedulingWithManagement/Scan/ScanwithManagement';
+import CreateTreatmentRemindScreen from '../screen/HomePage/TreatmentRemindScheduling/Treatment Remind SchedulingWithManagement/InputInformationManually/AddTreatmentReminder/CreateTreatmentRemind';
+import LoginWithRoleScreen from '../screen/FamilyManagement/Login/LoginWithRoleScreen';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+import { useCheckAuth } from '../hook/FamilyManagement/CheckAuth/useCheckAuth';
+import CreateHeathCheckWithManagerScreen from '../screen/HomePage/HealthCheckScheduling/HealthCheckSchedulingwithManager/CreateHeathCheckWithManager';
 const Homestack = () => {
   return (
     <Tab.Navigator
@@ -49,7 +61,7 @@ const Homestack = () => {
             <Image
               source={iconImageSource}
               // eslint-disable-next-line react-native/no-inline-styles
-              style={{ width: size, height: size, tintColor: color,  marginTop:15, paddingLeft:20, paddingBottom:20, }}
+              style={{ width: size, height: size, tintColor: color,  marginTop:15, paddingLeft:20, paddingBottom:20 }}
             />
           );
         },
@@ -68,28 +80,24 @@ const Homestack = () => {
       })}
     >
       <Tab.Screen  name="HomePage" component={HomePageWithManagement} />
-      <Tab.Screen  name="Blog" component={BlogScreen} />
-      <Tab.Screen name="Calendar" component={Calendar} />
-      <Tab.Screen name="Profile" component={Profile} />
+      {/* <Tab.Screen  name="Blog" component={BlogScreen} /> */}
+      <Tab.Screen name="Calendar" component={CalendarScreen} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
 };
-const Calendar = () =>{
-  return (
-  <View>
-    <Text>Calender</Text>
-  </View>);
-};
-const Profile = () =>{
-  return (
-  <View>
-    <Text>Profile</Text>
-  </View>);
-};
 const Navigate = () => {
+  const queryClient = new QueryClient();
+  const authenticated = useCheckAuth();
   return (
-    <NavigationContainer >
-      <Stack.Navigator initialRouteName="HomeScreen" >
+    <QueryClientProvider client={queryClient}>
+    <NavigationContainer  >
+      <Stack.Navigator>
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="ScreenCheck"
+          component={authenticated === true ? Homestack : SplashScreen}
+        />
         <Stack.Screen
           options={{headerShown: false}}
           name="SplashScreen"
@@ -124,13 +132,18 @@ const Navigate = () => {
         />
          <Stack.Screen
           options={{headerShown: false}}
+          name="LoginWithRoleScreen"
+          component={LoginWithRoleScreen}
+        />
+         <Stack.Screen
+          options={{headerShown: false}}
           name="ForgetPasswordScreen"
           component={ForgetPasswordScreen}
         />
           <Stack.Screen
           options={{headerShown: false}}
-          name="VerifyCodeScreen"
-          component={VerifyCodeScreen}
+          name="SentVerifyCodeForgetpassword"
+          component={SentVerifyCodeForgetpassword}
         />
           <Stack.Screen
           options={{headerShown: false}}
@@ -162,9 +175,45 @@ const Navigate = () => {
           name="EditBlogScreen"
           component={EditBlogScreen}
         />
+         <Stack.Screen
+          options={{headerShown: false}}
+          name="EditProfileScreen"
+          component={EditProfileScreen}
+        />
+         <Stack.Screen
+          options={{headerShown: false}}
+          name="NotificationScreen"
+          component={NotificationScreen}
+        />
+          <Stack.Screen
+          options={{headerShown: false}}
+          name="OptionHeathCheckScreen"
+          component={OptionHeathCheckScreen}
+        />
+         <Stack.Screen
+          options={{headerShown: false}}
+          name="VerifyCodeScreen"
+          component={VerifyCodeScreen}
+        />
+          <Stack.Screen
+          options={{headerShown: false}}
+          name="ScanScreen"
+          component={ScanScreen}
+        />
+         <Stack.Screen
+          options={{headerShown: false}}
+          name="CreateTreatmentRemindScreen"
+          component={CreateTreatmentRemindScreen}
+        />
+          <Stack.Screen
+          options={{headerShown: false}}
+          name="CreateHeathCheckWithManagerScreen"
+          component={CreateHeathCheckWithManagerScreen}
+        />
          <Stack.Screen options={{headerShown: false}} name="HomeScreen" component={Homestack} />
       </Stack.Navigator>
     </NavigationContainer>
+    </QueryClientProvider>
   );
 };
 export default Navigate;

@@ -1,42 +1,14 @@
-import React, { useState } from 'react';
-import {KeyboardAvoidingView,Platform,TouchableWithoutFeedback,Keyboard,View,
-  Image,
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
-import { Dropdown } from 'react-native-element-dropdown';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../../type/type';
+/* eslint-disable react-native/no-inline-styles */
+import React from 'react';
+import { KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, View, Image, Text, TextInput, TouchableOpacity } from 'react-native';
 import AddInformationProfile from '../../../styles/FamilyManagement/Register/AddInformationProfileScreen';
-interface DataItem {
-  label: string ;
-  value: number ;
-  id:number;
-}
+import DateTimePicker from '@react-native-community/datetimepicker';
+import useAddInformationProfile from '../../../hook/FamilyManagement/Register/useAddInformationProfile';
 const AddInformationProfileScreen: React.FC = () => {
-  const data: DataItem[] = [
-    { label: 'Male', value: 1 ,id:1},
-    { label: 'Female', value: 2, id:2 },
-  ];
-  const [value, setValue] = useState<number>(0);
+  const {error, username,open,setUsername, setOpen,gender,setGender,dateOfBirth,setDateOfBirth,handleSubmit,useGoBack} = useAddInformationProfile();
 
-  const handleDropdownChange = (item: DataItem) => {
-    setValue(item.value);
-  };
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-
-  const useNavigationLoginScreen = () => {
-    navigation.navigate('LoginScreen');
-  };
-  const useGoBack = () => {
-    navigation.goBack();
-  };
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={AddInformationProfile.container}
-    >
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={AddInformationProfile.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={AddInformationProfile.inner}>
           <View>
@@ -54,13 +26,16 @@ const AddInformationProfileScreen: React.FC = () => {
             </View>
             <View>
               <View style={AddInformationProfile.viewForm}>
+                {error ? <Text>{error}</Text> : null}
                 <View style={AddInformationProfile.viewInput}>
                   <View style={AddInformationProfile.image}>
                     <Image source={require('../../../image/user.png')} />
                   </View>
                   <TextInput
                     placeholderTextColor="#9CA3AF"
-                    placeholder="Nick Name"
+                    placeholder="Nickname"
+                    onChangeText={setUsername}
+                    value={username}
                     style={AddInformationProfile.textinput}
                   />
                 </View>
@@ -68,29 +43,34 @@ const AddInformationProfileScreen: React.FC = () => {
                   <View style={AddInformationProfile.image}>
                     <Image source={require('../../../image/calendar-2.png')} />
                   </View>
+                  <TouchableOpacity style={AddInformationProfile.textinput} onPress={() => setOpen(true)}>
+                    <Text style={{ paddingTop:10, fontWeight:'600',color:'#9CA3AF' }}>{dateOfBirth ? dateOfBirth.toDateString() : 'Select Date'}</Text>
+                  </TouchableOpacity>
+                  {open && (
+                    <DateTimePicker
+                      mode="date"
+                      value={dateOfBirth || new Date()}
+                      onChange={(event, date) => {
+                        setOpen(false);
+                        setDateOfBirth(date);
+                      }}
+                    />
+                  )}
+                </View>
+                <View style={AddInformationProfile.viewInput}>
+                  <View style={AddInformationProfile.image}>
+                    <Image source={require('../../../image/user.png')} />
+                  </View>
                   <TextInput
                     placeholderTextColor="#9CA3AF"
-                    placeholder="Date of Birth"
+                    placeholder="Gender"
+                    onChangeText={setGender}
+                    value={gender}
                     style={AddInformationProfile.textinput}
                   />
                 </View>
-                <View>
-                  <Dropdown
-                    style={AddInformationProfile.dropdown}
-                    placeholderStyle={AddInformationProfile.placeholderStyle}
-                    selectedTextStyle={AddInformationProfile.selectedTextStyle}
-                    itemTextStyle={AddInformationProfile.itemTextStyle}
-                    data={data}
-                    maxHeight={300}
-                    labelField="label"
-                    valueField="value"
-                    value={value}
-                    placeholder="Gender"
-                    onChange={handleDropdownChange}
-                  />
-                </View>
                 <View style={AddInformationProfile.viewbutton}>
-                  <TouchableOpacity style={AddInformationProfile.buttonCreate} onPress={useNavigationLoginScreen}>
+                  <TouchableOpacity style={AddInformationProfile.buttonCreate} onPress={handleSubmit}>
                     <Text style={AddInformationProfile.textCreate}>Save</Text>
                   </TouchableOpacity>
                 </View>

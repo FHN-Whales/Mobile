@@ -8,8 +8,8 @@ const ForgetPasswordScreen = () => {
   const useGoBack = () =>{
     navigation.goBack();
   };
-  const useVerifyCodeScreen = () =>{
-    navigation.navigate('VerifyCodeScreen');
+  const useSentVerifyCodeForgetpassword= () =>{
+    navigation.navigate('SentVerifyCodeForgetpassword');
   };
   return (
     <KeyboardAvoidingView
@@ -26,7 +26,7 @@ const ForgetPasswordScreen = () => {
           <View style={forgetpassword .viewCreate}>
             <View style={forgetpassword .viewLogo}>
               <Image source={require('../../../image/logo.png')} />
-              <Text style={forgetpassword .textLogo}>TRT</Text>
+              <Text style={forgetpassword .textLogo}>FHN</Text>
             </View>
             <Text style={forgetpassword .textLogo}>Forgot Password?</Text>
             <Text style={forgetpassword .textWe}>Enter your Email, we will send you a verification code.</Text>
@@ -43,7 +43,7 @@ const ForgetPasswordScreen = () => {
                   />
                 </View>
                 <View style={forgetpassword .viewbutton}>
-                  <TouchableOpacity style={forgetpassword .buttonCreate} onPress={useVerifyCodeScreen} >
+                  <TouchableOpacity style={forgetpassword .buttonCreate} onPress={useSentVerifyCodeForgetpassword} >
                     <Text style={forgetpassword .textCreate}>Send Code</Text>
                   </TouchableOpacity>
                 </View>

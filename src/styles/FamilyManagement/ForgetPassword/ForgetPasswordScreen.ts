@@ -78,12 +78,17 @@ const forgetpassword = StyleSheet.create({
   },
   viewbutton: {
     paddingTop: 8,
+    paddingLeft:20,
+    paddingRight:20,
   },
   buttonCreate: {
     backgroundColor: '#87CEFA',
     paddingTop: 14,
     paddingBottom: 14,
     borderRadius: 66,
+    paddingLeft:50,
+    paddingRight:50,
+    width: '100%',
   },
   textCreate: {
     color: '#fff',

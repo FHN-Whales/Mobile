@@ -35,12 +35,12 @@ const useSwiper = (): UseSwiperResult => {
     if (carouselRef.current) {
       carouselRef.current.scrollBy(1, true);
       if (carouselRef.current.state.index === 1) {
-        navigation.navigate('RegisterScreen');
+        navigation.navigate('LoginScreen');
       }
     }
   };
   const useNavigationRegisterScreen = (): void => {
-    navigation.navigate('RegisterScreen');
+    navigation.navigate('LoginScreen');
   };
   return {
     carouselRef,
