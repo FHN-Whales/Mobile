@@ -262,10 +262,7 @@ const CreateTreatmentRemindScreen = () => {
       // Nếu giá trị nhập vào hợp lệ, cập nhật state
       setFrequency(input);
     } else {
-      // Nếu giá trị nhập vào không hợp lệ, báo lỗi
       alert('Please enter a number between 1 and 3');
-      // Có thể xóa giá trị không hợp lệ khỏi input
-      // setFrequency('');
     }
   };
   const { startDate, setStartDate, endDate, setEndDate, frequency, setFrequency, treatmentTime, setTreatmentTime, selectedTime, medications, open, setOpen, error, handlePress, useGoBack, handleSave, handleNumMedicationsChange, handleMedicationNameChange, handleDosageChange, modalVisible, setModalVisible, handleCancel, handleOK } = useCreateTreatment();
