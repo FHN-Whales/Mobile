@@ -282,9 +282,7 @@ const CreateHeathCheckWithManagerScreen = () => {
                               </View>
                             </View>
                           </Modal>
-                          <TouchableOpacity
-                            style={healthcheck.buttonSave}
-                            onPress={() => handleSubmit()}>
+                          <TouchableOpacity style={healthcheck.buttonSave}onPress={() => handleSubmit()}>
                             <Text style={healthcheck.textCreate}>Save</Text>
                           </TouchableOpacity>
                         </View>

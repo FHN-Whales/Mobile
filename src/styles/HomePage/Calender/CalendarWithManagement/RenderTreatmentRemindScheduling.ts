@@ -7,6 +7,7 @@ const rendertreatmentremindscheduling = StyleSheet.create({
     padding:20,
     flexDirection:'column',
     gap:10,
+    marginBottom:20,
   },
   viewTimeOfDay: {
     flexDirection: 'column',

@@ -10,7 +10,7 @@ const RenderCalendar = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 20000);
+    }, 200);
 
     return () => clearTimeout(timer);
   }, []);
@@ -21,7 +21,7 @@ const RenderCalendar = () => {
         <Text style={rendercalendar.text}> {item.user.username}</Text>
       </View>
       <Text style={rendercalendar.textDate}>Treatment Info:</Text>
-      {item.treatmentInfo.map((info, index) => (
+      {item.treatmentInfo.map((info: { timeOfDay: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; treatmentTime: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; medications: any[]; }, index: React.Key | null | undefined) => (
         <View style={rendercalendar.viewTimeOfDay} key={index}>
           <View style={rendercalendar.viewItem}>
             <Text style={rendercalendar.textDate}>Time of Day:</Text>
