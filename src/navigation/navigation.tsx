@@ -16,7 +16,7 @@ import HomePageWithManagement from '../screen/HomePage/Home/ManagementFamily/Hom
 import AllMemberFamilyScreen from '../screen/HomePage/Home/ManagementFamily/AllMemberFamilyScreen/AllMemberFamilyScreen';
 import AddMemberScreen from '../screen/HomePage/Home/ManagementFamily/AddMember/AddmemberScreen';
 import EditMemberScreen from '../screen/HomePage/Home/ManagementFamily/EditMember/EditMemberScreen';
-// import BlogScreen from '../screen/HomePage/Blog/BlogScreen/BlogScreen';
+import BlogScreen from '../screen/HomePage/Blog/BlogScreen/BlogScreen';
 import PostBlogScreen from '../screen/HomePage/Blog/CreateBlog/PostBlogScreen';
 import EditBlogScreen from '../screen/HomePage/Blog/EditBlog/EditBlogScreen';
 import CalendarScreen from '../screen/HomePage/Calendar/CalendarWithManagement/CalendarWithManagementScreen';
@@ -33,7 +33,7 @@ import LoginWithRoleScreen from '../screen/FamilyManagement/Login/LoginWithRoleS
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 import { useCheckAuth } from '../hook/FamilyManagement/CheckAuth/useCheckAuth';
-import CreateHeathCheckWithManagerScreen from '../screen/HomePage/HealthCheckScheduling/HealthCheckSchedulingwithManager/CreateHeathCheckWithManager';
+import CreateHeathCheckWithManagerScreen from '../screen/HomePage/HealthCheckScheduling/HealthCheckSchedulingwithManager/CreateHealthCheck/CreateHeathCheckWithManager';
 const Homestack = () => {
   return (
     <Tab.Navigator
@@ -80,7 +80,7 @@ const Homestack = () => {
       })}
     >
       <Tab.Screen  name="HomePage" component={HomePageWithManagement} />
-      {/* <Tab.Screen  name="Blog" component={BlogScreen} /> */}
+      <Tab.Screen  name="Blog" component={BlogScreen} />
       <Tab.Screen name="Calendar" component={CalendarScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
