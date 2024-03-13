@@ -5,7 +5,7 @@ import styles from '../../../../../../styles/HomePage/HealthCheckScheduling/Trea
 import useCreateTreatment from '../../../../../../hook/HomePage/TreatmentRemindScheduling/Treatment Remind SchedulingWithManagement/InputInformationManualy/useCreateTreatment';
 import rendermodaledit from '../../../../../../styles/HomePage/Home/ManagementFamily/EditMember/RenderModelEdit';
 
-type TimePeriod = 'morning' | 'noon' | 'evening';
+type TimePeriod = 'Morning' | 'Noon' | 'Evening';
 
 const CreateTreatmentRemindScreen = () => {
 
@@ -31,7 +31,7 @@ const CreateTreatmentRemindScreen = () => {
         <View style={styles.viewRenderItem}>
           <TextInput
             placeholderTextColor="#9CA3AF"
-            placeholder="Medicine Name"
+            placeholder="Medicine name"
             style={styles.viewInput}
             value={medication.medicationName}
             onChangeText={(text) => handleMedicationNameChange(timePeriod, text, index)}
@@ -90,11 +90,11 @@ const CreateTreatmentRemindScreen = () => {
                 )}
               </View>
               <View>
-                <Text style={styles.textLabel}>End Day</Text>
+                <Text style={styles.textLabel}>End day</Text>
                 <TouchableOpacity
                   style={styles.dateInput}
                   onPress={() => setOpen('end')}>
-                  <Text>{endDate ? endDate.toDateString() : 'End Day'}</Text>
+                  <Text>{endDate ? endDate.toDateString() : 'End day'}</Text>
                 </TouchableOpacity>
                 {open === 'end' && (
                   <DateTimePicker
@@ -115,19 +115,6 @@ const CreateTreatmentRemindScreen = () => {
                   />
                 )}
               </View>
-
-              {/* <View>
-                <Text style={styles.textLabel}>Number of times per day</Text>
-                <TextInput
-                  placeholderTextColor="#9CA3AF"
-                  placeholder="Enter the number of times"
-                  style={styles.viewInput}
-                  value={frequency}
-                  onChangeText={setFrequency}
-                  keyboardType="numeric"
-                />
-              </View> */}
-
               <View>
                 <Text style={styles.textLabel}>Number of times per day</Text>
                 <TextInput
@@ -145,7 +132,7 @@ const CreateTreatmentRemindScreen = () => {
               <View>
                 <Text style={styles.textLabel}>Choose time</Text>
                 <View style={styles.viewTimeOptions}>
-                  {['morning', 'noon', 'evening'].map(timePeriod => (
+                  {['Morning', 'Noon', 'Evening'].map(timePeriod => (
                     <TouchableOpacity
                       key={timePeriod}
                       style={
