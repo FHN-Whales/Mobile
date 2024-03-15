@@ -4,8 +4,14 @@ import React from 'react';
 import {ActivityIndicator, FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
 import renderhealthscheduling from '../../../../styles/HomePage/Calender/CalendarWithManagement/RenderHealthCheckScheduling';
 import useRenderHealthCheck from '../../../../hook/HomePage/Calendar/ManagementWithFamily/useRenderHealthCheck';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { RootStackParamList } from '../../../../type/type';
 const renderHealthScheduling = () => {
   const {shouldRefetch,data,isLoading,isError,refetch,formatDate,showLoader,setShowLoader} = useRenderHealthCheck();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const useNavigationEditHealthCheck = () => {
+    navigation.navigate('EditHeathCheckWithManagerScreen');
+  };
   const renderItem = ({item}: {item: HealthCheck}) => (
     <View style={renderhealthscheduling.renderViewItem}>
       <View style={renderhealthscheduling.viewItem}>
@@ -22,7 +28,7 @@ const renderHealthScheduling = () => {
               <TouchableOpacity>
                 <Image source={require('../../../../image/Vector.png')} />
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={useNavigationEditHealthCheck}>
                 <Image source={require('../../../../image/icon_pencil.png')} />
               </TouchableOpacity>
             </View>
