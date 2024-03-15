@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import rendertiltereminder from '../../../../styles/HomePage/Calender/CalendarWithManagement/RenderTitleReminder';
 import RenderTreatmentRemindScheduling from './RenderTreatmentRemindScheduling';
-
+import renderHealthScheduling from './RenderHealthCheckScheduling';
 const renderTitleReminder = () => {
   return (
     <View style={rendertiltereminder.container}>
@@ -14,9 +14,9 @@ const renderTitleReminder = () => {
         <View style={rendertiltereminder.viewTitle}>
           <Text style={rendertiltereminder.text}>Health check</Text>
         </View>
+        {renderHealthScheduling()}
       </View>
     </View>
   );
 };
-
 export default renderTitleReminder;
