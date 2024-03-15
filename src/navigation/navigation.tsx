@@ -34,6 +34,7 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 import { useCheckAuth } from '../hook/FamilyManagement/CheckAuth/useCheckAuth';
 import CreateHeathCheckWithManagerScreen from '../screen/HomePage/HealthCheckScheduling/HealthCheckSchedulingwithManager/CreateHealthCheck/CreateHeathCheckWithManager';
+import EditHeathCheckWithManagerScreen from '../screen/HomePage/HealthCheckScheduling/HealthCheckSchedulingwithManager/EditHeathCheckWithManager';
 const Homestack = () => {
   return (
     <Tab.Navigator
@@ -209,6 +210,11 @@ const Navigate = () => {
           options={{headerShown: false}}
           name="CreateHeathCheckWithManagerScreen"
           component={CreateHeathCheckWithManagerScreen}
+        />
+         <Stack.Screen
+          options={{headerShown: false}}
+          name="EditHeathCheckWithManagerScreen"
+          component={EditHeathCheckWithManagerScreen}
         />
          <Stack.Screen options={{headerShown: false}} name="HomeScreen" component={Homestack} />
       </Stack.Navigator>
