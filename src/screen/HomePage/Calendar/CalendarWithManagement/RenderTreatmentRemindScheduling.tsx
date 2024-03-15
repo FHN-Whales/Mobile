@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import { FlatList, Text, View, ActivityIndicator } from 'react-native';
+import { FlatList, Text, View, ActivityIndicator, TouchableOpacity, Image } from 'react-native';
 import useRenderTreatmentRemindScheduling from '../../../../hook/HomePage/Calendar/ManagementWithFamily/useRenderTreatmentRemindScheduling';
 import rendertreatmentremindscheduling from '../../../../styles/HomePage/Calender/CalendarWithManagement/RenderTreatmentRemindScheduling';
+import renderhealthscheduling from '../../../../styles/HomePage/Calender/CalendarWithManagement/RenderHealthCheckScheduling';
 const RenderTreatmentRemindScheduling = () => {
   const [data, isLoading, isError] = useRenderTreatmentRemindScheduling();
   const [showLoader, setShowLoader] = useState(true); // State để điều khiển hiển thị hoạt động đang tải
@@ -23,6 +24,14 @@ const RenderTreatmentRemindScheduling = () => {
       </View>
       {item.treatmentInfo.map((info: { timeOfDay: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; treatmentTime: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; medications: any[]; }, index: React.Key | null | undefined) => (
         <View style={rendertreatmentremindscheduling.viewTimeOfDay} key={index}>
+           <View style={renderhealthscheduling.viewSession}>
+              <TouchableOpacity>
+                <Image source={require('../../../../image/Vector.png')} />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Image source={require('../../../../image/icon_pencil.png')} />
+              </TouchableOpacity>
+            </View>
           <View style={rendertreatmentremindscheduling.viewItem}>
             <Text style={rendertreatmentremindscheduling.textDate}>Time of Day:</Text>
             <Text style={rendertreatmentremindscheduling.text}> {info.timeOfDay}</Text>

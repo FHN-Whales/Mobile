@@ -64,7 +64,7 @@ const AddMemberScreen = () => {
                         </View>
                         <TextInput
                           placeholderTextColor="#9CA3AF"
-                          placeholder="Nick Name"
+                          placeholder="Nickname"
                           enterKeyHint={'next'}
                           onChangeText={handleChange('username')}
                           style={renderviewformcreate.textinput}

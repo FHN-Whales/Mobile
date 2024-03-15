@@ -28,6 +28,7 @@ const rendertreatmentremindscheduling = StyleSheet.create({
     gap:10,
     paddingTop:5,
     paddingBottom:5,
+    paddingRight:40,
   },
   textDate:{
     color:'#1F2A37',

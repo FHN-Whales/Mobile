@@ -17,9 +17,6 @@ const renderTitleNotification = () =>{
                     <Image source={require('../../../../image/arrow-left.png')} />
                 </TouchableOpacity>
                 <Text style={rendertitlenotification.textNotification}>Notification</Text>
-                <View style={rendertitlenotification.viewNewNotification}>
-                    <Text style={rendertitlenotification.textNewNotification}>1 New</Text>
-                </View>
             </View>
         </View>
     );
