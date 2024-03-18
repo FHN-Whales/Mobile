@@ -5,7 +5,7 @@ import {ActivityIndicator, FlatList, Image, Text, TouchableOpacity, View} from '
 import renderhealthscheduling from '../../../../styles/HomePage/Calender/CalendarWithManagement/RenderHealthCheckScheduling';
 import useRenderHealthCheck from '../../../../hook/HomePage/Calendar/ManagementWithFamily/useRenderHealthCheck';
 const renderHealthScheduling = () => {
-  const {shouldRefetch,data,isLoading,isError,refetch,formatDate,showLoader,setShowLoader,useNavigationEditHealthCheck} = useRenderHealthCheck();
+  const {shouldRefetch,data,isLoading,isError, refetch,formatDate,showLoader,setShowLoader,useNavigationEditHealthCheck} = useRenderHealthCheck();
   const renderItem = ({item}: {item: HealthCheck}) => (
     <View style={renderhealthscheduling.renderViewItem}>
       <View style={renderhealthscheduling.viewItem}>
@@ -28,39 +28,20 @@ const renderHealthScheduling = () => {
               </TouchableOpacity>
             </View>
             <View style={renderhealthscheduling.viewItem}>
-              <Text style={renderhealthscheduling.textDate}>
-                Re examination Time:
-              </Text>
-              <Text style={renderhealthscheduling.text}>
-                {' '}
-                {info.reExaminationTime}
-              </Text>
+              <Text style={renderhealthscheduling.textDate}>Re examination Time:</Text>
+              <Text style={renderhealthscheduling.text}>{' '}{info.reExaminationTime}</Text>
             </View>
             <View style={renderhealthscheduling.viewItem}>
-              <Text style={renderhealthscheduling.textDate}>
-                {' '}
-                Re Examination Date:
-              </Text>
-              <Text style={renderhealthscheduling.text}>
-                {formatDate(info.reExaminationDate)}
-              </Text>
+              <Text style={renderhealthscheduling.textDate}>{' '}Re Examination Date:</Text>
+              <Text style={renderhealthscheduling.text}>{formatDate(info.reExaminationDate)}</Text>
             </View>
             <View style={renderhealthscheduling.viewItem}>
-              <Text style={renderhealthscheduling.textDate}>
-                {' '}
-                Re Examination Location:
-              </Text>
-              <Text style={renderhealthscheduling.text}>
-                {info.reExaminationLocation}
-              </Text>
+              <Text style={renderhealthscheduling.textDate}>{' '}Re Examination Location:</Text>
+              <Text style={renderhealthscheduling.text}>{info.reExaminationLocation}</Text>
             </View>
             <View style={renderhealthscheduling.viewItem}>
-              <Text style={renderhealthscheduling.textDate}>
-                Name Hospital:
-              </Text>
-              <Text style={renderhealthscheduling.text}>
-                {info.nameHospital}
-              </Text>
+              <Text style={renderhealthscheduling.textDate}>Name Hospital:</Text>
+              <Text style={renderhealthscheduling.text}>{info.nameHospital}</Text>
             </View>
             <View style={renderhealthscheduling.viewItem}>
               <Text style={renderhealthscheduling.textDate}>User Note:</Text>
@@ -79,6 +60,8 @@ const renderHealthScheduling = () => {
           data={data}
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
+          onRefresh={refetch}
+          refreshing={isLoading}
         />
       )}
     </View>

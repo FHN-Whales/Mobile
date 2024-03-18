@@ -27,4 +27,5 @@ export type RootStackParamList = {
     CreateHeathCheckWithManagerScreen:undefined;
     EditHeathCheckWithManagerScreen:undefined;
     HealthCheck:undefined;
+    DeleteHeathCheckWithManagerScreen:undefined;
   };
