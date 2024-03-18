@@ -36,6 +36,7 @@ import { useCheckAuth } from '../hook/FamilyManagement/CheckAuth/useCheckAuth';
 import CreateHeathCheckWithManagerScreen from '../screen/HomePage/HealthCheckScheduling/HealthCheckSchedulingwithManager/CreateHealthCheck/CreateHeathCheckWithManager';
 import EditHeathCheckWithManagerScreen from '../screen/HomePage/HealthCheckScheduling/HealthCheckSchedulingwithManager/EditHeathCheckWithManager';
 import DeleteHeathCheckWithManagerScreen from '../screen/HomePage/HealthCheckScheduling/HealthCheckSchedulingwithManager/DeleteHeathCheckWithManager';
+import EditTreamentReminderScreen from '../screen/HomePage/TreatmentRemindScheduling/Treatment Remind SchedulingWithManagement/EditTreatmentRemindSchedulingWithManagement';
 const Homestack = () => {
   return (
     <Tab.Navigator
@@ -221,6 +222,11 @@ const Navigate = () => {
           options={{headerShown: false}}
           name="DeleteHeathCheckWithManagerScreen"
           component={DeleteHeathCheckWithManagerScreen}
+        />
+          <Stack.Screen
+          options={{headerShown: false}}
+          name="EditTreamentReminderScreen"
+          component={EditTreamentReminderScreen}
         />
          <Stack.Screen options={{headerShown: false}} name="HomeScreen" component={Homestack} />
       </Stack.Navigator>

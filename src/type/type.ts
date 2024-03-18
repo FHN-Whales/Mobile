@@ -28,4 +28,6 @@ export type RootStackParamList = {
     EditHeathCheckWithManagerScreen:undefined;
     HealthCheck:undefined;
     DeleteHeathCheckWithManagerScreen:undefined;
+    EditHeathCheckWithMember:undefined;
+    EditTreamentReminderScreen:undefined;
   };

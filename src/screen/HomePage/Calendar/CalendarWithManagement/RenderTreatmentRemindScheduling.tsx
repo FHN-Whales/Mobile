@@ -5,7 +5,7 @@ import useRenderTreatmentRemindScheduling from '../../../../hook/HomePage/Calend
 import rendertreatmentremindscheduling from '../../../../styles/HomePage/Calender/CalendarWithManagement/RenderTreatmentRemindScheduling';
 import renderhealthscheduling from '../../../../styles/HomePage/Calender/CalendarWithManagement/RenderHealthCheckScheduling';
 const RenderTreatmentRemindScheduling = () => {
-  const [data, isLoading, isError] = useRenderTreatmentRemindScheduling();
+  const [data, isLoading, isError ,useNavigationEditTreament] = useRenderTreatmentRemindScheduling();
   const [showLoader, setShowLoader] = useState(true); // State để điều khiển hiển thị hoạt động đang tải
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -28,7 +28,7 @@ const RenderTreatmentRemindScheduling = () => {
               <TouchableOpacity>
                 <Image source={require('../../../../image/Vector.png')} />
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity onPress= {useNavigationEditTreament}>
                 <Image source={require('../../../../image/icon_pencil.png')} />
               </TouchableOpacity>
             </View>
