@@ -108,7 +108,7 @@ const CreateHeathCheckWithManagerScreen = () => {
                             />
                           </View>
                         </View>
-                        {errors.userNote && touched.userNote ? (<Text style={register.textError}>* {errors.userNote}</Text> ) : null}
+                        {/* {errors.userNote && touched.userNote ? (<Text style={register.textError}>* {errors.userNote}</Text> ) : null} */}
                         <View style={healthcheck.viewButton}>
                           <Modal
                             animationType="slide"
