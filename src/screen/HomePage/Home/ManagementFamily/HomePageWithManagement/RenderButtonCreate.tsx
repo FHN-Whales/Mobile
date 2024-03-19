@@ -18,7 +18,7 @@ const renderButonCreate = () =>{
                 <Text style={renderbuttoncreate.textbutton}>Create health check</Text>
             </TouchableOpacity>
             <TouchableOpacity style={renderbuttoncreate.button} onPress={useNavigationOptionTreatmentRemindScreen}>
-                <Text style={renderbuttoncreate.textbutton}>CreateTreatment Remind Scheduling</Text>
+                <Text style={renderbuttoncreate.textbutton}>Create Treatment Remind Scheduling</Text>
             </TouchableOpacity>
         </View>
     );

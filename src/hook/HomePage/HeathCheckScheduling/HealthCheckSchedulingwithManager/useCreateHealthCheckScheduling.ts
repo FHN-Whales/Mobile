@@ -25,11 +25,13 @@ const useCreateHealthCheck = () => {
         setDatePickerVisibility(false);
     };
     const handleConfirm = (date) => {
-        const currentDate = new Date();
         const selectedDate = new Date(date);
+        const currentDate = new Date();
+        currentDate.setHours(0, 0, 0, 0);
         if (selectedDate < currentDate) {
             Alert.alert('Please select a future date for health check.');
-            return; // Exit function if selected date is in the past
+            hideDatePicker();
+            return;
         }
         hideDatePicker();
         setSelectedDate(selectedDate.toISOString());

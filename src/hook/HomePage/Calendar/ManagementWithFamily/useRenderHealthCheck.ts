@@ -70,14 +70,14 @@ const useRenderHealthCheck = () => {
     return date.toLocaleDateString('en-US', options);
   };
 
-  const [showLoader, setShowLoader] = useState(true);
+  // const [showLoader, setShowLoader] = useState(true);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setShowLoader(false);
-    }, 200);
-    return () => clearTimeout(timeout);
-  }, []);
+  // useEffect(() => {
+  //   const timeout = setTimeout(() => {
+  //     setShowLoader(false);
+  //   }, 200);
+  //   return () => clearTimeout(timeout);
+  // }, []);
 
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
@@ -92,10 +92,8 @@ const useRenderHealthCheck = () => {
     isError,
     refetch,
     formatDate,
-    showLoader,
-    setShowLoader,
+    showLoader: isLoading,
     useNavigationEditHealthCheck,
   };
 };
-
 export default useRenderHealthCheck;

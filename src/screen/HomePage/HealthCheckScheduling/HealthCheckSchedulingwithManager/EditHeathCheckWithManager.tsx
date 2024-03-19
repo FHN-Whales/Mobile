@@ -7,15 +7,18 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import healthcheck from '../../../../styles/HomePage/TreatmentReminderScheduling/HealthCheckSchedulingwithManager/CreateHeathCheckWithManager';
 import rendermodaledit from '../../../../styles/HomePage/Home/ManagementFamily/EditMember/RenderModelEdit';
 import useEditHealthCheck from '../../../../hook/HomePage/HeathCheckScheduling/HealthCheckSchedulingwithManager/useEditHealthCheck';
+import { useQueryClient } from '@tanstack/react-query';
 const EditHeathCheckWithManagerScreen = () => {
+  const queryClient = useQueryClient();
   const {modalVisible, setModalVisible,isDatePickerVisible,setDatePickerVisibility,selectedDate,setSelectedDate,healthCheck,setHealthCheck,showDatePicker,hideDatePicker,handleConfirm,navigation,mutationEditHealthCheck,healthCheckId,data,isLoading,isError,useGoBack,handleOnChange} = useEditHealthCheck();
   return (
     <ScrollView style={healthcheck.container}>
       <Formik
         initialValues={healthCheck}
         // validationSchema={CreateHealthCheckSchema}
-        onSubmit={(values) => {
-          mutationEditHealthCheck.mutate(values);
+        onSubmit={async (values) => {
+          await mutationEditHealthCheck.mutateAsync(values);
+          queryClient.invalidateQueries({ queryKey: ['healthcheckReminders'] });
         }}
       >
         {({ errors, touched, handleChange, values, handleSubmit, setFieldValue }) => (
