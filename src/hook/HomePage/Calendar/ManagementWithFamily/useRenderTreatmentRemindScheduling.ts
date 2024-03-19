@@ -2,6 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { useEffect, useRef } from 'react';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { RootStackParamList } from '../../../../type/type';
 
 interface TreatmentReminder {
   dataTreatment: any[];
@@ -24,6 +26,7 @@ interface TreatmentReminder {
 }
 
 const useRenderTreatmentRemindScheduling = () => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const shouldRefetch = useRef<boolean>(false);
 
   const { data, isLoading, isError, refetch } = useQuery<TreatmentReminder[]>({
@@ -60,6 +63,12 @@ const useRenderTreatmentRemindScheduling = () => {
     },
   });
 
+
+  
+  const useNavigationEditTreament = (id: string) => {
+    navigation.navigate('EditTreamentReminderScreen', {id});
+  };
+
   useEffect(() => {
     // Nếu dữ liệu đã được nhận, không có lỗi và không có refetch nào đang chờ, thì thực hiện refetch sau 200ms
     if (data && !isError && !shouldRefetch.current) {
@@ -72,7 +81,7 @@ const useRenderTreatmentRemindScheduling = () => {
     }
   }, [data, isError, refetch]);
 
-  return [data, isLoading, isError];
+  return {data, isLoading, isError , useNavigationEditTreament};
 };
 
 export default useRenderTreatmentRemindScheduling;

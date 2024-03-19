@@ -5,15 +5,16 @@ import useRenderTreatmentRemindScheduling from '../../../../hook/HomePage/Calend
 import rendertreatmentremindscheduling from '../../../../styles/HomePage/Calender/CalendarWithManagement/RenderTreatmentRemindScheduling';
 import renderhealthscheduling from '../../../../styles/HomePage/Calender/CalendarWithManagement/RenderHealthCheckScheduling';
 const RenderTreatmentRemindScheduling = () => {
-  const [data, isLoading, isError] = useRenderTreatmentRemindScheduling();
+  const {data, isLoading, isError, useNavigationEditTreament} = useRenderTreatmentRemindScheduling();
   const [showLoader, setShowLoader] = useState(true); // State để điều khiển hiển thị hoạt động đang tải
   useEffect(() => {
     const timeout = setTimeout(() => {
       setShowLoader(false);
     }, 2000);
-    return () => clearTimeout(timeout); 
+    return () => clearTimeout(timeout);
   }, []);
-  const renderItem = ({item}: {item: TreatmentReminder}) => (
+
+  const renderItem = ({ item }: { item: TreatmentReminder }) => (
     <View style={rendertreatmentremindscheduling.renderViewItem}>
       <View style={rendertreatmentremindscheduling.viewItem}>
         <Text style={rendertreatmentremindscheduling.textDate}>Username:</Text>
@@ -24,30 +25,30 @@ const RenderTreatmentRemindScheduling = () => {
       </View>
       {item.treatmentInfo.map((info: { timeOfDay: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; treatmentTime: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; medications: any[]; }, index: React.Key | null | undefined) => (
         <View style={rendertreatmentremindscheduling.viewTimeOfDay} key={index}>
-           <View style={renderhealthscheduling.viewSession}>
-              <TouchableOpacity>
-                <Image source={require('../../../../image/Vector.png')} />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Image source={require('../../../../image/icon_pencil.png')} />
-              </TouchableOpacity>
-            </View>
-          <View style={rendertreatmentremindscheduling.viewItem}>
-            <Text style={rendertreatmentremindscheduling.textDate}>Time of Day:</Text>
-            <Text style={rendertreatmentremindscheduling.text}> {info.timeOfDay}</Text>
+          <View style={renderhealthscheduling.viewSession}>
+            <TouchableOpacity>
+              <Image source={require('../../../../image/Vector.png')} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => useNavigationEditTreament(info._id)}>
+              <Image source={require('../../../../image/icon_pencil.png')} />
+            </TouchableOpacity>
           </View>
           <View style={rendertreatmentremindscheduling.viewItem}>
-            <Text style={rendertreatmentremindscheduling.textDate}>Treatment Time:</Text>
+            <Text style={rendertreatmentremindscheduling.textDate}>Time of Day:</Text>
+            <Text style={rendertreatmentremindscheduling.text}>{''} {info.timeOfDay}</Text>
+          </View>
+          <View style={rendertreatmentremindscheduling.viewItem}>
+            <Text style={rendertreatmentremindscheduling.textDate}>{''}Treatment Times:</Text>
             <Text style={rendertreatmentremindscheduling.text}>{info.treatmentTime}</Text>
           </View>
           {info.medications.map((medication, medicationIndex) => (
             <View key={medicationIndex}>
               <View style={rendertreatmentremindscheduling.viewItem}>
-                <Text style={rendertreatmentremindscheduling.textDate}>Medication Name:</Text>
+                <Text style={rendertreatmentremindscheduling.textDate}>{''}Medication Name:</Text>
                 <Text style={rendertreatmentremindscheduling.text}>{medication.medicationName}</Text>
               </View>
               <View style={rendertreatmentremindscheduling.viewItem}>
-                <Text style={rendertreatmentremindscheduling.textDate}>Dosage:</Text>
+                <Text style={rendertreatmentremindscheduling.textDate}>{''}Dosage:</Text>
                 <Text style={rendertreatmentremindscheduling.text}>{medication.dosage}</Text>
               </View>
             </View>
