@@ -62,8 +62,11 @@ const useRenderTreatmentRemindScheduling = () => {
       }
     },
   });
-  const useNavigationEditTreament = () => {
-    navigation.navigate('EditTreamentReminderScreen');
+
+
+  
+  const useNavigationEditTreament = (id: string) => {
+    navigation.navigate('EditTreamentReminderScreen', {id});
   };
 
   useEffect(() => {
@@ -78,7 +81,7 @@ const useRenderTreatmentRemindScheduling = () => {
     }
   }, [data, isError, refetch]);
 
-  return [data, isLoading, isError ,useNavigationEditTreament];
+  return {data, isLoading, isError , useNavigationEditTreament};
 };
 
 export default useRenderTreatmentRemindScheduling;
