@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigation, NavigationProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../type/type';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 interface HealthCheckData {
     reExaminationTime: string;
