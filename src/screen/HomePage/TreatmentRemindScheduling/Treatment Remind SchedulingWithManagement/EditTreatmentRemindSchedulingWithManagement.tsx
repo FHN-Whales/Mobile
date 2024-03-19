@@ -1,156 +1,112 @@
-import { Formik } from 'formik';
-import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Text, TextInput, Image, Button, TouchableOpacity, Modal, StyleSheet } from 'react-native';
+import React from 'react';
+import { StyleSheet,TouchableOpacity, Text, TextInput, View, Modal, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Image, ScrollView } from 'react-native';
+import healthcheck from '../../../../styles/HomePage/TreatmentReminderScheduling/HealthCheckSchedulingwithManager/CreateHeathCheckWithManager';
+import rendermodaledit from '../../../../styles/HomePage/Home/ManagementFamily/EditMember/RenderModelEdit';
+import { Formik } from 'formik'; // Import only Formik
+import register from '../../../../styles/FamilyManagement/Register/RegisterScreen';
+import CreateHealthCheckSchema from '../../../../hook/HomePage/HeathCheckScheduling/HealthCheckSchedulingwithManager/useValidateCreateHealthCheckScheduling';
+import useCreateHealthCheck from '../../../../hook/HomePage/HeathCheckScheduling/HealthCheckSchedulingwithManager/useCreateHealthCheckScheduling';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-
-const EditTreatmentReminderScreen = ({ navigation }) => {
-    const [timeOfDay, setTimeOfDay] = useState('');
-    const [treatmentTime, setTreatmentTime] = useState('');
-    const [modalVisible, setModalVisible] = useState(false);
-    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-    const [selectedDate, setSelectedDate] = useState(null);
-    const [editedMedications, setEditedMedications] = useState([
-        { name: '', dosage: '' },
-    ]);
-    const [initialData, setInitialData] = useState(null);
-
-    useEffect(() => {
-        // Assume initialData is fetched from somewhere
-        const initialData = {
-            "treatmentReminderId": "606d93a7f29b641b94ab49db",
-            "timeOfDay": "morning",
-            "treatmentTime": "08:00 AM",
-            "medications": [
-                {
-                    "name": "Medicine A",
-                    "dosage": "10mg"
-                },
-                {
-                    "name": "Medicine B",
-                    "dosage": "20mg"
-                }
-            ]
-        };
-
-        setInitialData(initialData);
-
-        if (initialData) {
-            setTimeOfDay(initialData.timeOfDay);
-            setTreatmentTime(initialData.treatmentTime);
-            setEditedMedications(initialData.medications);
-        }
-    }, []);
-
-    const handleSubmit = () => {
-        // Logic to handle form submission
-        setModalVisible(true); // Show confirmation modal
-    };
-
-    const handleConfirm = (date) => {
-        // Handle confirmed date from DateTimePickerModal
-        setSelectedDate(date);
-        setDatePickerVisibility(false);
-    };
-
-    const hideDatePicker = () => {
-        // Hide DateTimePickerModal
-        setDatePickerVisibility(false);
-    };
-
-    const handleInputChange = (index, key, value) => {
-        const newMedications = [...editedMedications];
-        newMedications[index][key] = value;
-        setEditedMedications(newMedications);
-    };
+const EditTreatmentReminderScreen = () => {
+    const  {modalVisible,setModalVisible,isDatePickerVisible,selectedDate,showDatePicker,handleConfirm,handleCancel,handleOK,useGoBack, mutationCreatHealthCheck,hideDatePicker} = useCreateHealthCheck();
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <View style={styles.innerContainer}>
-                <Formik
-                    initialValues={{
-                        timeOfDay: timeOfDay,
-                        treatmentTime: treatmentTime,
-                        medications: editedMedications.map(medication => ({
-                            name: medication.name,
-                            dosage: medication.dosage
-                        }))
-                    }}
-                    validationSchema={CreateHealthCheckSchema} // Chắc chắn thay thế CreateHealthCheckSchema bằng schema thích hợp của bạn
-                    onSubmit={values => mutationCreatHealthCheck.mutate(values)}
-                >
-                    {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
-                        <>
-                            <View style={styles.header}>
-                                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-                                    <Image source={require('../../../../image/back-icon.png')} style={styles.backIcon} />
-                                </TouchableOpacity>
-                                <Text style={styles.title}>Examination Information</Text>
-                            </View>
+      <ScrollView style={healthcheck.container}>
+      <Formik
+        initialValues={{
+            timeOfDay: '',
+            treatmentTime: '',
+            
+        }}
+        validationSchema={CreateHealthCheckSchema}
+        onSubmit={values => mutationCreatHealthCheck.mutate(values)}>
+        {({errors, touched, handleChange, values, handleSubmit, setFieldValue}) => (
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={healthcheck.container}>
+            <TouchableWithoutFeedback>
+              <View style={healthcheck.inner}>
+                <View style={healthcheck.viewForm}>
+                  <View>
+                    <View>
+                      <View style={healthcheck.viewGoBack}>
+                        <TouchableOpacity onPress={useGoBack}>
+                          <Image source={require('../../../../image/back-icon.png')}/>
+                        </TouchableOpacity>
+                        <Text style={healthcheck.textFill}>Examination Information</Text>
+                      </View>
+                      <View style={{paddingTop: 20}}>
+                        <View style={healthcheck.viewIteminput}>
+                          <Text style={healthcheck.textLabel}>TimeOfDay</Text>
+                          <View style={healthcheck.viewInput}>
                             <TextInput
-                                placeholder="Time of Day"
-                                onChangeText={(text) => setTimeOfDay(text)}
-                                value={timeOfDay}
-                                style={styles.input}
+                              placeholderTextColor="#9CA3AF"
+                              placeholder=""
+                              style={healthcheck.textInput}
+                              onChangeText={handleChange('timeOfDay')}
+                              value={values.timeOfDay}
                             />
-                            <TextInput
-                                placeholder="Treatment Time"
-                                onChangeText={(text) => setTreatmentTime(text)}
-                                value={treatmentTime}
-                                style={styles.input}
-                            />
-                            {editedMedications.map((medication, index) => (
-                                <View key={index} style={{ marginBottom: 20 }}>
-                                    <Text>{`Medicine ${index + 1}`}</Text>
-                                    <TextInput
-                                        placeholder="Medicine Name"
-                                        value={medication.name}
-                                        onChangeText={(text) => handleInputChange(index, 'name', text)}
-                                        style={{ borderWidth: 1, borderColor: 'gray', padding: 10, marginBottom: 10 }}
-                                    />
-                                    <TextInput
-                                        placeholder="Dosage"
-                                        value={medication.dosage}
-                                        onChangeText={(text) => handleInputChange(index, 'dosage', text)}
-                                        style={{ borderWidth: 1, borderColor: 'gray', padding: 10 }}
-                                    />
-                                </View>
-                            ))}
-                            <Button title="Save" onPress={handleSubmit} />
-                        </>
-                    )}
-                </Formik>
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={modalVisible}
-                    onRequestClose={() => {
-                        setModalVisible(false);
-                    }}
-                >
-                    <View style={styles.modalContainer}>
-                        <View style={styles.modalContent}>
-                            <Text>Update health check schedule?</Text>
-                            <Text>Are you sure you want to update health check schedule?</Text>
-                            <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.modalButton}>
-                                <Text>Cancel</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => {
-                                setModalVisible(false);
-                                // Logic to update the health check schedule
-                            }} style={styles.modalButton}>
-                                <Text>OK</Text>
-                            </TouchableOpacity>
+                          </View>
                         </View>
+                        {errors.timeOfDay && touched.timeOfDay ? (
+                          <Text style={register.textError}>* {errors.timeOfDay}</Text>) : null}
+                      </View>
+
+                      <View style={{paddingTop: 20}}>
+                        <View style={healthcheck.viewIteminput}>
+                          <Text style={healthcheck.textLabel}>TreatmentTime</Text>
+                          <View style={healthcheck.viewInput}>
+                            <TextInput
+                              placeholderTextColor="#9CA3AF"
+                              placeholder=""
+                              style={healthcheck.textInput}
+                          
+                              onChangeText= {handleChange('treatmentTime')}
+                              value={values.treatmentTime}
+                            />
+                          </View>
+                        </View>
+                        {errors.treatmentTime && touched.treatmentTime ? (
+                          <Text style={register.textError}>* {errors.treatmentTime}</Text>) : null}
+                           <View style={healthcheck.viewButton}>
+                          <Modal
+                            animationType="slide"
+                            transparent={true}
+                            visible={modalVisible}
+                            onRequestClose={() => {
+                              setModalVisible(!modalVisible);
+                            }}>
+                            <View style={rendermodaledit.centeredView}>
+                              <View style={rendermodaledit.modalView}>
+                                <View style={rendermodaledit.viewtitle}>
+                                  <Text style={rendermodaledit.textCon}>Create health check schedule?</Text>
+                                  <Text style={rendermodaledit.textYour}> Are you sure you want to Create health check schedule?</Text>
+                                </View>
+                                <View style={rendermodaledit.viewloadding}>
+                                  <TouchableOpacity style={rendermodaledit.buttonCancle} onPress={handleCancel}>
+                                    <Text style={rendermodaledit.textCancle}>Cancle</Text>
+                                  </TouchableOpacity>
+                                  <TouchableOpacity style={rendermodaledit.buttonOk} onPress={handleOK}>
+                                    <Text style={rendermodaledit.textOk}>OK </Text>
+                                  </TouchableOpacity>
+                                </View>
+                              </View>
+                            </View>
+                          </Modal>
+                          <TouchableOpacity style={healthcheck.buttonSave}onPress={() => handleSubmit()}>
+                            <Text style={healthcheck.textCreate}>Save</Text>
+                          </TouchableOpacity>
+                        </View>
+                      </View>
                     </View>
-                </Modal>
-            </View>
-            <DateTimePickerModal
-                isVisible={isDatePickerVisible}
-                mode="date"
-                onConfirm={handleConfirm}
-                onCancel={hideDatePicker}
-            />
-        </ScrollView>
+                  </View>
+                </View>
+              </View>
+            </TouchableWithoutFeedback>
+          </KeyboardAvoidingView>
+        )}
+      </Formik>
+    </ScrollView>
     );
 };
 

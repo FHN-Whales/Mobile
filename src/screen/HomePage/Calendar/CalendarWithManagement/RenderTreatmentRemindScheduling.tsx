@@ -34,20 +34,20 @@ const RenderTreatmentRemindScheduling = () => {
             </View>
           <View style={rendertreatmentremindscheduling.viewItem}>
             <Text style={rendertreatmentremindscheduling.textDate}>Time of Day:</Text>
-            <Text style={rendertreatmentremindscheduling.text}> {info.timeOfDay}</Text>
+            <Text style={rendertreatmentremindscheduling.text}>{''} {info.timeOfDay}</Text>
           </View>
           <View style={rendertreatmentremindscheduling.viewItem}>
-            <Text style={rendertreatmentremindscheduling.textDate}>Treatment Time:</Text>
+            <Text style={rendertreatmentremindscheduling.textDate}>{''}Treatment Time:</Text>
             <Text style={rendertreatmentremindscheduling.text}>{info.treatmentTime}</Text>
           </View>
           {info.medications.map((medication, medicationIndex) => (
             <View key={medicationIndex}>
               <View style={rendertreatmentremindscheduling.viewItem}>
-                <Text style={rendertreatmentremindscheduling.textDate}>Medication Name:</Text>
+                <Text style={rendertreatmentremindscheduling.textDate}>{''}Medication Name:</Text>
                 <Text style={rendertreatmentremindscheduling.text}>{medication.medicationName}</Text>
               </View>
               <View style={rendertreatmentremindscheduling.viewItem}>
-                <Text style={rendertreatmentremindscheduling.textDate}>Dosage:</Text>
+                <Text style={rendertreatmentremindscheduling.textDate}>{''}Dosage:</Text>
                 <Text style={rendertreatmentremindscheduling.text}>{medication.dosage}</Text>
               </View>
             </View>
