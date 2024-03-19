@@ -21,10 +21,10 @@ const CreateHealthCheckSchema = Yup.object().shape({
     .min(2, 'Name Hospital not be less than 2 characters long!')
     .max(50, 'Name Hospital should not exceed 50 characters!')
     .required("Hospital's name cannot be left blank."),
-    userNote: Yup.string()
-    .trim()
-    .min(2, 'User Note not be less than 2 characters long!')
-    .max(50, 'User Note should not exceed 50 characters!')
-    .required('User Note cannot be left blank.'),
+    // userNote: Yup.string()
+    // .trim()
+    // .min(2, 'User Note not be less than 2 characters long!')
+    // .max(50, 'User Note should not exceed 50 characters!')
+    // .required('User Note cannot be left blank.'),
 });
 export default CreateHealthCheckSchema;

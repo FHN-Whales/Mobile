@@ -5,7 +5,7 @@ import {ActivityIndicator, FlatList, Image, Text, TouchableOpacity, View} from '
 import renderhealthscheduling from '../../../../styles/HomePage/Calender/CalendarWithManagement/RenderHealthCheckScheduling';
 import useRenderHealthCheck from '../../../../hook/HomePage/Calendar/ManagementWithFamily/useRenderHealthCheck';
 const renderHealthScheduling = () => {
-  const {shouldRefetch,data,isLoading,isError, refetch,formatDate,showLoader,setShowLoader,useNavigationEditHealthCheck} = useRenderHealthCheck();
+  const {shouldRefetch,data,isLoading,isError, refetch,formatDate,showLoader,useNavigationEditHealthCheck} = useRenderHealthCheck();
   const renderItem = ({item}: {item: HealthCheck}) => (
     <View style={renderhealthscheduling.renderViewItem}>
       <View style={renderhealthscheduling.viewItem}>
