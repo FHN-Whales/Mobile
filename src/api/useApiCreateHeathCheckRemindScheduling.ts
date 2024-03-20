@@ -1,1 +1,1 @@
-export  const  ApiCreateHealthCheckRemindSchedule = 'http://3.25.181.251:8000/Reminder/CreateHealthCheckReminder';
+export  const  ApiCreateHealthCheckRemindSchedule = 'http://www.whales-fhn.dns-dynamic.net:8000/Reminder/CreateHealthCheckReminder';

@@ -31,7 +31,7 @@ const useRenderHealthCheck = () => {
         const familyId = await AsyncStorage.getItem('familyId');
         const userId = await AsyncStorage.getItem('userId');
         const response = await axios.get<HealthCheck[]>(
-          `http://3.25.181.251:8000/Reminder/getHealthCheckRemindersByUserId/${familyId}/${userId}`,
+          `http://www.whales-fhn.dns-dynamic.net:8000/Reminder/getHealthCheckRemindersByUserId/${familyId}/${userId}`,
           {
             headers: {
               Accept: 'application/json',
@@ -57,11 +57,6 @@ const useRenderHealthCheck = () => {
     },
   });
 
-  if (shouldRefetch.current) {
-    refetch(); // Gọi lại queryFn khi shouldRefetch thay đổi
-    shouldRefetch.current = false; // Đặt lại shouldRefetch thành false sau khi gọi refetch
-  }
-
   const formatDate = (dateString: string | number | Date) => {
     const date = new Date(dateString);
     // Options for formatting the date
@@ -70,19 +65,26 @@ const useRenderHealthCheck = () => {
     return date.toLocaleDateString('en-US', options);
   };
 
-  // const [showLoader, setShowLoader] = useState(true);
+  useEffect(() => {
+    // Nếu dữ liệu đã được nhận, không có lỗi và không có refetch nào đang chờ, thì thực hiện refetch sau 200ms
+    if (data && !isError && !shouldRefetch.current) {
+      const timer = setTimeout(() => {
+        refetch();
+      }, 200);
 
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-  //     setShowLoader(false);
-  //   }, 200);
-  //   return () => clearTimeout(timeout);
-  // }, []);
+      // Clear the timeout if the component unmounts
+      return () => clearTimeout(timer);
+    }
+  }, [data, isError, refetch]);
 
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const useNavigationEditHealthCheck = (id: string) => {
     navigation.navigate('EditHeathCheckWithManagerScreen', { id });
+  };
+
+  const useNavigationDeleteHealthCheck = (id: string) => {
+    navigation.navigate('DeleteHeathCheckWithManagerScreen', { id });
   };
 
   return {
@@ -94,6 +96,7 @@ const useRenderHealthCheck = () => {
     formatDate,
     showLoader: isLoading,
     useNavigationEditHealthCheck,
+    useNavigationDeleteHealthCheck,
   };
 };
 export default useRenderHealthCheck;

@@ -1,4 +1,4 @@
 // import { API_URL } from './common';
 
-export const getAllTreatmentReminders = 'http://3.25.181.251:8000/Reminder/getTreatmentRemindersByUserId';
+export const getAllTreatmentReminders = 'http://www.whales-fhn.dns-dynamic.net:8000/Reminder/getTreatmentRemindersByUserId';
 

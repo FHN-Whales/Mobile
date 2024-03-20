@@ -1,1 +1,1 @@
-export const ApiSearchReminder = 'http://3.25.181.251:8000/Reminder/getRemindersTreatmentRemindersByYearMonthDay';
+export const ApiSearchReminder = 'http://www.whales-fhn.dns-dynamic.net:8000/Reminder/getRemindersTreatmentRemindersByYearMonthDay';

@@ -1,1 +1,1 @@
-export const ApiVerifyCode = 'http://3.25.181.251:8000/auth/verifyCode';
+export const ApiVerifyCode = 'http://www.whales-fhn.dns-dynamic.net:8000/auth/verifyCode';
