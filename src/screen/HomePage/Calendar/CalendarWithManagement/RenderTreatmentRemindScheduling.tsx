@@ -1,12 +1,16 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import { FlatList, Text, View, ActivityIndicator, TouchableOpacity, Image } from 'react-native';
+import { FlatList, Text, View, ActivityIndicator, TouchableOpacity, Image, Modal } from 'react-native';
 import useRenderTreatmentRemindScheduling from '../../../../hook/HomePage/Calendar/ManagementWithFamily/useRenderTreatmentRemindScheduling';
 import rendertreatmentremindscheduling from '../../../../styles/HomePage/Calender/CalendarWithManagement/RenderTreatmentRemindScheduling';
 import renderhealthscheduling from '../../../../styles/HomePage/Calender/CalendarWithManagement/RenderHealthCheckScheduling';
+import axios from 'axios';
+import rendermodaledit from '../../../../styles/HomePage/Home/ManagementFamily/EditMember/RenderModelEdit';
+import useDeleteTreatment from '../../../../hook/HomePage/TreatmentRemindScheduling/Treatment Remind SchedulingWithManagement/InputInformationManualy/useDelete';
 const RenderTreatmentRemindScheduling = () => {
   const {data, isLoading, isError,useNavigationEditTreatmentScheduling} = useRenderTreatmentRemindScheduling();
+  const {selectedItemId,setSelectedItemId,modalVisible,setModalVisible,navigation,queryClient,mutationDeleteHealthCheck,handleDelete} = useDeleteTreatment()
   const [showLoader, setShowLoader] = useState(true); // State để điều khiển hiển thị hoạt động đang tải
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -14,7 +18,6 @@ const RenderTreatmentRemindScheduling = () => {
     }, 2000);
     return () => clearTimeout(timeout);
   }, []);
-
   const renderItem = ({ item }: { item: TreatmentReminder }) => (
     <View style={rendertreatmentremindscheduling.renderViewItem}>
       <View style={rendertreatmentremindscheduling.viewItem}>
@@ -27,7 +30,7 @@ const RenderTreatmentRemindScheduling = () => {
       {item.treatmentInfo.map((info: any, index: number) => (
         <View style={rendertreatmentremindscheduling.viewTimeOfDay} key={index}>
           <View style={renderhealthscheduling.viewSession}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => handleDelete(info._id)}>
               <Image source={require('../../../../image/Vector.png')} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => useNavigationEditTreatmentScheduling(info._id)}>
@@ -69,6 +72,42 @@ const RenderTreatmentRemindScheduling = () => {
           keyExtractor={(item, index) => index.toString()}
         />
       )}
+         <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(false);
+          navigation.navigate('HomePage');
+        }}>
+        <View style={rendermodaledit.centeredView}>
+          <View style={rendermodaledit.modalView}>
+            <View style={rendermodaledit.viewtitle}>
+              <Text style={rendermodaledit.textCon}>
+                Delete treament schedule?
+              </Text>
+              <Text style={rendermodaledit.textYour}>
+                Are you sure you want to delete treatment schedule?
+              </Text>
+            </View>
+            <View style={rendermodaledit.viewloadding}>
+              <TouchableOpacity
+                style={rendermodaledit.buttonCancle}
+                onPress={() => setModalVisible(false)}>
+                <Text style={rendermodaledit.textCancle}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={rendermodaledit.buttonOk}
+                onPress={() => {
+                  setModalVisible(false);
+                  navigation.navigate('HomePage');
+                }}>
+                <Text style={rendermodaledit.textOk}>OK </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
