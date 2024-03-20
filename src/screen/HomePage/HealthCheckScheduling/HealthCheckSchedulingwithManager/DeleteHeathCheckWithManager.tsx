@@ -8,10 +8,11 @@ import rendermodaledit from '../../../../styles/HomePage/Home/ManagementFamily/E
 import healthcheck from '../../../../styles/HomePage/TreatmentReminderScheduling/HealthCheckSchedulingwithManager/CreateHeathCheckWithManager';
 
 const DeleteHeathCheckWithManagerScreen = () => {
-  // const route = useRoute();
+  const route = useRoute();
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  // const healthCheckId = route.params.id;
+  const healthCheckId = route.params.id;
+  console.log(healthCheckId);
   const mutationDeleteHealthCheck = useMutation({
     mutationFn: async () => {
       try {

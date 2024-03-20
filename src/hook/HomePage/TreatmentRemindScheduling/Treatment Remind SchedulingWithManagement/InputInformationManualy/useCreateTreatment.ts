@@ -3,7 +3,7 @@ import  { useState } from 'react';
 import {  Alert} from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../../type/type';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { apiCreateTreatmentReminder } from '../../../../../api/useApiCreateTreatmentReminder';
 import axios from 'axios';
@@ -24,6 +24,7 @@ const useCreateTreatment = () =>{
     const [open, setOpen] = useState<boolean>(false);
     const [error, setError] = useState<string[]>([]);
     const [modalVisible, setModalVisible] = useState(false);
+    const queryClient = useQueryClient();
     const handleCancel = () => {
       setModalVisible(false);
     };
@@ -54,6 +55,7 @@ const useCreateTreatment = () =>{
       },
       onSuccess: (responseData: any) => {
         if (responseData.completed) {
+          queryClient.invalidateQueries('treatmentReminders');
           setModalVisible(true);
         } else {
           Alert.alert('Error', responseData.message);

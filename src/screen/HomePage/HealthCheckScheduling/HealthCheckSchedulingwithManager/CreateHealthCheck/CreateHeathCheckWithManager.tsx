@@ -8,8 +8,10 @@ import register from '../../../../../styles/FamilyManagement/Register/RegisterSc
 import CreateHealthCheckSchema from '../../../../../hook/HomePage/HeathCheckScheduling/HealthCheckSchedulingwithManager/useValidateCreateHealthCheckScheduling';
 import useCreateHealthCheck from '../../../../../hook/HomePage/HeathCheckScheduling/HealthCheckSchedulingwithManager/useCreateHealthCheckScheduling';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { useQueryClient } from '@tanstack/react-query';
 const CreateHeathCheckWithManagerScreen = () => {
   const  {modalVisible,setModalVisible,isDatePickerVisible,selectedDate,showDatePicker,handleConfirm,handleCancel,handleOK,useGoBack, mutationCreatHealthCheck,hideDatePicker} = useCreateHealthCheck();
+  const queryClient = useQueryClient();
   return (
     <ScrollView style={healthcheck.container}>
       <Formik
@@ -21,7 +23,11 @@ const CreateHeathCheckWithManagerScreen = () => {
           userNote: '',
         }}
         validationSchema={CreateHealthCheckSchema}
-        onSubmit={values => mutationCreatHealthCheck.mutate(values)}>
+        onSubmit={async (values) => {
+          await mutationCreatHealthCheck.mutateAsync(values);
+          queryClient.invalidateQueries({ queryKey: ['healthcheckReminders'] });
+        }}
+        >
         {({errors, touched, handleChange, values, handleSubmit, setFieldValue}) => (
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

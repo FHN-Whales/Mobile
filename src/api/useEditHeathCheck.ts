@@ -1,1 +1,1 @@
-export const apiEditHealthCheck = 'http://3.25.181.251:8000/Reminder/EditHealthCheckReminder';
+export const apiEditHealthCheck = 'http://www.whales-fhn.dns-dynamic.net:8000/Reminder/EditHealthCheckReminder';

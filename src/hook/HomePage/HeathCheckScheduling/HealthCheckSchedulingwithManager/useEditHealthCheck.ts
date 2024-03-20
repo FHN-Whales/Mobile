@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect } from 'react';
 import { useNavigation, NavigationProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../type/type';
@@ -38,7 +39,7 @@ const useEditHealthCheck  = () =>{
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       mutationFn: async (dataHealthCheck: HealthCheckData) => {
         try {
-          const response = await axios.put(`http://3.25.181.251:8000/Reminder/EditHealthCheckReminder/${healthCheckId}`,healthCheck);
+          const response = await axios.put(`http://www.whales-fhn.dns-dynamic.net:8000/Reminder/EditHealthCheckReminder/${healthCheckId}`,healthCheck);
           if (response.status === 200) {
             const { completed, message } = response.data;
             if (completed ) {
@@ -61,7 +62,7 @@ const useEditHealthCheck  = () =>{
       queryKey: ['healthCheckData', healthCheckId],
       queryFn: async () => {
         try {
-          const response = await axios.get(`http://3.25.181.251:8000/Reminder/getHealthCheckRemindersByHealthCheckId/${healthCheckId}`);
+          const response = await axios.get(`http://www.whales-fhn.dns-dynamic.net:8000/Reminder/getHealthCheckRemindersByHealthCheckId/${healthCheckId}`);
           console.log(response.data.dataHealthCheck);
           const outData = response.data.dataHealthCheck;
           return outData;

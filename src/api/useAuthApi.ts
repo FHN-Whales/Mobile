@@ -1,1 +1,1 @@
-export const ApiSignUp = 'http://3.25.181.251:8000/auth/Signup';
+export const ApiSignUp = 'http://www.whales-fhn.dns-dynamic.net:8000/auth/Signup';

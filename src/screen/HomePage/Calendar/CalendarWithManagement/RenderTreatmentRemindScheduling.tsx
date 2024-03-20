@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { FlatList, Text, View, ActivityIndicator, TouchableOpacity, Image } from 'react-native';
@@ -5,7 +6,7 @@ import useRenderTreatmentRemindScheduling from '../../../../hook/HomePage/Calend
 import rendertreatmentremindscheduling from '../../../../styles/HomePage/Calender/CalendarWithManagement/RenderTreatmentRemindScheduling';
 import renderhealthscheduling from '../../../../styles/HomePage/Calender/CalendarWithManagement/RenderHealthCheckScheduling';
 const RenderTreatmentRemindScheduling = () => {
-  const {data, isLoading, isError, useNavigationEditTreament} = useRenderTreatmentRemindScheduling();
+  const {data, isLoading, isError,useNavigationEditTreatmentScheduling} = useRenderTreatmentRemindScheduling();
   const [showLoader, setShowLoader] = useState(true); // State để điều khiển hiển thị hoạt động đang tải
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -23,13 +24,13 @@ const RenderTreatmentRemindScheduling = () => {
       <View style={rendertreatmentremindscheduling.viewTitle}>
         <Text style={rendertreatmentremindscheduling.textDate}>Treatment Info:</Text>
       </View>
-      {item.treatmentInfo.map((info: { timeOfDay: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; treatmentTime: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; medications: any[]; }, index: React.Key | null | undefined) => (
+      {item.treatmentInfo.map((info: any, index: number) => (
         <View style={rendertreatmentremindscheduling.viewTimeOfDay} key={index}>
           <View style={renderhealthscheduling.viewSession}>
             <TouchableOpacity>
               <Image source={require('../../../../image/Vector.png')} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => useNavigationEditTreament(info._id)}>
+            <TouchableOpacity onPress={() => useNavigationEditTreatmentScheduling(info._id)}>
               <Image source={require('../../../../image/icon_pencil.png')} />
             </TouchableOpacity>
           </View>
@@ -41,7 +42,7 @@ const RenderTreatmentRemindScheduling = () => {
             <Text style={rendertreatmentremindscheduling.textDate}>{''}Treatment Times:</Text>
             <Text style={rendertreatmentremindscheduling.text}>{info.treatmentTime}</Text>
           </View>
-          {info.medications.map((medication, medicationIndex) => (
+          {info.medications.map((medication: { medicationName: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; dosage: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; }, medicationIndex: React.Key | null | undefined) => (
             <View key={medicationIndex}>
               <View style={rendertreatmentremindscheduling.viewItem}>
                 <Text style={rendertreatmentremindscheduling.textDate}>{''}Medication Name:</Text>
