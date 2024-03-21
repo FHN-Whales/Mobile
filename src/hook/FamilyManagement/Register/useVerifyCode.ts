@@ -20,6 +20,7 @@ const useVerifyCode = (route: RouteProp<ParamListBase>) =>{
         .then(response => {
           console.log('Verification successful:', response.data);
           if (response.data.completed) {
+            Alert.alert('Verify Successfully!')
             navigation.navigate('RegisterAsManagerScreen' ,{ familyId: familyId  });
           } else {
             console.log('Verification Failed', response.data.message);

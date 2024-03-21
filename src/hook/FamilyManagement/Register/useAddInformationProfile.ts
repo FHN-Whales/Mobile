@@ -3,6 +3,7 @@ import { useNavigation, NavigationProp, useRoute } from '@react-navigation/nativ
 import { RootStackParamList } from '../../../type/type';
 import axios from 'axios';
 import { ApiGetNewUser } from '../../../api/useApiGetNewUser';
+import { Alert } from 'react-native';
 const useAddInformationProfile = () =>{
   const route = useRoute();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -33,6 +34,7 @@ const useAddInformationProfile = () =>{
       .then(response => {
         console.log(response.data);
         if (response.data.completed) {
+          Alert.alert('Sign up  with member successfully !')
           navigation.navigate('LoginScreen');
         } else {
           console.log('Verification Failed', response.data.message);
