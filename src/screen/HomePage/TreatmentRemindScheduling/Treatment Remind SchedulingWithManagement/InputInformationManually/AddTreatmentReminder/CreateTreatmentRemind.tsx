@@ -213,7 +213,7 @@ const CreateTreatmentRemindScreen = () => {
                       <TouchableOpacity
                         style={rendermodaledit.buttonCancle}
                         onPress={handleCancel}>
-                        <Text style={rendermodaledit.textCancle}>Cancle</Text>
+                        <Text style={rendermodaledit.textCancle}>Cancel</Text>
                       </TouchableOpacity>
                       <TouchableOpacity
                         style={rendermodaledit.buttonOk}

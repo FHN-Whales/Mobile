@@ -76,7 +76,7 @@ const renderAllMemberFamily = () => {
                       </View>
                       <View style={renderallmemberfamily.viewloadding}>
                         <TouchableOpacity style={renderallmemberfamily.buttonCancle}onPress={handleCancel}>
-                          <Text style={renderallmemberfamily.textCancle}>Cancle</Text>
+                          <Text style={renderallmemberfamily.textCancle}>Cancel</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={renderallmemberfamily.buttonOk}onPress={handleOK}>
                           <Text style={renderallmemberfamily.textOk}>OK</Text>

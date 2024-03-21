@@ -145,7 +145,7 @@ const RegisterScreen = () => {
                       <TouchableOpacity
                         style={register.buttonCreate}
                         onPress={() => handleSubmit()}>
-                        <Text style={register.textCreate}>Create Account</Text>
+                        <Text style={register.textCreate}>Create Acount</Text>
                       </TouchableOpacity>
                     </View>
                     <View style={register.viewor}>
@@ -168,7 +168,7 @@ const RegisterScreen = () => {
                       </TouchableOpacity>
                     </View>
                     <View style={register.viewNavigationSignIn}>
-                      <Text style={register.textviewNavigationSignIn}>Do you have an account ?</Text>
+                      <Text style={register.textviewNavigationSignIn}>Do you have an acount ?</Text>
                       <Text style={register.textSignIn}onPress={useNavigationLoginScreen}>Sign In</Text>
                     </View>
                   </View>
