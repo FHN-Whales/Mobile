@@ -36,7 +36,7 @@ const renderModalEditProfile = () => {
             </View>
             <View style={rendermodaleditprofile.viewloadding}>
               <TouchableOpacity style={rendermodaleditprofile.buttonCancle}onPress={handleCancel}>
-                <Text style={rendermodaleditprofile.textCancle}>Cancle</Text>
+                <Text style={rendermodaleditprofile.textCancle}>Cancel</Text>
               </TouchableOpacity>
               <TouchableOpacity style={rendermodaleditprofile.buttonOk} onPress={handleOK}>
                 <Text style={rendermodaleditprofile.textOk}>OK</Text>

@@ -36,7 +36,7 @@ const renderButtonCreateBlog = () => {
             </View>
             <View style={rendermodalcreate.viewloadding}>
               <TouchableOpacity style={rendermodalcreate.buttonCancle}onPress={handleCancel}>
-                <Text style={rendermodalcreate.textCancle}>Cancle</Text>
+                <Text style={rendermodalcreate.textCancle}>Cancel</Text>
               </TouchableOpacity>
               <TouchableOpacity style={rendermodalcreate.buttonOk} onPress={handleOK}>
                 <Text style={rendermodalcreate.textOk}>OK</Text>

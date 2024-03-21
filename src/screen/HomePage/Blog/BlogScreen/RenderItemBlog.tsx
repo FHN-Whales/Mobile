@@ -117,7 +117,7 @@ const renderItemBlog = () => {
                           style={renderitemblog.buttonCancle}
                           onPress={handleCancel}>
                           <Text style={renderitemblog.textCancle}>
-                            Cancle
+                            Cancel
                           </Text>
                         </TouchableOpacity>
                         <TouchableOpacity

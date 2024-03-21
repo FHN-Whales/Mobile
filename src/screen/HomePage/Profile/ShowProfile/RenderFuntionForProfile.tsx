@@ -114,7 +114,7 @@ const renderFunctionForProfile = () => {
               <TouchableOpacity
                 style={renderfunctionforprofile.buttonCancle}
                 onPress={handleCancel}>
-                <Text style={renderfunctionforprofile.textCancle}>Cancle</Text>
+                <Text style={renderfunctionforprofile.textCancle}>Cancel</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={renderfunctionforprofile.buttonOk}
