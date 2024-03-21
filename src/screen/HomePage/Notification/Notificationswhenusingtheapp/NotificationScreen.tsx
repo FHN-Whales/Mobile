@@ -1,16 +1,34 @@
 import React from 'react';
-import { View } from 'react-native';
+import {FlatList, View} from 'react-native';
 import renderTitleNotification from './RenderTitleNotification';
-import renderNewNotification from './RenderNewNotification';
-import renderYesterdayNotification from './RenderYesterdayNotification';
+import renderNewNotification from './RenderTreatment';
+// import renderYesterdayNotification from './RenderYesterdayNotification';
 import notification from '../../../../styles/HomePage/Notification/Notificationswhenusingtheapp/NotificationScreen';
-const NotificationScreen = () =>{
+const NotificationScreen = () => {
+  const headerComponent = () => {
     return (
-        <View style={notification.container}>
-           {renderTitleNotification()}
-           {renderNewNotification()}
-           {renderYesterdayNotification()}
-        </View>
+      <View style={notification.container}>
+        {renderNewNotification()}
+        {/* {renderYesterdayNotification()} */}
+      </View>
     );
+  };
+  return (
+    <View style={notification.container}>
+      {renderTitleNotification()}
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+        ListEmptyComponent={headerComponent}
+        data={[]}
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        renderItem={({item}) => (
+          <View>
+            <></>
+          </View>
+        )}
+      />
+    </View>
+  );
 };
 export default NotificationScreen;
