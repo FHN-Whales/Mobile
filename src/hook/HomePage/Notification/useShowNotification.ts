@@ -35,10 +35,10 @@ interface DataNotifications {
 }
 const useShowNotification = () =>{
     const shouldRefetch = useRef<boolean>(false);
-    const [selectedCategory, setSelectedCategory] = useState<'treatment' | 'health'>('treatment'); // Thêm state để theo dõi loại thông báo được chọn
+    const [selectedCategory, setSelectedCategory] = useState<'treatment' | 'health'>('treatment'); 
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const { data, isError, refetch } = useQuery<DataNotifications[]>({
-        queryKey: ['healthcheckReminders'],
+        queryKey: ['dataNotifications'],
         queryFn: async () => {
             try {
                 const userId = await AsyncStorage.getItem('userId');
@@ -73,8 +73,8 @@ const useShowNotification = () =>{
         setIsLoading(true); // Reset isLoading to true on each render
         const timer = setTimeout(() => {
             setIsLoading(false);
-        }, 2000);
+        }, 200);
         return () => clearTimeout(timer);
     }, []);
-    return {shouldRefetch,selectedCategory,setSelectedCategory, isLoading, setIsLoading,data,isError, refetch,};};
+    return {shouldRefetch,selectedCategory,setSelectedCategory, isLoading, setIsLoading,data,isError, refetch};};
 export default  useShowNotification;

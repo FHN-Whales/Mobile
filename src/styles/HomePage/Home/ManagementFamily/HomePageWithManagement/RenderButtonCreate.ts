@@ -3,6 +3,7 @@ const renderbuttoncreate = StyleSheet.create({
     view:{
         paddingLeft:30,
         paddingRight:30,
+        paddingBottom:30,
         flexDirection:'column',
         gap:20,
     },

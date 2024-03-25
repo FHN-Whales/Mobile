@@ -3,6 +3,8 @@ const rendercalendar = StyleSheet.create({
     view:{
         paddingLeft:30,
         paddingRight:30,
+        paddingTop:10,
+        paddingBottom:10,
     },
 
     calendar:{

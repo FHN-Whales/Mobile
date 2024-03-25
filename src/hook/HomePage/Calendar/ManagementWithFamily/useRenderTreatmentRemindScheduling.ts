@@ -6,6 +6,7 @@ import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../type/type';
 interface TreatmentReminder {
   dataTreatment: any[];
+  foundTreatmentReminders: any[]
   user: {
     _id: string;
     username: string;
@@ -44,7 +45,7 @@ const useRenderTreatmentRemindScheduling = () => {
         );
 
         if (response.status === 200) {
-          const outData = response.data.dataTreatment;
+          const outData = response.data.dataTreatment.foundTreatmentReminders;
           console.log('====================================');
           console.log(response.data.dataTreatment);
           console.log('====================================');

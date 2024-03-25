@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef} from 'react';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../type/type';
-
 interface HealthCheck {
   dataHealthCheck: any[];
   user: {
@@ -43,7 +42,7 @@ const useRenderHealthCheck = () => {
           console.log('====================================');
           console.log(response.data.dataHealthCheck);
           console.log('====================================');
-          shouldRefetch.current = true; // Đặt lại shouldRefetch thành true khi có dữ liệu mới
+          shouldRefetch.current = true;
           return outData;
         } else if (response.status === 404) {
           throw new Error('Data not found');
@@ -59,20 +58,15 @@ const useRenderHealthCheck = () => {
 
   const formatDate = (dateString: string | number | Date) => {
     const date = new Date(dateString);
-    // Options for formatting the date
     const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
-    // Format the date according to options
     return date.toLocaleDateString('en-US', options);
   };
-
   useEffect(() => {
-    // Nếu dữ liệu đã được nhận, không có lỗi và không có refetch nào đang chờ, thì thực hiện refetch sau 200ms
     if (data && !isError && !shouldRefetch.current) {
       const timer = setTimeout(() => {
         refetch();
       }, 200);
 
-      // Clear the timeout if the component unmounts
       return () => clearTimeout(timer);
     }
   }, [data, isError, refetch]);

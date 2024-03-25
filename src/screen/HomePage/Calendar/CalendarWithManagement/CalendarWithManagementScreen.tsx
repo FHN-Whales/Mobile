@@ -10,7 +10,7 @@ const CalendarScreen = () => {
   const headerComponent = () => {
     return (
       <View style={styles.container}>
-        {renderSearchReminder()}
+        {/* {renderSearchReminder()} */}
         {renderListMemberWithManagement()}
         {renderCalendar()}
         {renderTitleReminder()}
