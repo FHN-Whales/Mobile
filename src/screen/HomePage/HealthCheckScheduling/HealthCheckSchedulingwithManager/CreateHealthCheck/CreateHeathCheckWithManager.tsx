@@ -45,7 +45,7 @@ const CreateHeathCheckWithManagerScreen = () => {
                       </View>
                       <View style={{paddingTop: 20}}>
                         <View style={healthcheck.viewIteminput}>
-                          <Text style={healthcheck.textLabel}>Re-examination Time</Text>
+                          <Text style={healthcheck.textLabel}>Re-examination Time  *</Text>
                           <View style={healthcheck.viewInput}>
                             <TextInput
                               placeholderTextColor="#9CA3AF"
@@ -59,7 +59,7 @@ const CreateHeathCheckWithManagerScreen = () => {
                         {errors.reExaminationTime && touched.reExaminationTime ? (
                           <Text style={register.textError}>* {errors.reExaminationTime}</Text>) : null}
                         <View style={healthcheck.viewIteminput}>
-                          <Text style={healthcheck.textLabel}>Re-examination Date</Text>
+                          <Text style={healthcheck.textLabel}>Re-examination Date   *</Text>
                           <View style={healthcheck.viewInput}>
                             <TouchableOpacity  style={{ padding:15 }} onPress={showDatePicker}>
                               <Text>{selectedDate ? selectedDate : 'Re-examination Date'}</Text>
@@ -74,7 +74,7 @@ const CreateHeathCheckWithManagerScreen = () => {
                         />
                         {errors.reExaminationDate && touched.reExaminationDate ? (<Text style={register.textError}>* {errors.reExaminationDate}</Text> ) : null}
                         <View style={healthcheck.viewIteminput}>
-                          <Text style={healthcheck.textLabel}>Re-examination Location</Text>
+                          <Text style={healthcheck.textLabel}>Re-examination Location   *</Text>
                           <View style={healthcheck.viewInput}>
                             <TextInput
                               placeholderTextColor="#9CA3AF"
@@ -90,7 +90,7 @@ const CreateHeathCheckWithManagerScreen = () => {
                         {errors.reExaminationLocation && touched.reExaminationLocation ? (
                           <Text style={register.textError}>* {errors.reExaminationLocation}</Text>) : null}
                         <View style={healthcheck.viewIteminput}>
-                          <Text style={healthcheck.textLabel}>Name Hospital</Text>
+                          <Text style={healthcheck.textLabel}>Name Hospital   *</Text>
                           <View style={healthcheck.viewInput}>
                             <TextInput
                               placeholderTextColor="#9CA3AF"
