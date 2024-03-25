@@ -4,6 +4,7 @@ import login from '../../../styles/FamilyManagement/Login/LoginScreen';
 import { Formik } from 'formik';
 import SigninSchema from '../../../hook/FamilyManagement/Login/useValidateLogin';
 import useSignInWithFamily from '../../../hook/FamilyManagement/Login/useLoginFamily';
+import SocialSignIn from './SocialSignIn';
 const LoginScreen = () => {
   const  { useNavigationRegisterScreen,useNavigationForgetPasswordScreen,inputRef,showPassword,isPasswordFocused,isEmailFocused,toggleShowPassword,handlePasswordFocus,handleEmailFocus,dismissKeyboard,dismissKeyboardAndHideButton,mutationLoginFamily,errorMessage} = useSignInWithFamily();
   return (
@@ -104,24 +105,7 @@ const LoginScreen = () => {
                       <Text style={login.textor}>or</Text>
                       <View style={login.viewborder} />
                     </View>
-                    <View style={login.viewContinue}>
-                      <TouchableOpacity style={login.Google}>
-                        <View style={login.viewGoogle}>
-                          <Image
-                            source={require('../../../image/Google-Original.png')}
-                          />
-                          <Text style={login.textGoogle}>Google</Text>
-                        </View>
-                      </TouchableOpacity>
-                      <TouchableOpacity style={login.Google}>
-                        <View style={login.viewGoogle}>
-                          <Image
-                            source={require('../../../image/Facebook.png')}
-                          />
-                          <Text style={login.textGoogle}>Facebook</Text>
-                        </View>
-                      </TouchableOpacity>
-                    </View>
+                   {SocialSignIn()}
                     <Text
                       style={login.textForgetPassword}
                       onPress={useNavigationForgetPasswordScreen}>
