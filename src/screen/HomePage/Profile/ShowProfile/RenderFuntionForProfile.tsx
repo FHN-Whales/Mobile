@@ -43,58 +43,7 @@ const renderFunctionForProfile = () => {
         </TouchableOpacity>
         <View style={renderfunctionforprofile.viewBorder} />
       </View>
-      <View style={renderfunctionforprofile.viewFuntion}>
-        <TouchableOpacity style={renderfunctionforprofile.Opacitybutton}>
-          <View style={renderfunctionforprofile.viewImage}>
-            <Image source={require('../../../../image/heart.png')} />
-            <Text style={renderfunctionforprofile.text}>Favorite</Text>
-          </View>
-          <Image source={require('../../../../image/arrow-right.png')} />
-        </TouchableOpacity>
-        <View style={renderfunctionforprofile.viewBorder} />
-      </View>
-      <View style={renderfunctionforprofile.viewFuntion}>
-        <TouchableOpacity style={renderfunctionforprofile.Opacitybutton}>
-          <View style={renderfunctionforprofile.viewImage}>
-            <Image source={require('../../../../image/Notificationn.png')} />
-            <Text style={renderfunctionforprofile.text}>Notification</Text>
-          </View>
-          <Image source={require('../../../../image/arrow-right.png')} />
-        </TouchableOpacity>
-        <View style={renderfunctionforprofile.viewBorder} />
-      </View>
-      <View style={renderfunctionforprofile.viewFuntion}>
-        <TouchableOpacity style={renderfunctionforprofile.Opacitybutton}>
-          <View style={renderfunctionforprofile.viewImage}>
-            <Image source={require('../../../../image/setting-2.png')} />
-            <Text style={renderfunctionforprofile.text}>Setting</Text>
-          </View>
-          <Image source={require('../../../../image/arrow-right.png')} />
-        </TouchableOpacity>
-        <View style={renderfunctionforprofile.viewBorder} />
-      </View>
-      <View style={renderfunctionforprofile.viewFuntion}>
-        <TouchableOpacity style={renderfunctionforprofile.Opacitybutton}>
-          <View style={renderfunctionforprofile.viewImage}>
-            <Image source={require('../../../../image/message-question.png')} />
-            <Text style={renderfunctionforprofile.text}>Help and Support</Text>
-          </View>
-          <Image source={require('../../../../image/arrow-right.png')} />
-        </TouchableOpacity>
-        <View style={renderfunctionforprofile.viewBorder} />
-      </View>
-      <View style={renderfunctionforprofile.viewFuntion}>
-        <TouchableOpacity style={renderfunctionforprofile.Opacitybutton}>
-          <View style={renderfunctionforprofile.viewImage}>
-            <Image source={require('../../../../image/security-safe.png')} />
-            <Text style={renderfunctionforprofile.text}>
-              Terms and Conditions
-            </Text>
-          </View>
-          <Image source={require('../../../../image/arrow-right.png')} />
-        </TouchableOpacity>
-        <View style={renderfunctionforprofile.viewBorder} />
-      </View>
+      
       <Modal
         animationType="slide"
         transparent={true}
@@ -114,7 +63,7 @@ const renderFunctionForProfile = () => {
               <TouchableOpacity
                 style={renderfunctionforprofile.buttonCancle}
                 onPress={handleCancel}>
-                <Text style={renderfunctionforprofile.textCancle}>Cancle</Text>
+                <Text style={renderfunctionforprofile.textCancle}>Cancel</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={renderfunctionforprofile.buttonOk}
