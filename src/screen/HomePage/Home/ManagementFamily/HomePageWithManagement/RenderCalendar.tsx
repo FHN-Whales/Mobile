@@ -7,14 +7,14 @@ import rendercalendar from '../../../../../styles/HomePage/Home/ManagementFamily
 import useRenderCalendar from '../../../../../hook/HomePage/Home/ManagementWithFamily/HomePageWithFamily/useRenderCalendar';
 const RenderCalendar = () => {
   const {selected, setSelected, handleDayPress,showModal,handleCloseModal,handleRefetchWithDelay,SearchReminder,isError,refetch ,formatDate} = useRenderCalendar();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   useEffect(() => {
+    setIsLoading(true);
     const timer = setTimeout(() => {
-      setIsLoading(false);
+        setIsLoading(false);
     }, 2000);
-
     return () => clearTimeout(timer);
-  }, []);
+}, []);
 const renderReminderItem = ({ item }) => {
   console.log('item', item);
   return (
@@ -97,7 +97,7 @@ const renderReminderItem = ({ item }) => {
       <Calendar
         style={rendercalendar.calendar}
         onDayPress={handleDayPress}
-        markedDates={{ [selected]: { selected: true } }}
+        markedDates={{[selected]: {selected: true}}}
         theme={{
           backgroundColor: '#F9FAFB',
           calendarBackground: '#F9FAFB',
@@ -117,34 +117,40 @@ const renderReminderItem = ({ item }) => {
           <View style={rendercalendar.modalView}>
             <View style={rendercalendar.viewIconFuntion}>
               <TouchableOpacity>
-                <Image source={require('../../../../../image/icomoon-free_notification.png')} />
+                <Image
+                  source={require('../../../../../image/icomoon-free_notification.png')}
+                />
               </TouchableOpacity>
               <View style={rendercalendar.viewFunction}>
                 <TouchableOpacity>
-                  <Image source={require('../../../../../image/tdesign_edit-2.png')} />
+                  <Image
+                    source={require('../../../../../image/tdesign_edit-2.png')}
+                  />
                 </TouchableOpacity>
                 <TouchableOpacity>
-                  <Image source={require('../../../../../image/streamline_recycle-bin-2.png')} />
+                  <Image
+                    source={require('../../../../../image/streamline_recycle-bin-2.png')}
+                  />
                 </TouchableOpacity>
               </View>
             </View>
-            <View style={{ paddingTop: 10, paddingBottom: 10 }}>
+            <View style={{paddingTop: 10, paddingBottom: 10}}>
               <View style={rendercalendar.viewBorder} />
             </View>
-            {isLoading ? (
-              <ActivityIndicator size="large" color="#87CEFA" />
-            ) : SearchReminder && SearchReminder.length > 0 ? (
+            {SearchReminder && SearchReminder.length > 0 ? (
               <FlatList
                 data={SearchReminder}
                 renderItem={renderReminderItem}
                 keyExtractor={(item, index) => index.toString()}
               />
+            ) : isLoading ? (
+              <ActivityIndicator size="large" color="#87CEFA" />
             ) : null}
+
             <TouchableOpacity
               style={rendercalendar.viewClose}
               onPress={() => {
                 handleCloseModal();
-                handleRefetchWithDelay();
               }}>
               <Image source={require('../../../../../image/x.png')} />
             </TouchableOpacity>
