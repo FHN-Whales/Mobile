@@ -56,7 +56,7 @@ const useSignInWithFamily = () =>{
               console.log('data', data);
               if (completed && familyId ) {
                 // setModalVisible(true);
-                navigation.navigate('LoginWithRoleScreen', { familyId: familyId });
+                navigation.navigate('LoginWithRoleScreen', {normalFamilyId:  familyId });
                 setErrorMessage('');
                 console.log('Login successfully.');
                 console.log(familyId);

@@ -28,7 +28,6 @@ const useAddInformationProfile = () =>{
     try {
       const token = await requestUserPermission();
       setDeviceToken(token);
-
       const response = await axios.post(ApiGetNewUser, {
         familyId,
         email,

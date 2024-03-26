@@ -25,10 +25,11 @@ const SocialSignIn = () => {
             const userInfo = await GoogleSignin.signIn();
             const user = userInfo.user;
             const response = await axios.post(api, user);
-            console.log(userInfo.user);
-            if (response.data.exists) {
+            console.log("response222",response.data.isMember);
+            console.log('userInfo.user',userInfo.user);
+            if (response.data.isMember) {
                 const familyId = response.data.familyId;
-                console.log(familyId);
+                console.log("familyId",familyId);
                 navigation.navigate('LoginWithRoleScreen', { userData: userInfo.user,familyIdWithSignInGoogle:familyId });
             } else {
                 const familyId = response.data.familyId;

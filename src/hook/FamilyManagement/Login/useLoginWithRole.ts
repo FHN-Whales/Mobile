@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useRef, useState } from 'react';
 import { Alert, Keyboard } from 'react-native';
 import { useNavigation, NavigationProp, useRoute } from '@react-navigation/native';
@@ -6,16 +7,19 @@ import axios from 'axios';
 import { useMutation } from '@tanstack/react-query';
 import { ApiSignInWithRole } from '../../../api/useApiSignInWithRole';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {requestUserPermission} from '../../../../getFCMTToken';
+import { requestUserPermission } from '../../../../getFCMTToken';
+
 interface LoginWithRole {
   role: string;
   password: string;
 }
+
 const useLoginWithRole = () => {
   const route = useRoute();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [modalVisible, setModalVisible] = useState(false);
-  const { familyId } = route.params as { familyId: string };
+  const { familyIdWithSignInGoogle } = route.params as { familyIdWithSignInGoogle: string }; // Get familyId from LoginWithGoogle
+  const { normalFamilyId } = route.params as { normalFamilyId: string };
   const [isLoading, setIsLoading] = useState(false);
   const inputRef: any = useRef();
   const [showPassword, setShowPassword] = useState(false);
@@ -52,12 +56,12 @@ const useLoginWithRole = () => {
   const mutationLoginWithRole = useMutation({
     mutationFn: async (data: LoginWithRole) => {
       try {
-         const devideId = await requestUserPermission();
-         console.log('devideId',devideId);
+         const deviceId = await requestUserPermission();
+         console.log('deviceId', deviceId);
         const requestData = {
           ...data,
-          familyId: familyId,
-          deviceToken: devideId,
+          familyId: familyIdWithSignInGoogle || normalFamilyId,
+          deviceToken: deviceId,
         };
         console.log(requestData);
 
@@ -69,9 +73,9 @@ const useLoginWithRole = () => {
 
           if (completed && userId) {
             await AsyncStorage.setItem('userId', userId);
-            await AsyncStorage.setItem('familyId', familyId);
+            await AsyncStorage.setItem('familyId', requestData.familyId);
             console.log(userId);
-            console.log(familyId);
+            console.log(requestData.familyId);
             setModalVisible(true);
           } else {
             Alert.alert('Role User or Password is not correct!');
@@ -96,14 +100,12 @@ const useLoginWithRole = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalVisible]);
 
-
   return {
     route,
     navigation,
     modalVisible,
     setModalVisible,
-    familyId,
-    isLoading,
+    familyId: familyIdWithSignInGoogle || normalFamilyId,
     setIsLoading,
     inputRef,
     showPassword,
