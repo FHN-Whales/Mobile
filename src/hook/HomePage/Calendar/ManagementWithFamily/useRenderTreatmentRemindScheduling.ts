@@ -47,7 +47,7 @@ const useRenderTreatmentRemindScheduling = () => {
         if (response.status === 200) {
           const outData = response.data.dataTreatment.foundTreatmentReminders;
           console.log('====================================');
-          console.log(response.data.dataTreatment);
+          console.log(response.data.dataTreatment.foundTreatmentReminder);
           console.log('====================================');
           return outData;
         } else if (response.status === 404) {

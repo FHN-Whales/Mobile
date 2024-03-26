@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
 import React, { useEffect, useState } from 'react';
 import { Calendar } from 'react-native-calendars';
@@ -5,49 +6,92 @@ import { Image, Modal, Text, TouchableOpacity, View, FlatList, ActivityIndicator
 import rendercalendar from '../../../../../styles/HomePage/Home/ManagementFamily/HomePageWithManagement/RenderCalendar';
 import useRenderCalendar from '../../../../../hook/HomePage/Home/ManagementWithFamily/HomePageWithFamily/useRenderCalendar';
 const RenderCalendar = () => {
-  const {selected,handleDayPress,showModal,handleCloseModal,handleRefetchWithDelay,SearchReminder,isError,refetch } = useRenderCalendar();
+  const {selected, setSelected, handleDayPress,showModal,handleCloseModal,handleRefetchWithDelay,SearchReminder,isError,refetch ,formatDate} = useRenderCalendar();
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 200);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
-  const renderReminderItem = ({ item }) => (
+const renderReminderItem = ({ item }) => {
+  console.log('item', item);
+  return (
     <View style={rendercalendar.renderViewItem}>
-      <View style={rendercalendar.viewItem}>
-        <Text style={rendercalendar.textDate}>Username:</Text>
-        <Text style={rendercalendar.text}> {item.user.username}</Text>
-      </View>
-      <Text style={rendercalendar.textDate}>Treatment Info:</Text>
-      {item.treatmentInfo.map((info: { timeOfDay: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; treatmentTime: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; medications: any[]; }, index: React.Key | null | undefined) => (
-        <View style={rendercalendar.viewTimeOfDay} key={index}>
-          <View style={rendercalendar.viewItem}>
-            <Text style={rendercalendar.textDate}>Time of Day:</Text>
-            <Text style={rendercalendar.text}> {info.timeOfDay}</Text>
-          </View>
-          <View style={rendercalendar.viewItem}>
-            <Text style={rendercalendar.textDate}>Treatment Time:</Text>
-            <Text style={rendercalendar.text}>{info.treatmentTime}</Text>
-          </View>
-          {info.medications.map((medication, medicationIndex) => (
-            <View key={medicationIndex}>
+      {item.treatmentInfo && item.healthCheckInfo && (
+        <View style={rendercalendar.viewItem}>
+          <Text style={rendercalendar.textDate}>Username:</Text>
+          <Text style={rendercalendar.text}> {item.user.username}</Text>
+        </View>
+      )}
+      {item.treatmentInfo && (
+        <>
+        <View style={rendercalendar.viewItem}>
+          <Text style={rendercalendar.textDate}>Username:</Text>
+          <Text style={rendercalendar.text}> {item.user.username}</Text>
+        </View>
+          <Text style={rendercalendar.textDate}>Treatment Info:</Text>
+          {item.treatmentInfo.map((info, index) => (
+            <View style={rendercalendar.viewTimeOfDay} key={index}>
               <View style={rendercalendar.viewItem}>
-                <Text style={rendercalendar.textDate}>Medication Name:</Text>
-                <Text style={rendercalendar.text}>{medication.medicationName}</Text>
+                <Text style={rendercalendar.textDate}>Time of Day:</Text>
+                <Text style={rendercalendar.text}> {info.timeOfDay}</Text>
               </View>
               <View style={rendercalendar.viewItem}>
-                <Text style={rendercalendar.textDate}>Dosage:</Text>
-                <Text style={rendercalendar.text}>{medication.dosage}</Text>
+                <Text style={rendercalendar.textDate}>Treatment Time:</Text>
+                <Text style={rendercalendar.text}>{info.treatmentTime}</Text>
               </View>
+              {info.medications.map((medication, medicationIndex) => (
+                <View key={medicationIndex}>
+                  <View style={rendercalendar.viewItem}>
+                    <Text style={rendercalendar.textDate}>Medication Name:</Text>
+                    <Text style={rendercalendar.text}> {medication.medicationName}</Text>
+                  </View>
+                  <View style={rendercalendar.viewItem}>
+                    <Text style={rendercalendar.textDate}>Dosage:</Text>
+                    <Text style={rendercalendar.text}>{medication.dosage}</Text>
+                  </View>
+                </View>
+              ))}
             </View>
           ))}
+        </>
+      )}
+      {item.healthCheckInfo && (
+        <>
+        <View style={rendercalendar.viewItem}>
+          <Text style={rendercalendar.textDate}>Username:</Text>
+          <Text style={rendercalendar.text}> {item.user.username}</Text>
         </View>
-      ))}
+          <Text style={rendercalendar.textDate}>Healthcheck Info:</Text>
+          <View style={rendercalendar.viewTimeOfDay}>
+            <View style={rendercalendar.viewItem}>
+              <Text style={rendercalendar.textDate}>Re-examination Time:</Text>
+              <Text style={rendercalendar.text}> {item.healthCheckInfo.reExaminationTime}</Text>
+            </View>
+            <View style={rendercalendar.viewItem}>
+              <Text style={rendercalendar.textDate}>Re-examination Date:</Text>
+              <Text style={rendercalendar.text}> {formatDate(item.healthCheckInfo.reExaminationDate)} </Text>
+            </View>
+            <View style={rendercalendar.viewItem}>
+              <Text style={rendercalendar.textDate}> Re-examination Location: </Text>
+              <Text style={rendercalendar.text}>  {item.healthCheckInfo.reExaminationLocation} </Text>
+            </View>
+            <View style={rendercalendar.viewItem}>
+              <Text style={rendercalendar.textDate}>Name Hospital:</Text>
+              <Text style={rendercalendar.text}>{item.healthCheckInfo.nameHospital}</Text>
+            </View>
+            <View style={rendercalendar.viewItem}>
+              <Text style={rendercalendar.textDate}>User Note:</Text>
+              <Text style={rendercalendar.text}>{item.healthCheckInfo.userNote}</Text>
+            </View>
+          </View>
+        </>
+      )}
     </View>
   );
-
+};
   return (
     <View style={rendercalendar.view}>
       <Calendar
@@ -89,17 +133,13 @@ const RenderCalendar = () => {
             </View>
             {isLoading ? (
               <ActivityIndicator size="large" color="#87CEFA" />
-            ) : isError ? (
-              <Text>Error fetching data</Text>
             ) : SearchReminder && SearchReminder.length > 0 ? (
               <FlatList
                 data={SearchReminder}
                 renderItem={renderReminderItem}
                 keyExtractor={(item, index) => index.toString()}
               />
-            ) : (
-              <Text style={rendercalendar.text}>No reminders for this day.</Text>
-            )}
+            ) : null}
             <TouchableOpacity
               style={rendercalendar.viewClose}
               onPress={() => {
@@ -114,5 +154,4 @@ const RenderCalendar = () => {
     </View>
   );
 };
-
 export default RenderCalendar;

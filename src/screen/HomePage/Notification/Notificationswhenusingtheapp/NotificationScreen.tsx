@@ -9,7 +9,6 @@ const NotificationScreen = () => {
     return (
       <View style={notification.container}>
         {renderNewNotification()}
-        {/* {renderYesterdayNotification()} */}
       </View>
     );
   };
