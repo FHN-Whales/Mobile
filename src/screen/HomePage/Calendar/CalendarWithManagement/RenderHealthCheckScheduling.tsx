@@ -9,7 +9,7 @@ import useDeleteHealthCheck from '../../../../hook/HomePage/HeathCheckScheduling
 const renderHealthScheduling = () => {
   const {data,isLoading,refetch,formatDate,useNavigationEditHealthCheck} = useRenderHealthCheck();
   const {selectedItemId,setSelectedItemId,modalVisible,setModalVisible,navigation,mutationDeleteHealthCheck,handleDelete} = useDeleteHealthCheck();
-  const [showLoader, setShowLoader] = useState(true); // State để điều khiển hiển thị hoạt động đang tải
+  const [showLoader, setShowLoader] = useState(true);
   useEffect(() => {
     const timeout = setTimeout(() => {
       setShowLoader(false);
